@@ -132,10 +132,14 @@ export default function DocumentLibraryPage() {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {filtered.map((doc, i) => {
-            const rConf = riskConfig[doc.risk];
+            const risk = riskFromScore(doc.riskScore);
+            const rConf = riskConfig[risk];
+            const docType = typeFromName(doc.filename);
+            const sizeLabel = doc.fileSize ? `${(doc.fileSize / 1024 / 1024).toFixed(1)} MB` : '—';
+            const dateLabel = doc.createdAt ? new Date(doc.createdAt).toLocaleDateString() : '';
             const RiskIcon = rConf.icon;
             return (
-              <motion.div key={doc.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+              <motion.div key={doc._id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
                 style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: '18px 22px', display: 'flex', alignItems: 'flex-start', gap: 16 }}
                 className="hover:border-white/10 transition-colors">
                 {/* File icon */}
@@ -147,14 +151,14 @@ export default function DocumentLibraryPage() {
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 6, flexWrap: 'wrap' }}>
                     <div>
-                      <div style={{ fontWeight: 600, fontSize: 15, color: '#f1f5f9', marginBottom: 4 }}>{doc.name}</div>
+                      <div style={{ fontWeight: 600, fontSize: 15, color: '#f1f5f9', marginBottom: 4 }}>{doc.filename}</div>
                       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-                        <span style={{ fontSize: 12, color: typeColors[doc.type] || '#64748b', background: `${typeColors[doc.type] || '#64748b'}15`, padding: '2px 8px', borderRadius: 100 }}>{doc.type}</span>
+                        <span style={{ fontSize: 12, color: typeColors[docType] || '#64748b', background: `${typeColors[docType] || '#64748b'}15`, padding: '2px 8px', borderRadius: 100 }}>{docType}</span>
                         <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: rConf.color, background: rConf.bg, padding: '2px 8px', borderRadius: 100 }}>
                           <RiskIcon size={10} /> {rConf.label}
                         </span>
-                        <span style={{ fontSize: 12, color: '#475569', display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={10} /> {doc.date}</span>
-                        <span style={{ fontSize: 12, color: '#475569' }}>{doc.size} · {doc.pages}p</span>
+                        <span style={{ fontSize: 12, color: '#475569', display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={10} /> {dateLabel}</span>
+                        <span style={{ fontSize: 12, color: '#475569' }}>{sizeLabel}</span>
                       </div>
                     </div>
 
@@ -166,12 +170,21 @@ export default function DocumentLibraryPage() {
                       <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#64748b', cursor: 'pointer', fontSize: 12 }}>
                         <Download size={12} />
                       </button>
-                      <button onClick={() => setDeleted(prev => [...prev, doc.id])} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.15)', color: '#f87171', cursor: 'pointer', fontSize: 12 }}>
+                      <button
+                        onClick={() => {
+                          if (confirm('Are you sure you want to delete this document?')) {
+                            deleteMutation.mutate(doc._id);
+                          }
+                        }}
+                        disabled={deleteMutation.isPending}
+                        style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.15)', color: '#f87171', cursor: 'pointer', fontSize: 12 }}>
                         <Trash2 size={12} />
                       </button>
                     </div>
                   </div>
-                  <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5, marginTop: 8 }}>{doc.summary}</p>
+                  <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5, marginTop: 8 }}>
+                    {doc.summary || 'AI analysis is processing. Check back soon.'}
+                  </p>
                 </div>
               </motion.div>
             );
