@@ -15,9 +15,21 @@ const documentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cloudinaryPublicId: {
+      type: String,
+    },
+    cloudinaryResourceType: {
+      type: String,
+    },
+    mimeType: {
+      type: String,
+    },
+    fileSize: {
+      type: Number,
+    },
     extractedText: {
       type: String,
-      required: true,
+      default: "",
     },
     summary: {
       type: String,
