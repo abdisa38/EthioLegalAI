@@ -1,3 +1,4 @@
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { generateAnswer } = require("../services/geminiService");
 
 const buildChunks = (text) => {
@@ -37,4 +38,17 @@ const chat = async (req, res, next) => {
 
 module.exports = {
   chat,
+  listModels: async (req, res, next) => {
+    try {
+      const apiKey = process.env.GEMINI_API_KEY;
+      if (!apiKey) {
+        return res.status(500).json({ error: { message: "GEMINI_API_KEY is not set" } });
+      }
+      const client = new GoogleGenerativeAI(apiKey);
+      const response = await client.listModels();
+      return res.json({ models: response.models || response });
+    } catch (error) {
+      return next(error);
+    }
+  },
 };
