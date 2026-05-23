@@ -334,6 +334,16 @@ export default function DocumentUploadPage() {
     }, 120);
   };
 
+  const startUpload = (file: File) => {
+    setFileName(file.name);
+    setFileError('');
+    setStage('uploading');
+    setProgress(0);
+    setScanStep(0);
+    setUploadedDoc(null);
+    uploadMutation.mutate(file);
+  };
+
   const runScan = () => {
     let step = 0;
     const advance = () => {
@@ -350,7 +360,7 @@ export default function DocumentUploadPage() {
   const handleFile = (file: File) => {
     const err = validateFile(file);
     if (err) { setFileError(err); return; }
-    startAnalysis(file.name);
+    startUpload(file);
   };
 
   const handleDrop = useCallback((e: React.DragEvent) => {
@@ -364,9 +374,22 @@ export default function DocumentUploadPage() {
     if (file) handleFile(file);
   };
 
-  const reset = () => { setStage('idle'); setProgress(0); setScanStep(0); setFileError(''); setFileName(''); };
+  const reset = () => {
+    setStage('idle');
+    setProgress(0);
+    setScanStep(0);
+    setFileError('');
+    setFileName('');
+    setUploadedDoc(null);
+  };
 
-  const result = { ...RESULT, fileName };
+  const safeRiskScore = uploadedDoc?.riskScore ? Number(uploadedDoc.riskScore) : RESULT.riskScore;
+  const result = {
+    ...RESULT,
+    fileName: uploadedDoc?.filename || fileName,
+    summary: uploadedDoc?.summary || RESULT.summary,
+    riskScore: Number.isNaN(safeRiskScore) ? RESULT.riskScore : safeRiskScore,
+  };
   const high = result.risks.filter(r => r.severity === 'high').length;
   const med  = result.risks.filter(r => r.severity === 'medium').length;
   const low  = result.risks.filter(r => r.severity === 'low').length;

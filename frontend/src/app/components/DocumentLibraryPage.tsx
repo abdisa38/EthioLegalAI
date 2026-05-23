@@ -2,17 +2,27 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 import { FileText, Search, Upload, Trash2, Download, Eye, Filter, Clock, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { deleteDocumentRequest, getDocumentsRequest } from '../api/documents';
 
 type RiskLevel = 'high' | 'medium' | 'low';
 
-const documents = [
-  { id: 1, name: 'Rental Agreement - Bole.pdf', type: 'Rental', date: 'May 20, 2026', size: '1.2 MB', risk: 'medium' as RiskLevel, summary: 'A 12-month residential rental in Bole, Addis Ababa. Contains 1 high-risk eviction clause and 1 medium-risk repair clause.', pages: 8 },
-  { id: 2, name: 'Employment Contract - Techno.pdf', type: 'Employment', date: 'May 18, 2026', size: '845 KB', risk: 'high' as RiskLevel, summary: 'Employment contract with unusual termination terms. Missing mandatory leave entitlements. Overtime compensation unclear.', pages: 12 },
-  { id: 3, name: 'Lease Renewal Notice.pdf', type: 'Legal Notice', date: 'May 15, 2026', size: '230 KB', risk: 'low' as RiskLevel, summary: 'Standard 3-month lease renewal notice from landlord. All terms comply with Ethiopian housing law.', pages: 2 },
-  { id: 4, name: 'Supplier Agreement - Merkato.pdf', type: 'Business', date: 'May 10, 2026', size: '2.1 MB', risk: 'medium' as RiskLevel, summary: 'Business supply agreement with moderate payment risk. Dispute resolution clause favors supplier.', pages: 15 },
-  { id: 5, name: 'Government Tax Form 2025.pdf', type: 'Government', date: 'April 30, 2026', size: '560 KB', risk: 'low' as RiskLevel, summary: 'Standard annual tax declaration form. No risk flags detected.', pages: 4 },
-  { id: 6, name: 'Termination Letter.pdf', type: 'Legal Notice', date: 'April 22, 2026', size: '180 KB', risk: 'high' as RiskLevel, summary: 'Termination letter without proper notice period. Missing severance calculation. May be wrongful termination.', pages: 1 },
-];
+const riskFromScore = (score?: string) => {
+  const value = Number(score || 0);
+  if (value >= 70) return 'high';
+  if (value >= 40) return 'medium';
+  return 'low';
+};
+
+const typeFromName = (name: string) => {
+  const lower = name.toLowerCase();
+  if (lower.includes('rental') || lower.includes('lease')) return 'Rental';
+  if (lower.includes('employment') || lower.includes('labor')) return 'Employment';
+  if (lower.includes('notice') || lower.includes('termination')) return 'Legal Notice';
+  if (lower.includes('government') || lower.includes('tax')) return 'Government';
+  if (lower.includes('business') || lower.includes('supplier')) return 'Business';
+  return 'Contract';
+};
 
 const riskConfig = {
   high: { color: '#ef4444', bg: 'rgba(239,68,68,0.1)', label: 'High Risk', icon: AlertTriangle },
@@ -26,18 +36,31 @@ const typeColors: Record<string, string> = {
 
 export default function DocumentLibraryPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [search, setSearch] = useState('');
   const [filterRisk, setFilterRisk] = useState<RiskLevel | 'all'>('all');
   const [filterType, setFilterType] = useState('All');
-  const [deleted, setDeleted] = useState<number[]>([]);
+
+  const { data: documents, isLoading } = useQuery({
+    queryKey: ['documents'],
+    queryFn: getDocumentsRequest,
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteDocumentRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+    },
+  });
 
   const docTypes = ['All', 'Rental', 'Employment', 'Legal Notice', 'Business', 'Government'];
 
-  const filtered = documents.filter(doc => {
-    if (deleted.includes(doc.id)) return false;
-    if (search && !doc.name.toLowerCase().includes(search.toLowerCase())) return false;
-    if (filterRisk !== 'all' && doc.risk !== filterRisk) return false;
-    if (filterType !== 'All' && doc.type !== filterType) return false;
+  const filtered = (documents || []).filter(doc => {
+    const docType = typeFromName(doc.filename);
+    const risk = riskFromScore(doc.riskScore);
+    if (search && !doc.filename.toLowerCase().includes(search.toLowerCase())) return false;
+    if (filterRisk !== 'all' && risk !== filterRisk) return false;
+    if (filterType !== 'All' && docType !== filterType) return false;
     return true;
   });
 
@@ -47,7 +70,9 @@ export default function DocumentLibraryPage() {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           <div>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>My Documents</h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>{documents.length - deleted.length} documents · {documents.filter(d => !deleted.includes(d.id) && d.risk === 'high').length} high-risk alerts</p>
+            <p style={{ color: '#64748b', fontSize: 15 }}>
+              {documents?.length || 0} documents · {filtered.filter(doc => riskFromScore(doc.riskScore) === 'high').length} high-risk alerts
+            </p>
           </div>
           <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <Upload size={14} /> Upload Document
