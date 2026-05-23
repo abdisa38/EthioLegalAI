@@ -20,7 +20,16 @@ const chat = async (req, res, next) => {
     const answer = await generateAnswer({ message, language });
     const chunks = buildChunks(answer);
 
+    const savedChat = await Chat.create({
+      userId: req.user._id,
+      question: message,
+      answer,
+      language: language || "English",
+      title: message.length > 50 ? message.substring(0, 50) + "..." : message,
+    });
+
     return res.json({
+      id: savedChat._id,
       answer,
       chunks,
       suggestedPrompts: [
