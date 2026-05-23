@@ -6,6 +6,7 @@ import {
   FileSearch, Shield, TrendingUp, Bookmark, Settings, LogOut,
   Bell, Globe, ChevronDown, Menu, X, Bot, User
 } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/app' },
@@ -34,6 +35,7 @@ export default function DashboardLayout() {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [lang, setLang] = useState('EN');
   const [aiFloatOpen, setAiFloatOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   const isActive = (path: string) => {
     const pathname = location?.pathname ?? '';
@@ -103,7 +105,7 @@ export default function DashboardLayout() {
           <Settings size={18} style={{ flexShrink: 0 }} />
           {(sidebarOpen || mobile) && <span style={{ fontSize: 14 }}>Settings</span>}
         </button>
-        <button onClick={() => navigate('/')}
+        <button onClick={() => { logout(); navigate('/login'); }}
           style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: sidebarOpen || mobile ? '10px 12px' : '10px', borderRadius: 10, border: 'none', cursor: 'pointer', background: 'transparent', color: '#64748b', justifyContent: sidebarOpen || mobile ? 'flex-start' : 'center' }}
           className="hover:bg-white/5 hover:text-slate-300">
           <LogOut size={18} style={{ flexShrink: 0 }} />
@@ -168,7 +170,7 @@ export default function DashboardLayout() {
             <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <User size={14} color="white" />
             </div>
-            <span className="hidden sm:block" style={{ fontSize: 13, color: '#94a3b8', fontWeight: 500 }}>Tigist B.</span>
+            <span className="hidden sm:block" style={{ fontSize: 13, color: '#94a3b8', fontWeight: 500 }}>{user?.name || 'User'}</span>
             <ChevronDown size={12} color="#475569" />
           </div>
         </div>

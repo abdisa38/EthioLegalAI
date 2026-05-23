@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { motion } from 'motion/react';
 import { Scale, Eye, EyeOff, ArrowRight, ArrowLeft, Mail, Lock, User, Github, Chrome } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export default function AuthPage() {
   const navigate = useNavigate();
@@ -14,13 +15,37 @@ export default function AuthPage() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { login, register } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isForgot) {
       setSubmitted(true);
     } else {
-      navigate('/app');
+      try {
+        setIsSubmitting(true);
+        setError('');
+
+        if (isRegister) {
+          await register({
+            name,
+            email,
+            password,
+            languagePreference: 'en',
+          });
+        } else {
+          await login({ email, password });
+        }
+
+        navigate('/app');
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Unable to sign in. Please try again.';
+        setError(message);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -168,8 +193,15 @@ export default function AuthPage() {
                   </div>
                 )}
 
+                {error && (
+                  <div style={{ color: '#f87171', fontSize: 13, background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', padding: '10px 12px', borderRadius: 10 }}>
+                    {error}
+                  </div>
+                )}
+
                 <motion.button type="submit" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-                  style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '14px', borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 0 20px rgba(99,102,241,0.35)', marginTop: 4 }}>
+                  disabled={isSubmitting}
+                  style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '14px', borderRadius: 10, border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 0 20px rgba(99,102,241,0.35)', marginTop: 4, opacity: isSubmitting ? 0.8 : 1 }}>
                   {isForgot ? 'Send Reset Link' : isRegister ? 'Create Account' : 'Sign In'}
                   <ArrowRight size={16} />
                 </motion.button>
