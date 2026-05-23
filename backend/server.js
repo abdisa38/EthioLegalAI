@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -6,8 +8,6 @@ const rateLimiter = require("./middleware/rateLimiter");
 const errorHandler = require("./middleware/errorHandler");
 const connectDatabase = require("./config/db");
 const apiRoutes = require("./routes");
-
-require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 5000;
