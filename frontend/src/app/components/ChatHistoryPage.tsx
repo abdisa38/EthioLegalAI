@@ -2,57 +2,53 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 import { MessageSquare, Search, Star, Trash2, Download, ArrowRight, Clock, Filter, Shield, TrendingUp, FileText } from 'lucide-react';
-
-type Chat = {
-  id: number;
-  title: string;
-  preview: string;
-  date: string;
-  category: string;
-  starred: boolean;
-  messages: number;
-  lang: string;
-};
-
-const chats: Chat[] = [
-  { id: 1, title: 'Landlord eviction notice rights', preview: 'Ethiopian law requires 30 days written notice. Your landlord must provide...', date: 'May 23, 2026', category: 'Tenant Rights', starred: true, messages: 8, lang: 'English' },
-  { id: 2, title: 'Overtime pay calculation help', preview: 'Under Labor Proclamation 1156/2019, overtime must be paid at 125% of...', date: 'May 22, 2026', category: 'Labor Law', starred: false, messages: 12, lang: 'English' },
-  { id: 3, title: 'ውል ሰነድ ትንታኔ (Contract analysis)', preview: 'ይህ ውል ሰነድ ሦስት አደጋ ያለባቸው አንቀጾች አሉ። አንደኛው...', date: 'May 21, 2026', category: 'Contract', starred: true, messages: 6, lang: 'Amharic' },
-  { id: 4, title: 'Security deposit dispute help', preview: 'If your landlord has not returned your deposit within 30 days of lease...', date: 'May 19, 2026', category: 'Tenant Rights', starred: false, messages: 15, lang: 'English' },
-  { id: 5, title: 'Wrongful termination inquiry', preview: 'Your employer must have valid cause for termination. Dismissal without...', date: 'May 17, 2026', category: 'Labor Law', starred: false, messages: 9, lang: 'English' },
-  { id: 6, title: 'Miira Oromo fi mirga hojjataa', preview: 'Seerri hojii Itoophiyaa Labsii 1156/2019 hojjattoota mirga...', date: 'May 15, 2026', category: 'Labor Law', starred: true, messages: 7, lang: 'Oromo' },
-  { id: 7, title: 'Employment contract review', preview: 'The employment contract you shared has 2 concerning clauses regarding...', date: 'May 12, 2026', category: 'Contract', starred: false, messages: 11, lang: 'English' },
-  { id: 8, title: 'Rent increase legality', preview: 'During an active fixed-term lease, your landlord generally cannot increase...', date: 'May 10, 2026', category: 'Tenant Rights', starred: false, messages: 5, lang: 'English' },
-];
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { getChatsRequest, toggleStarChatRequest, deleteChatRequest } from '../api/ai';
 
 const categoryConfig: Record<string, { color: string; icon: React.ElementType }> = {
   'Tenant Rights': { color: '#10b981', icon: Shield },
   'Labor Law': { color: '#f59e0b', icon: TrendingUp },
   'Contract': { color: '#6366f1', icon: FileText },
+  'General': { color: '#8b5cf6', icon: MessageSquare }
 };
 
 export default function ChatHistoryPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [search, setSearch] = useState('');
   const [filterCat, setFilterCat] = useState('All');
-  const [starred, setStarred] = useState<Record<number, boolean>>(
-    Object.fromEntries(chats.map(c => [c.id, c.starred]))
-  );
-  const [deleted, setDeleted] = useState<number[]>([]);
 
-  const categories = ['All', 'Tenant Rights', 'Labor Law', 'Contract'];
+  const { data: chats, isLoading } = useQuery({
+    queryKey: ['chats'],
+    queryFn: getChatsRequest,
+  });
 
-  const filtered = chats.filter(c => {
-    if (deleted.includes(c.id)) return false;
-    if (search && !c.title.toLowerCase().includes(search.toLowerCase())) return false;
+  const toggleStarMutation = useMutation({
+    mutationFn: toggleStarChatRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chats'] });
+    },
+  });
+
+  const deleteChatMutation = useMutation({
+    mutationFn: deleteChatRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chats'] });
+    },
+  });
+
+  const categories = ['All', 'Tenant Rights', 'Labor Law', 'Contract', 'General'];
+
+  const filtered = (chats || []).filter(c => {
+    if (search && !c.title.toLowerCase().includes(search.toLowerCase()) && !c.question.toLowerCase().includes(search.toLowerCase())) return false;
     if (filterCat !== 'All' && c.category !== filterCat) return false;
     return true;
   });
 
-  const starredChats = filtered.filter(c => starred[c.id]);
-  const recentChats = filtered.filter(c => !starred[c.id]);
+  const starredChats = filtered.filter(c => c.starred);
+  const recentChats = filtered.filter(c => !c.starred);
 
-  const ChatCard = ({ chat }: { chat: Chat }) => {
+  const ChatCard = ({ chat }: { chat: any }) => {
     const cat = categoryConfig[chat.category] || { color: '#64748b', icon: MessageSquare };
     const CatIcon = cat.icon;
     return (
@@ -66,34 +62,43 @@ export default function ChatHistoryPage() {
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 6 }}>
             <div style={{ fontWeight: 600, fontSize: 14, color: '#f1f5f9', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{chat.title}</div>
             <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-              <button onClick={() => setStarred(prev => ({ ...prev, [chat.id]: !prev[chat.id] }))}
-                style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: starred[chat.id] ? '#f59e0b' : '#475569' }}>
-                <Star size={15} fill={starred[chat.id] ? '#f59e0b' : 'none'} />
+              <button 
+                onClick={() => toggleStarMutation.mutate(chat._id)}
+                disabled={toggleStarMutation.isPending}
+                style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: chat.starred ? '#f59e0b' : '#475569' }}>
+                <Star size={15} fill={chat.starred ? '#f59e0b' : 'none'} />
               </button>
-              <button style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#475569' }}>
-                <Download size={14} />
-              </button>
-              <button onClick={() => setDeleted(prev => [...prev, chat.id])} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#475569' }}
+              <button 
+                onClick={() => {
+                  if (confirm('Are you sure you want to delete this chat?')) {
+                    deleteChatMutation.mutate(chat._id);
+                  }
+                }}
+                disabled={deleteChatMutation.isPending}
+                style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#475569' }}
                 className="hover:text-red-400 transition-colors">
                 <Trash2 size={14} />
               </button>
             </div>
           </div>
-          <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5, marginBottom: 10, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{chat.preview}</p>
+          <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5, marginBottom: 10, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{chat.question}</p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
             <span style={{ fontSize: 11, color: cat.color, background: `${cat.color}10`, padding: '2px 8px', borderRadius: 100 }}>{chat.category}</span>
-            <span style={{ fontSize: 11, color: '#475569' }}>🌐 {chat.lang}</span>
-            <span style={{ fontSize: 11, color: '#475569', display: 'flex', alignItems: 'center', gap: 3 }}><MessageSquare size={10} /> {chat.messages} messages</span>
-            <span style={{ fontSize: 11, color: '#475569', marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 3 }}><Clock size={10} /> {chat.date}</span>
+            <span style={{ fontSize: 11, color: '#475569' }}>🌐 {chat.language}</span>
+            <span style={{ fontSize: 11, color: '#475569', marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 3 }}><Clock size={10} /> {new Date(chat.createdAt).toLocaleDateString()}</span>
           </div>
         </div>
         <button onClick={() => navigate('/app/chat')}
           style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 8, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#818cf8', cursor: 'pointer', fontSize: 12, flexShrink: 0, alignSelf: 'flex-start' }}>
-          Continue <ArrowRight size={12} />
+          New <ArrowRight size={12} />
         </button>
       </motion.div>
     );
   };
+
+  if (isLoading) {
+    return <div style={{ color: '#94a3b8', padding: '40px', textAlign: 'center' }}>Loading chats...</div>;
+  }
 
   return (
     <div style={{ padding: '32px 28px', maxWidth: 1000, margin: '0 auto' }}>
@@ -101,7 +106,7 @@ export default function ChatHistoryPage() {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           <div>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>Chat History</h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>{chats.length - deleted.length} saved conversations · {Object.values(starred).filter(Boolean).length} starred</p>
+            <p style={{ color: '#64748b', fontSize: 15 }}>{chats?.length || 0} saved conversations · {starredChats.length} starred</p>
           </div>
           <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <MessageSquare size={14} /> New Chat
