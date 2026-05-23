@@ -6,6 +6,7 @@ import {
   ChevronDown, BookOpen, ExternalLink, Check, Zap, Plus,
   Hash, User, X, RotateCcw
 } from 'lucide-react';
+import { chatRequest } from '../api/ai';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -32,234 +33,11 @@ type Message = {
   feedback?: Feedback;
 };
 
-// ─── Legal Knowledge Base ─────────────────────────────────────────────────────
-
-const RESPONSES: Record<string, {
-  text: string; citations: Citation[]; confidence: number;
-  category: string; followups: string[];
-}> = {
-  evict: {
-    text: `## Eviction Rights Under Ethiopian Law
-
-Under **Ethiopian Civil Code Art. 2975**, a landlord **cannot evict you without proper written notice**.
-
-### Your Legal Rights
-
-- **Minimum 30 days written notice** is required before any eviction
-- Verbal notice is **not legally sufficient** — must be written
-- Eviction during an active fixed-term lease requires **valid legal cause**
-- You have the right to **contest wrongful eviction** in court
-
-> ⚠️ **Legal Warning**: Any eviction notice giving less than 30 days is unenforceable under Ethiopian law. You are not legally required to leave.
-
-\`\`\`ethiopian-law
-Civil Code Art. 2975 (1960)
-Notice Period : Minimum 30 calendar days
-Required Form : Written (letter or registered mail)
-Verbal Notice : NOT legally binding
-Emergency Exit: Only for serious lease violations
-\`\`\`
-
-### Steps to Take Immediately
-
-1. **Document the notice** — photograph it, note the date received
-2. **Do not vacate** until the full legal notice period expires
-3. **Contact your local Woreda housing office** to report unlawful eviction
-4. **Send a written response** to your landlord citing Art. 2975
-5. **Consult a licensed attorney** if the landlord persists
-
----
-*Sources: Ethiopian Civil Code (1960), Housing Proclamation 35/1998*`,
-    citations: [
-      { law: 'Ethiopian Civil Code', article: 'Art. 2975', year: '1960', relevance: 'Minimum 30-day written eviction notice requirement' },
-      { law: 'Housing Proclamation 35/1998', article: 'Section 14', year: '1998', relevance: 'Tenant protection rights and legal remedies' },
-    ],
-    confidence: 95,
-    category: 'Tenant Rights',
-    followups: [
-      'What if my landlord already changed the locks?',
-      'How do I contest eviction in an Ethiopian court?',
-      'Can I withhold rent if landlord won\'t make repairs?',
-    ],
-  },
-  labor: {
-    text: `## Ethiopian Worker Rights — Labor Proclamation 1156/2019
-
-Ethiopian workers are protected by comprehensive rights under the **Labor Proclamation No. 1156/2019**.
-
-### Working Hours & Overtime
-
-- **Standard hours**: Maximum ==8 hours/day==, ==48 hours/week==
-- **Overtime rate**: ==125%== of your regular hourly rate
-- **Weekend/holiday overtime**: ==150%== of regular rate
-- **Night shift** (10pm–6am): ==175%== of regular rate
-
-\`\`\`ethiopian-law
-Labor Proclamation No. 1156/2019
-Max Hours/Week : 48 hours (excluding overtime)
-Overtime Rate  : 125% minimum
-Weekend Rate   : 150% minimum
-Night Rate     : 175% minimum
-Annual Leave   : 16 days (after 1 year)
-Maternity Leave: 90 days paid
-\`\`\`
-
-### Termination Protections
-
-- Termination requires **valid legal cause** — not arbitrary dismissal
-- Employer must give **30 days written notice** minimum
-- Wrongful termination entitles you to **severance pay + legal remedies**
-
-> 💡 **Know This**: Your employer is required by law to provide a **written employment contract**. A verbal-only agreement gives you significantly fewer legal protections.
-
-### Filing a Wage or Rights Complaint
-
-1. **Gather evidence** — payslips, bank statements, employment contract
-2. **Send written demand** to your employer first
-3. **File with Ministry of Labor (MoLSA)** if employer ignores demand
-4. **Escalate to Labor Relations Board** for enforcement
-
----
-*Sources: Labor Proclamation 1156/2019, FDRE Constitution Art. 42*`,
-    citations: [
-      { law: 'Labor Proclamation 1156/2019', article: 'Art. 61–65', year: '2019', relevance: 'Working hours, overtime rates, leave entitlements' },
-      { law: 'FDRE Constitution', article: 'Art. 42', year: '1995', relevance: 'Fundamental worker rights and fair treatment' },
-    ],
-    confidence: 97,
-    category: 'Labor Law',
-    followups: [
-      'How is severance pay calculated in Ethiopia?',
-      'Can I be fired without cause?',
-      'What counts as wrongful termination?',
-    ],
-  },
-  contract: {
-    text: `## Contract Review — Key Ethiopian Legal Principles
-
-When reviewing any Ethiopian legal contract, focus on these **critical areas**:
-
-### ⚠️ High-Risk Clauses to Watch
-
-1. **One-sided termination rights** — clauses allowing termination without cause or insufficient notice
-2. **Unlimited liability** — signing away rights that Ethiopian law guarantees you
-3. **Vague payment terms** — no clear dates, amounts, or penalty conditions specified
-4. **Arbitration in foreign jurisdiction** — should specify Ethiopian courts
-
-### Safe vs. Risky Clause Comparison
-
-\`\`\`risk-analysis
-RISKY : "Landlord may terminate lease at any time"
-SAFE  : "Landlord may terminate with 30 days written notice per Art. 2975"
-
-RISKY : "Tenant bears all damages and costs"
-SAFE  : "Tenant responsible for damages caused by proven negligence"
-
-RISKY : "Disputes resolved at landlord's sole discretion"
-SAFE  : "Disputes resolved at First Instance Court, Addis Ababa"
-\`\`\`
-
-### Your Rights When Signing
-
-- You have the right to **negotiate any clause** before signing
-- Clauses that violate Ethiopian law are **automatically void** — even if you signed
-- Contracts can be in **Amharic or English** (both legally valid in Ethiopia)
-- You can request a **review period** before signing any contract
-
-> 📋 **Pro tip**: Upload your actual contract to get AI clause-by-clause risk analysis with specific legal citations and safer alternatives.
-
----
-*Sources: Ethiopian Civil Code Art. 1675–1808, Consumer Protection Proclamation 759/2012*`,
-    citations: [
-      { law: 'Ethiopian Civil Code', article: 'Art. 1675–1808', year: '1960', relevance: 'Contract formation, validity, and enforceability rules' },
-      { law: 'Consumer Protection Proclamation', article: 'Art. 25', year: '2012', relevance: 'Protection against unfair and deceptive contract terms' },
-    ],
-    confidence: 91,
-    category: 'Contract Review',
-    followups: [
-      'Can I cancel a contract I already signed?',
-      'Upload my contract for AI analysis',
-      'What clauses make a contract void in Ethiopia?',
-    ],
-  },
-  salary: {
-    text: `## Salary & Wage Rights in Ethiopia
-
-### Minimum Wage Situation
-
-Ethiopia **does not currently have a nationally mandated minimum wage** for private sector workers. However:
-
-- **Government civil servants** have structured pay scales set by the state
-- **Garment/manufacturing sector** has sector-specific minimum wage guidelines
-- All wages must be **agreed upon in writing** in your employment contract
-
-### If Your Employer Is Withholding Wages
-
-\`\`\`ethiopian-law
-Labor Proclamation 1156/2019 — Art. 62
-Wage Payment  : Must be paid on agreed date
-Deductions    : Only authorized deductions allowed
-Payslip       : Employer must provide detailed breakdown
-Delay Penalty : Interest accrues on late payments
-\`\`\`
-
-### Enforcement Steps
-
-1. **Document all unpaid wages** with dates, amounts, and evidence
-2. **Send formal written demand** to employer citing Art. 62
-3. **File complaint at MoLSA** (Ministry of Labor and Social Affairs)
-4. **Pursue civil claim** at Labor Court if MoLSA mediation fails
-
-> ⚠️ Act quickly — Ethiopian labor law has **time limits** on wage claims. File within 1 year of the unpaid period.
-
----
-*Sources: Labor Proclamation 1156/2019, Ethiopian Civil Procedure Code*`,
-    citations: [
-      { law: 'Labor Proclamation 1156/2019', article: 'Art. 62', year: '2019', relevance: 'Wage payment obligations and employer duties' },
-      { law: 'Ethiopian Civil Procedure Code', article: 'Art. 220', year: '1965', relevance: 'Limitation periods for civil wage claims' },
-    ],
-    confidence: 93,
-    category: 'Labor Law',
-    followups: [
-      'How do I file at Ministry of Labor?',
-      'Can I sue for back pay in Ethiopia?',
-      'What evidence do I need for a wage claim?',
-    ],
-  },
-  default: {
-    text: `## How Can I Help You Today?
-
-I'm **EthioLegal AI** — trained on Ethiopian law to help ordinary citizens understand their legal rights.
-
-### I can assist with:
-
-- 🏠 **Tenant Rights** — eviction notices, deposits, rent disputes, repairs
-- 💼 **Labor Law** — overtime pay, termination, workplace rights, wages
-- 📄 **Contract Review** — risk detection, clause explanation, safer alternatives
-- 🌍 **Multilingual Support** — answers in English, Amharic, or Afaan Oromo
-- 📋 **Legal Document Analysis** — upload contracts for AI-powered review
-
-> ⚠️ This platform provides **educational legal information only** and does not constitute official legal advice. For legal representation, consult a licensed Ethiopian attorney.
-
-Please describe your legal situation and I'll provide guidance based on Ethiopian law.`,
-    citations: [],
-    confidence: 88,
-    category: 'General',
-    followups: [
-      'Can a landlord evict me without notice?',
-      'What are my overtime rights in Ethiopia?',
-      'How do I analyze a legal contract?',
-    ],
-  },
+const getLanguageLabel = (code: string) => {
+  if (code === 'አማ') return 'Amharic';
+  if (code === 'ORM') return 'Afaan Oromo';
+  return 'English';
 };
-
-function pickResponse(text: string) {
-  const q = text.toLowerCase();
-  if (q.includes('evict') || q.includes('landlord') || q.includes('tenant') || q.includes('notice') || q.includes('deposit')) return RESPONSES.evict;
-  if (q.includes('salary') || q.includes('wage') || q.includes('minimum') || q.includes('unpaid') || q.includes('pay')) return RESPONSES.salary;
-  if (q.includes('labor') || q.includes('worker') || q.includes('overtime') || q.includes('employment') || q.includes('fired') || q.includes('terminat')) return RESPONSES.labor;
-  if (q.includes('contract') || q.includes('clause') || q.includes('agreement') || q.includes('sign') || q.includes('risky')) return RESPONSES.contract;
-  return RESPONSES.default;
-}
 
 // ─── Markdown Renderer ────────────────────────────────────────────────────────
 
@@ -541,7 +319,7 @@ export default function AIChatPage() {
     }, 13);
   };
 
-  const send = useCallback((text: string) => {
+  const send = useCallback(async (text: string) => {
     if (!text.trim() || streamingId || awaitingStream) return;
     const userMsg: Message = {
       id: nextId(), role: 'user', text: text.trim(),
@@ -557,17 +335,25 @@ export default function AIChatPage() {
     setAtBottom(true);
     setAwaitingStream(true);
 
-    setTimeout(() => {
-      const resp = pickResponse(text);
-      setAwaitingStream(false);
-      startStream(aiId, resp.text, {
-        citations: resp.citations,
-        confidence: resp.confidence,
-        category: resp.category,
-        followups: resp.followups,
+    try {
+      const response = await chatRequest({
+        message: text.trim(),
+        language: getLanguageLabel(lang),
       });
-    }, 700 + Math.random() * 600);
-  }, [streamingId, awaitingStream]);
+
+      setAwaitingStream(false);
+      startStream(aiId, response.answer, {
+        followups: response.suggestedPrompts,
+      });
+    } catch (error) {
+      setAwaitingStream(false);
+      setStreamingId(null);
+      setStreamText('');
+      setMessages(prev => prev.map(m =>
+        m.id === aiId ? { ...m, streaming: false, error: true, text: '' } : m
+      ));
+    }
+  }, [streamingId, awaitingStream, lang]);
 
   const retry = () => {
     const last = [...messages].reverse().find(m => m.role === 'user');
