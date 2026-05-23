@@ -3,6 +3,7 @@ const pdfParse = require("pdf-parse");
 const Document = require("../models/Document");
 const cloudinary = require("../config/cloudinary");
 const { cleanText } = require("../utils/textCleaner");
+const { indexDocument } = require("../rag/ragService");
 
 const uploadToCloudinary = (file, resourceType) =>
   new Promise((resolve, reject) => {
@@ -58,6 +59,18 @@ const uploadDocument = async (req, res, next) => {
       summary: "",
       riskScore: "",
     });
+
+    if (extractedText) {
+      try {
+        await indexDocument({
+          documentId: document._id.toString(),
+          userId: req.user._id.toString(),
+          text: extractedText,
+        });
+      } catch (error) {
+        console.warn("RAG indexing failed:", error?.message || error);
+      }
+    }
 
     return res.status(201).json({ document });
   } catch (error) {

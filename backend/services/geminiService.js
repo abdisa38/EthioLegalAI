@@ -1,9 +1,13 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { SYSTEM_PROMPT } = require("../ai/systemPrompt");
 
-const buildPrompt = (message, language) => {
+const buildPrompt = (message, language, context) => {
   const langHint = language ? `Respond in ${language}.` : "";
-  return `${SYSTEM_PROMPT}\n${langHint}\nUser: ${message}`.trim();
+  const contextBlock = context
+    ? `\nContext (use if relevant and prioritize accuracy):\n${context}\n`
+    : "";
+  const guidance = "If context is missing or insufficient, say so and avoid making up legal citations.";
+  return `${SYSTEM_PROMPT}\n${guidance}\n${langHint}${contextBlock}\nUser: ${message}`.trim();
 };
 
 const getGeminiClient = () => {
@@ -14,9 +18,9 @@ const getGeminiClient = () => {
   return new GoogleGenerativeAI(apiKey);
 };
 
-const generateAnswer = async ({ message, language }) => {
+const generateAnswer = async ({ message, language, context }) => {
   const client = getGeminiClient();
-  const prompt = buildPrompt(message, language);
+  const prompt = buildPrompt(message, language, context);
   const modelEnv = process.env.GEMINI_MODEL;
   const modelFallbacks = [
     modelEnv,

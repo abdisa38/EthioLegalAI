@@ -1,6 +1,7 @@
 const { generateAnswer } = require("../services/geminiService");
 const https = require("https");
 const Chat = require("../models/Chat");
+const { getRelevantContext } = require("../rag/ragService");
 
 const buildChunks = (text) => {
   const sentences = text.split(/(?<=[.!?])\s+/);
@@ -18,7 +19,11 @@ const chat = async (req, res, next) => {
       return res.status(400).json({ error: { message: "Message is required" } });
     }
 
-    const answer = await generateAnswer({ message, language });
+    const context = await getRelevantContext({
+      query: message,
+      userId: req.user._id.toString(),
+    });
+    const answer = await generateAnswer({ message, language, context });
     const chunks = buildChunks(answer);
 
     const savedChat = await Chat.create({
@@ -33,6 +38,7 @@ const chat = async (req, res, next) => {
       id: savedChat._id,
       answer,
       chunks,
+      contextUsed: Boolean(context),
       suggestedPrompts: [
         "Explain this in simple terms",
         "What law covers this in Ethiopia?",
