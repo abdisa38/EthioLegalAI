@@ -1,12 +1,15 @@
 import { useState, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
+import { useMutation } from '@tanstack/react-query';
 import {
   Upload, FileText, CheckCircle, AlertTriangle, Zap, Shield,
   Clock, FileSearch, X, Download, MessageSquare, ChevronDown,
   ChevronRight, Info, Calendar, TrendingDown, Eye, RefreshCw,
   FileX, Printer, SplitSquareHorizontal, List, BarChart3
 } from 'lucide-react';
+import { uploadDocumentRequest } from '../api/documents';
+import type { DocumentRecord } from '../api/documents';
 
 // ─── Types & constants ────────────────────────────────────────────────────────
 
@@ -286,7 +289,25 @@ export default function DocumentUploadPage() {
   const [progress, setProgress] = useState(0);
   const [scanStep, setScanStep] = useState(0);
   const [tab, setTab] = useState<TabId>('summary');
+  const [uploadedDoc, setUploadedDoc] = useState<DocumentRecord | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const uploadMutation = useMutation({
+    mutationFn: (file: File) =>
+      uploadDocumentRequest(file, (uploadProgress) => {
+        setProgress(uploadProgress);
+      }),
+    onSuccess: (document) => {
+      setUploadedDoc(document);
+      setStage('scanning');
+      runScan();
+    },
+    onError: (error) => {
+      const message = error instanceof Error ? error.message : 'Upload failed. Please try again.';
+      setFileError(message);
+      setStage('idle');
+    },
+  });
 
   const validateFile = (file: File): string => {
     if (file.size > 25 * 1024 * 1024) return `File too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Maximum 25MB.`;
