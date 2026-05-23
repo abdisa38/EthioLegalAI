@@ -1,5 +1,5 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { generateAnswer } = require("../services/geminiService");
+const https = require("https");
 
 const buildChunks = (text) => {
   const sentences = text.split(/(?<=[.!?])\s+/);
@@ -44,9 +44,32 @@ module.exports = {
       if (!apiKey) {
         return res.status(500).json({ error: { message: "GEMINI_API_KEY is not set" } });
       }
-      const client = new GoogleGenerativeAI(apiKey);
-      const response = await client.listModels();
-      return res.json({ models: response.models || response });
+      const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`;
+
+      https.get(url, (response) => {
+        let body = "";
+        response.on("data", (chunk) => {
+          body += chunk;
+        });
+        response.on("end", () => {
+          if (response.statusCode && response.statusCode >= 400) {
+            return res.status(response.statusCode).json({ error: { message: body } });
+          }
+
+          try {
+            const data = JSON.parse(body);
+            const models = (data.models || []).map((model) => ({
+              name: model.name,
+              supportedMethods: model.supportedGenerationMethods || [],
+            }));
+            return res.json({ models });
+          } catch (error) {
+            return res.status(500).json({ error: { message: "Failed to parse model list" } });
+          }
+        });
+      }).on("error", (error) => {
+        return next(error);
+      });
     } catch (error) {
       return next(error);
     }
