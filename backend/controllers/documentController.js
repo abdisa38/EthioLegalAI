@@ -2,6 +2,7 @@ const streamifier = require("streamifier");
 const pdfParse = require("pdf-parse");
 const Document = require("../models/Document");
 const cloudinary = require("../config/cloudinary");
+const { cleanText } = require("../utils/textCleaner");
 
 const uploadToCloudinary = (file, resourceType) =>
   new Promise((resolve, reject) => {
@@ -23,8 +24,12 @@ const uploadToCloudinary = (file, resourceType) =>
 
 const extractText = async (file) => {
   if (file.mimetype === "application/pdf" || file.originalname.toLowerCase().endsWith(".pdf")) {
-    const parsed = await pdfParse(file.buffer);
-    return parsed.text || "";
+    try {
+      const parsed = await pdfParse(file.buffer);
+      return cleanText(parsed.text || "");
+    } catch (error) {
+      return "";
+    }
   }
   return "";
 };
@@ -38,6 +43,7 @@ const uploadDocument = async (req, res, next) => {
     const resourceType = req.file.mimetype.startsWith("image/") ? "image" : "raw";
     const uploadResult = await uploadToCloudinary(req.file, resourceType);
     const extractedText = await extractText(req.file);
+    const textLength = extractedText.length;
 
     const document = await Document.create({
       userId: req.user._id,
@@ -48,6 +54,7 @@ const uploadDocument = async (req, res, next) => {
       mimeType: req.file.mimetype,
       fileSize: req.file.size,
       extractedText,
+      textLength,
       summary: "",
       riskScore: "",
     });

@@ -31,6 +31,10 @@ const documentSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    textLength: {
+      type: Number,
+      default: 0,
+    },
     summary: {
       type: String,
     },
