@@ -64,6 +64,10 @@ export default function DocumentLibraryPage() {
     return true;
   });
 
+  if (isLoading) {
+    return <div style={{ color: '#94a3b8', padding: '40px', textAlign: 'center' }}>Loading documents...</div>;
+  }
+
   return (
     <div style={{ padding: '32px 28px', maxWidth: 1100, margin: '0 auto' }}>
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
