@@ -346,6 +346,7 @@ export default function AIChatPage() {
         followups: response.suggestedPrompts,
       });
     } catch (error) {
+      console.error('Chat request failed:', error);
       setAwaitingStream(false);
       setStreamingId(null);
       setStreamText('');

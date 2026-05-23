@@ -29,6 +29,8 @@ const chat = async (req, res, next) => {
       ],
     });
   } catch (error) {
+    console.error("Gemini chat failed:", error?.message || error);
+    error.statusCode = error.statusCode || 502;
     return next(error);
   }
 };

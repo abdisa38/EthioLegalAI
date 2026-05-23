@@ -16,7 +16,8 @@ const getGeminiClient = () => {
 
 const generateAnswer = async ({ message, language }) => {
   const client = getGeminiClient();
-  const model = client.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash-latest";
+  const model = client.getGenerativeModel({ model: modelName });
   const prompt = buildPrompt(message, language);
   const result = await model.generateContent(prompt);
   const response = result.response;
