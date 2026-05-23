@@ -1,44 +1,77 @@
-const { ChromaClient } = require("chromadb");
+let collectionId;
 
-let client;
-let collection;
-
-const getCollection = async () => {
+const getBaseUrl = () => {
   const chromaUrl = process.env.CHROMA_URL;
   if (!chromaUrl) {
     return null;
   }
+  return chromaUrl.replace(/\/$/, "");
+};
 
-  if (!client) {
-    client = new ChromaClient({ path: chromaUrl });
+const fetchJson = async (url, options) => {
+  const response = await fetch(url, options);
+  const text = await response.text();
+  if (!response.ok) {
+    throw new Error(`Chroma error ${response.status}: ${text}`);
+  }
+  return text ? JSON.parse(text) : {};
+};
+
+const getCollectionId = async () => {
+  if (collectionId) return collectionId;
+  const baseUrl = getBaseUrl();
+  if (!baseUrl) return null;
+
+  const name = process.env.CHROMA_COLLECTION || "ethiolegalai";
+  const list = await fetchJson(`${baseUrl}/api/v1/collections`);
+  const collections = list.collections || list || [];
+  const existing = collections.find((item) => item.name === name);
+
+  if (existing) {
+    collectionId = existing.id;
+    return collectionId;
   }
 
-  if (!collection) {
-    const name = process.env.CHROMA_COLLECTION || "ethiolegalai";
-    collection = await client.getOrCreateCollection({ name });
-  }
+  const created = await fetchJson(`${baseUrl}/api/v1/collections`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  });
 
-  return collection;
+  collectionId = created.id;
+  return collectionId;
 };
 
 const addDocuments = async ({ ids, embeddings, documents, metadatas }) => {
-  const store = await getCollection();
-  if (!store) {
+  const baseUrl = getBaseUrl();
+  const id = await getCollectionId();
+  if (!baseUrl || !id) {
     return false;
   }
-  await store.add({ ids, embeddings, documents, metadatas });
+
+  await fetchJson(`${baseUrl}/api/v1/collections/${id}/add`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ids, embeddings, documents, metadatas }),
+  });
   return true;
 };
 
 const queryDocuments = async ({ embedding, where, nResults }) => {
-  const store = await getCollection();
-  if (!store) {
+  const baseUrl = getBaseUrl();
+  const id = await getCollectionId();
+  if (!baseUrl || !id) {
     return { documents: [] };
   }
-  return store.query({
-    queryEmbeddings: [embedding],
-    nResults: nResults || 4,
-    where: where || {},
+
+  return fetchJson(`${baseUrl}/api/v1/collections/${id}/query`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query_embeddings: [embedding],
+      n_results: nResults || 4,
+      where: where || {},
+    }),
   });
 };
 
