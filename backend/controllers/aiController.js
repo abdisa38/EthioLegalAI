@@ -1,5 +1,6 @@
 const { generateAnswer } = require("../services/geminiService");
 const https = require("https");
+const Chat = require("../models/Chat");
 
 const buildChunks = (text) => {
   const sentences = text.split(/(?<=[.!?])\s+/);
