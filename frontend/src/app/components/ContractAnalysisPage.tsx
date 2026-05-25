@@ -114,17 +114,23 @@ export default function ContractAnalysisPage() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: 24, marginBottom: 28 }}>
         {/* Radar chart */}
-        <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
-          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 24 }}>
+          <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
+            style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 24 }}>
           <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 20 }}>Clause Risk Breakdown</h3>
-          <ResponsiveContainer width="100%" height={220}>
-            <RadarChart data={radarData}>
-              <PolarGrid stroke="rgba(255,255,255,0.06)" />
-              <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748b', fontSize: 12 }} />
-              <Radar name="Risk Score" dataKey="A" stroke="#6366f1" fill="rgba(99,102,241,0.2)" strokeWidth={2} />
-              <Tooltip contentStyle={{ background: '#0d1124', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: '#f1f5f9', fontSize: 13 }} />
-            </RadarChart>
-          </ResponsiveContainer>
+          {radarData.length ? (
+            <ResponsiveContainer width="100%" height={220}>
+              <RadarChart data={radarData}>
+                <PolarGrid stroke="rgba(255,255,255,0.06)" />
+                <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748b', fontSize: 12 }} />
+                <Radar name="Risk Score" dataKey="A" stroke="#6366f1" fill="rgba(99,102,241,0.2)" strokeWidth={2} />
+                <Tooltip contentStyle={{ background: '#0d1124', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: '#f1f5f9', fontSize: 13 }} />
+              </RadarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div style={{ textAlign: 'center', color: '#64748b', fontSize: 13, padding: '36px 12px' }}>
+              Clause breakdown is not available for this document yet.
+            </div>
+          )}
           <p style={{ fontSize: 12, color: '#475569', textAlign: 'center', marginTop: 8 }}>Higher score = more favorable for tenant</p>
         </motion.div>
 
@@ -136,20 +142,19 @@ export default function ContractAnalysisPage() {
             <h3 style={{ fontSize: 15, fontWeight: 700 }}>Financial Risk Exposure</h3>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {[
-              { label: 'Monthly Rent', value: '8,500 ETB', note: 'Standard market rate', risk: false },
-              { label: 'Security Deposit', value: '17,000 ETB', note: '2 months — negotiate to 1', risk: true },
-              { label: 'Potential Repair Liability', value: 'Unknown', note: 'High risk — no cap specified', risk: true },
-              { label: 'Early Termination Fee', value: 'Not specified', note: 'Unclear — request clarification', risk: true },
-            ].map(item => (
-              <div key={item.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: item.risk ? 'rgba(239,68,68,0.05)' : 'rgba(255,255,255,0.02)', border: `1px solid ${item.risk ? 'rgba(239,68,68,0.12)' : 'rgba(255,255,255,0.05)'}`, borderRadius: 10 }}>
-                <div>
-                  <div style={{ fontSize: 13, color: '#e2e8f0', fontWeight: 500 }}>{item.label}</div>
-                  <div style={{ fontSize: 11, color: '#64748b' }}>{item.note}</div>
+            {financialRisks.length ? (
+              financialRisks.map(item => (
+                <div key={item.label} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', background: item.risk ? 'rgba(239,68,68,0.05)' : 'rgba(255,255,255,0.02)', border: `1px solid ${item.risk ? 'rgba(239,68,68,0.12)' : 'rgba(255,255,255,0.05)'}`, borderRadius: 10 }}>
+                  <div>
+                    <div style={{ fontSize: 13, color: '#e2e8f0', fontWeight: 500 }}>{item.label}</div>
+                    <div style={{ fontSize: 11, color: '#64748b' }}>{item.note}</div>
+                  </div>
+                  <span style={{ fontWeight: 700, fontSize: 14, color: item.risk ? '#f87171' : '#e2e8f0' }}>{item.value}</span>
                 </div>
-                <span style={{ fontWeight: 700, fontSize: 14, color: item.risk ? '#f87171' : '#e2e8f0' }}>{item.value}</span>
-              </div>
-            ))}
+              ))
+            ) : (
+              <div style={{ color: '#64748b', fontSize: 13 }}>No financial risk data was extracted from this contract.</div>
+            )}
           </div>
         </motion.div>
       </div>
