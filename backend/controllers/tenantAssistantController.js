@@ -1,5 +1,14 @@
 const Chat = require("../models/Chat");
 const { generateTenantAnswer } = require("../services/tenantAssistantService");
+const { calculateConfidence } = require("../utils/confidenceScorer");
+
+const buildChunks = (text) => {
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  if (sentences.length <= 1) {
+    return [text];
+  }
+  return sentences;
+};
 
 const askTenantAssistant = async (req, res, next) => {
   try {
@@ -9,6 +18,8 @@ const askTenantAssistant = async (req, res, next) => {
     }
 
     const answer = await generateTenantAnswer({ message, language });
+    const confidence = calculateConfidence(answer, false);
+    const chunks = buildChunks(answer);
 
     await Chat.create({
       userId: req.user._id,
@@ -21,6 +32,10 @@ const askTenantAssistant = async (req, res, next) => {
 
     return res.json({
       answer,
+      chunks,
+      confidence,
+      contextUsed: false,
+      sources: [],
       suggestedPrompts: [
         "My landlord gave me a 7-day eviction notice. What can I do?",
         "How do I get my security deposit back?",
