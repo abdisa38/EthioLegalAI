@@ -348,6 +348,7 @@ export default function AIChatPage() {
       startStream(aiId, response.answer, {
         chatId: response.id,
         starred: false,
+        confidence: response.confidence,
         followups: response.suggestedPrompts,
       });
     } catch (error) {
