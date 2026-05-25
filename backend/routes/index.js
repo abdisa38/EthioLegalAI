@@ -6,6 +6,7 @@ const documentRoutes = require("./documentRoutes");
 const chatRoutes = require("./chatRoutes");
 const contractRoutes = require("./contractRoutes");
 const tenantAssistantRoutes = require("./tenantAssistantRoutes");
+const laborAssistantRoutes = require("./laborAssistantRoutes");
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.use("/documents", documentRoutes);
 router.use("/chats", chatRoutes);
 router.use("/contracts", contractRoutes);
 router.use("/assistants/tenant", tenantAssistantRoutes);
+router.use("/assistants/labor", laborAssistantRoutes);
 
 module.exports = router;
