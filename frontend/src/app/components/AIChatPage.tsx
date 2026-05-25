@@ -6,7 +6,7 @@ import {
   ChevronDown, BookOpen, ExternalLink, Check, Zap, Plus,
   Hash, User, X, RotateCcw
 } from 'lucide-react';
-import { chatRequest } from '../api/ai';
+import { chatRequest, toggleStarChatRequest } from '../api/ai';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -21,11 +21,13 @@ type Citation = {
 
 type Message = {
   id: string;
+  chatId?: string;
   role: 'user' | 'ai';
   text: string;
   time: string;
   streaming?: boolean;
   error?: boolean;
+  starred?: boolean;
   citations?: Citation[];
   confidence?: number;
   category?: string;

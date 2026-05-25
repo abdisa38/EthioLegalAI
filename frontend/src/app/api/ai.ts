@@ -1,8 +1,17 @@
 import { http } from './http';
 
 export type ChatResponse = {
+  id: string;
   answer: string;
   suggestedPrompts: string[];
+  chunks?: string[];
+  contextUsed?: boolean;
+  sources?: Array<{
+    documentId?: string;
+    filename?: string;
+    chunkIndex?: number;
+    distance?: number;
+  }>;
 };
 
 export type ChatPayload = {
