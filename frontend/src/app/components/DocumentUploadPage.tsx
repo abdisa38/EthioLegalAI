@@ -37,6 +37,7 @@ const RESULT = {
   fileName: '',
   riskScore: 68,
   docType: 'Residential Rental Agreement',
+  aiConfidence: 96,
   summary: 'This is a 12-month residential rental agreement for a property in Bole Sub-City, Addis Ababa. The tenant agrees to pay 8,500 ETB per month with a 2-month security deposit. The agreement contains standard maintenance and payment clauses, but includes two provisions that conflict with Ethiopian tenant protection law.',
   keyFacts: [
     { label: 'Monthly Rent', value: '8,500 ETB', risk: false },
@@ -124,6 +125,12 @@ const RESULT = {
       simplified: 'You cannot sublet the apartment without asking your landlord first. This is normal and standard in Ethiopian rental agreements.',
       risk: 'low' as Risk,
     },
+  ],
+  suggestedActions: [
+    'Negotiate the 7-day termination notice to 30 days (legally required)',
+    'Remove or rewrite the blanket repair responsibility clause',
+    'Negotiate security deposit down to 1 month (8,500 ETB)',
+    'Add a 24-hour notice-of-entry clause for landlord visits',
   ],
 };
 
@@ -292,7 +299,23 @@ export default function DocumentUploadPage() {
   const [scanStep, setScanStep] = useState(0);
   const [tab, setTab] = useState<TabId>('summary');
   const [uploadedDoc, setUploadedDoc] = useState<DocumentRecord | null>(null);
+  const [analysis, setAnalysis] = useState<ContractAnalysis | null>(null);
+  const [analysisError, setAnalysisError] = useState('');
+  const [scanDone, setScanDone] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const analyzeMutation = useMutation({
+    mutationFn: analyzeContractRequest,
+    onSuccess: ({ analysis: data, document }) => {
+      setAnalysis(data);
+      setUploadedDoc(document);
+      setAnalysisError('');
+    },
+    onError: (error) => {
+      const message = error instanceof Error ? error.message : 'Analysis failed. Please try again.';
+      setAnalysisError(message);
+    },
+  });
 
   const uploadMutation = useMutation({
     mutationFn: (file: File) =>
@@ -301,8 +324,12 @@ export default function DocumentUploadPage() {
       }),
     onSuccess: (document) => {
       setUploadedDoc(document);
+      setAnalysis(null);
+      setAnalysisError('');
+      setScanDone(false);
       setStage('scanning');
       runScan();
+      analyzeMutation.mutate({ documentId: document._id });
     },
     onError: (error) => {
       const message = error instanceof Error ? error.message : 'Upload failed. Please try again.';
