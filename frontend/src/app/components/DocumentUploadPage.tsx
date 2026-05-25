@@ -433,12 +433,15 @@ export default function DocumentUploadPage() {
 
   const demoMode = !uploadedDoc && !analysis;
   const safeRiskScore = Number(analysis?.riskScore ?? uploadedDoc?.riskScore ?? RESULT.riskScore);
+  const baseSummary = analysisError
+    ? 'Analysis failed. Please try again or upload a clearer PDF.'
+    : 'Analysis is processing. Check back shortly.';
   const baseResult = demoMode
     ? RESULT
     : {
         fileName: uploadedDoc?.filename || fileName,
         docType: 'Legal Document',
-        summary: uploadedDoc?.summary || 'Analysis is processing. Check back shortly.',
+        summary: uploadedDoc?.summary || baseSummary,
         riskScore: Number.isNaN(safeRiskScore) ? 0 : safeRiskScore,
         keyFacts: [],
         risks: [],
