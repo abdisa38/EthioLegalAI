@@ -61,6 +61,13 @@ const normalizeAnalysis = (analysis, { filename, documentId, language }) => {
     100
   );
 
+  const warnings = [
+    ...safeArray(analysis.warnings).map((item) => String(item).trim()).filter(Boolean),
+  ];
+  if (!warnings.some((item) => item.includes("Educational") || item.includes("ትምህር")) && disclaimer) {
+    warnings.push(disclaimer);
+  }
+
   return {
     documentId,
     fileName: filename || "",
@@ -68,9 +75,7 @@ const normalizeAnalysis = (analysis, { filename, documentId, language }) => {
     summary: String(analysis.summary || "Summary not available.").trim(),
     riskScore,
     aiConfidence: clamp(toNumber(analysis.aiConfidence, 90), 0, 100),
-    warnings: [
-      ...safeArray(analysis.warnings).map((item) => String(item).trim()).filter(Boolean),
-    ].filter(Boolean),
+    warnings,
     suggestedActions: safeArray(analysis.suggestedActions).map((item) => String(item).trim()).filter(Boolean),
     keyFacts: safeArray(analysis.keyFacts).map((fact) => ({
       label: String(fact?.label || "").trim(),
@@ -126,7 +131,7 @@ const generateContractAnalysis = async ({ text, filename, language, documentId }
       const result = await model.generateContent(prompt);
       const responseText = result.response.text();
       const raw = parseJsonResponse(responseText);
-      return normalizeAnalysis(raw, { filename, documentId });
+      return normalizeAnalysis(raw, { filename, documentId, language });
     } catch (error) {
       const message = error?.message || String(error);
       lastError = error;
