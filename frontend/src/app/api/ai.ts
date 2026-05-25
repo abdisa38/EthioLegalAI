@@ -4,6 +4,7 @@ export type ChatResponse = {
   id: string;
   answer: string;
   suggestedPrompts: string[];
+  confidence?: number;
   chunks?: string[];
   contextUsed?: boolean;
   sources?: Array<{

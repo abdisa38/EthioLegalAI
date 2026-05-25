@@ -23,7 +23,8 @@ const chat = async (req, res, next) => {
       query: message,
       userId: req.user._id.toString(),
     });
-    const answer = await generateAnswer({ message, language, context });
+    const answer = await generateAnswer({ message, language, context, sources });
+    const confidence = context ? 90 : message.length > 160 ? 78 : 72;
     const chunks = buildChunks(answer);
 
     const savedChat = await Chat.create({
@@ -39,6 +40,7 @@ const chat = async (req, res, next) => {
       answer,
       chunks,
       contextUsed: Boolean(context),
+      confidence,
       sources,
       suggestedPrompts: [
         "Explain this in simple terms",

@@ -1,14 +1,5 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const { SYSTEM_PROMPT } = require("../ai/systemPrompt");
-
-const buildPrompt = (message, language, context) => {
-  const langHint = language ? `Respond in ${language}.` : "";
-  const contextBlock = context
-    ? `\nRetrieved legal context (prioritize this over general knowledge):\n${context}\n`
-    : "";
-  const guidance = "Use the retrieved context as the primary source of truth. If context is missing or insufficient, say so and avoid making up legal citations.";
-  return `${SYSTEM_PROMPT}\n${guidance}\n${langHint}${contextBlock}\nUser: ${message}`.trim();
-};
+const { buildChatPrompt, ensureStructuredResponse } = require("../ai/promptManager");
 
 const getGeminiClient = () => {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -18,9 +9,9 @@ const getGeminiClient = () => {
   return new GoogleGenerativeAI(apiKey);
 };
 
-const generateAnswer = async ({ message, language, context }) => {
+const generateAnswer = async ({ message, language, context, sources }) => {
   const client = getGeminiClient();
-  const prompt = buildPrompt(message, language, context);
+  const prompt = buildChatPrompt({ message, language, context, sources });
   const modelEnv = process.env.GEMINI_MODEL;
   const modelFallbacks = [
     modelEnv,
@@ -36,7 +27,7 @@ const generateAnswer = async ({ message, language, context }) => {
       const model = client.getGenerativeModel({ model: modelName });
       const result = await model.generateContent(prompt);
       const response = result.response;
-      return response.text();
+      return ensureStructuredResponse(response.text(), language);
     } catch (error) {
       const message = error?.message || String(error);
       lastError = error;
