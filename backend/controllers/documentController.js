@@ -66,6 +66,7 @@ const uploadDocument = async (req, res, next) => {
           documentId: document._id.toString(),
           userId: req.user._id.toString(),
           text: extractedText,
+          filename: document.filename,
         });
       } catch (error) {
         console.warn("RAG indexing failed:", error?.message || error);

@@ -7,6 +7,9 @@ This folder contains the Retrieval-Augmented Generation pipeline for EthioLegal 
 - CHROMA_URL: Chroma server URL (example: http://localhost:8000)
 - CHROMA_COLLECTION: Chroma collection name
 - GEMINI_EMBED_MODEL: Gemini embedding model (example: gemini-embedding-001)
+- RAG_CHUNK_SIZE: Chunk size for text splitting (default: 1000)
+- RAG_CHUNK_OVERLAP: Chunk overlap for text splitting (default: 150)
+- RAG_TOP_K: Number of chunks to retrieve for each query (default: 4)
 
 ## Notes
 

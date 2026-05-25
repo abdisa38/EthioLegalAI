@@ -57,7 +57,7 @@ const addDocuments = async ({ ids, embeddings, documents, metadatas }) => {
   return true;
 };
 
-const queryDocuments = async ({ embedding, where, nResults }) => {
+const queryDocuments = async ({ embedding, where, nResults, include }) => {
   const baseUrl = getBaseUrl();
   const id = await getCollectionId();
   if (!baseUrl || !id) {
@@ -71,6 +71,7 @@ const queryDocuments = async ({ embedding, where, nResults }) => {
       query_embeddings: [embedding],
       n_results: nResults || 4,
       where: where || {},
+      include: include || ["documents", "metadatas", "distances"],
     }),
   });
 };

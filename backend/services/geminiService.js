@@ -4,9 +4,9 @@ const { SYSTEM_PROMPT } = require("../ai/systemPrompt");
 const buildPrompt = (message, language, context) => {
   const langHint = language ? `Respond in ${language}.` : "";
   const contextBlock = context
-    ? `\nContext (use if relevant and prioritize accuracy):\n${context}\n`
+    ? `\nRetrieved legal context (prioritize this over general knowledge):\n${context}\n`
     : "";
-  const guidance = "If context is missing or insufficient, say so and avoid making up legal citations.";
+  const guidance = "Use the retrieved context as the primary source of truth. If context is missing or insufficient, say so and avoid making up legal citations.";
   return `${SYSTEM_PROMPT}\n${guidance}\n${langHint}${contextBlock}\nUser: ${message}`.trim();
 };
 

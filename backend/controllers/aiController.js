@@ -19,7 +19,7 @@ const chat = async (req, res, next) => {
       return res.status(400).json({ error: { message: "Message is required" } });
     }
 
-    const context = await getRelevantContext({
+    const { context, sources } = await getRelevantContext({
       query: message,
       userId: req.user._id.toString(),
     });
@@ -39,6 +39,7 @@ const chat = async (req, res, next) => {
       answer,
       chunks,
       contextUsed: Boolean(context),
+      sources,
       suggestedPrompts: [
         "Explain this in simple terms",
         "What law covers this in Ethiopia?",
