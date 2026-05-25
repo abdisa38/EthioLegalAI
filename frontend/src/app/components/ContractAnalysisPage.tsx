@@ -167,34 +167,38 @@ export default function ContractAnalysisPage() {
           <h2 style={{ fontSize: 17, fontWeight: 700 }}>Detected Clauses ({clauses.length})</h2>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          {clauses.map((clause, i) => {
-            const conf = riskConfig[clause.risk as keyof typeof riskConfig];
-            const Icon = conf.icon;
-            return (
-              <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.35 + i * 0.06 }}
-                style={{ background: conf.bg, border: `1px solid ${conf.border}`, borderRadius: 14, padding: 20 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                  <div style={{ width: 28, height: 28, borderRadius: 7, background: `${conf.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
-                    <Icon size={14} color={conf.color} />
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6, flexWrap: 'wrap' }}>
-                      <span style={{ fontSize: 11, fontWeight: 600, color: conf.color, background: conf.bg, border: `1px solid ${conf.border}`, padding: '2px 9px', borderRadius: 100 }}>{conf.label}</span>
-                      <span style={{ fontSize: 11, color: '#475569' }}>📚 {clause.article}</span>
+          {clauses.length ? (
+            clauses.map((clause, i) => {
+              const conf = riskConfig[clause.risk as keyof typeof riskConfig];
+              const Icon = conf.icon;
+              return (
+                <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.35 + i * 0.06 }}
+                  style={{ background: conf.bg, border: `1px solid ${conf.border}`, borderRadius: 14, padding: 20 }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: 7, background: `${conf.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
+                      <Icon size={14} color={conf.color} />
                     </div>
-                    <div style={{ fontSize: 14, color: '#e2e8f0', fontStyle: 'italic', marginBottom: 8 }}>"{clause.text}"</div>
-                    <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.6, marginBottom: clause.safer ? 10 : 0 }}>{clause.explanation}</p>
-                    {clause.safer && (
-                      <div style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: 8, padding: '10px 14px' }}>
-                        <div style={{ fontSize: 11, fontWeight: 600, color: '#10b981', marginBottom: 4 }}>✏️ SAFER ALTERNATIVE</div>
-                        <p style={{ fontSize: 13, color: '#6ee7b7', lineHeight: 1.6, margin: 0 }}>"{clause.safer}"</p>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6, flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: 11, fontWeight: 600, color: conf.color, background: conf.bg, border: `1px solid ${conf.border}`, padding: '2px 9px', borderRadius: 100 }}>{conf.label}</span>
+                        <span style={{ fontSize: 11, color: '#475569' }}>📚 {clause.article}</span>
                       </div>
-                    )}
+                      <div style={{ fontSize: 14, color: '#e2e8f0', fontStyle: 'italic', marginBottom: 8 }}>"{clause.text}"</div>
+                      <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.6, marginBottom: clause.safer ? 10 : 0 }}>{clause.explanation}</p>
+                      {clause.safer && (
+                        <div style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: 8, padding: '10px 14px' }}>
+                          <div style={{ fontSize: 11, fontWeight: 600, color: '#10b981', marginBottom: 4 }}>✏️ SAFER ALTERNATIVE</div>
+                          <p style={{ fontSize: 13, color: '#6ee7b7', lineHeight: 1.6, margin: 0 }}>"{clause.safer}"</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })
+          ) : (
+            <div style={{ color: '#64748b', fontSize: 13 }}>No clause risks were detected for this contract.</div>
+          )}
         </div>
       </motion.div>
 
