@@ -376,6 +376,7 @@ export default function AIChatPage() {
 
   const toggleSaved = async (message: Message) => {
     if (!message.chatId) {
+      console.warn('No chatId available to save this message.');
       return;
     }
 
