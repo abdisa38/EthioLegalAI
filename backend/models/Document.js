@@ -126,6 +126,11 @@ const documentSchema = new mongoose.Schema(
       type: String,
     },
     analysis: analysisSchema,
+    category: {
+      type: String,
+      enum: ["Rental", "Labor", "Contract", "Notice", "General"],
+      default: "General",
+    },
   },
   { timestamps: true }
 );
