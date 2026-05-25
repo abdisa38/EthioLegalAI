@@ -5,6 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const rateLimiter = require("./middleware/rateLimiter");
+const sanitizeRequest = require("./middleware/sanitizeRequest");
 const errorHandler = require("./middleware/errorHandler");
 const connectDatabase = require("./config/db");
 const apiRoutes = require("./routes");
@@ -21,6 +22,7 @@ app.use(cors({
 }));
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
+app.use(sanitizeRequest);
 app.use(morgan("dev"));
 app.use(rateLimiter);
 
