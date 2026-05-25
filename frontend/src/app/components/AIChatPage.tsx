@@ -346,6 +346,8 @@ export default function AIChatPage() {
 
       setAwaitingStream(false);
       startStream(aiId, response.answer, {
+        chatId: response.id,
+        starred: false,
         followups: response.suggestedPrompts,
       });
     } catch (error) {
@@ -371,6 +373,19 @@ export default function AIChatPage() {
 
   const setFeedback = (id: string, fb: Feedback) =>
     setMessages(prev => prev.map(m => m.id === id ? { ...m, feedback: fb } : m));
+
+  const toggleSaved = async (message: Message) => {
+    if (!message.chatId) {
+      return;
+    }
+
+    try {
+      const updated = await toggleStarChatRequest(message.chatId);
+      setMessages(prev => prev.map(m => m.id === message.id ? { ...m, starred: updated.starred } : m));
+    } catch (error) {
+      console.error('Failed to toggle saved chat:', error);
+    }
+  };
 
   const isIdle = !streamingId && !awaitingStream;
   const showQuickPrompts = messages.length <= 1;
