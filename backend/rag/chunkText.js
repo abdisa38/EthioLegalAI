@@ -13,22 +13,51 @@ const splitTextFallback = (text, chunkSize, overlap) => {
   return chunks;
 };
 
+const normalizeChunk = (chunk) =>
+  chunk
+    .replace(/\s+/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
 const splitText = async (value, options = {}) => {
   const text = cleanText(value);
   if (!text) return [];
 
   const chunkSize = options.chunkSize || 1000;
   const chunkOverlap = options.chunkOverlap || 150;
+  const minChunkSize = options.minChunkSize || 200;
+  const separators = options.separators || ["\n\n", "\n", ". ", "? ", "! ", " "];
 
   try {
     const module = await import("langchain/text_splitter");
     const splitter = new module.RecursiveCharacterTextSplitter({
       chunkSize,
       chunkOverlap,
+      separators,
     });
-    return await splitter.splitText(text);
+    const chunks = await splitter.splitText(text);
+    const seen = new Set();
+    return chunks
+      .map(normalizeChunk)
+      .filter((chunk) => chunk.length >= minChunkSize)
+      .filter((chunk) => {
+        const key = chunk.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
   } catch (error) {
-    return splitTextFallback(text, chunkSize, chunkOverlap);
+    const chunks = splitTextFallback(text, chunkSize, chunkOverlap);
+    const seen = new Set();
+    return chunks
+      .map(normalizeChunk)
+      .filter((chunk) => chunk.length >= minChunkSize)
+      .filter((chunk) => {
+        const key = chunk.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
   }
 };
 
