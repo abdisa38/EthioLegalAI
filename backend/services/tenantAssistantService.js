@@ -23,7 +23,13 @@ const generateTenantAnswer = async ({ message, language }) => {
   let lastError;
   for (const modelName of modelFallbacks) {
     try {
-      const model = client.getGenerativeModel({ model: modelName });
+      const model = client.getGenerativeModel({
+        model: modelName,
+        generationConfig: {
+          temperature: 0.2,
+          topP: 0.9,
+        },
+      });
       const result = await model.generateContent(prompt);
       return ensureStructuredResponse(result.response.text(), language);
     } catch (error) {
