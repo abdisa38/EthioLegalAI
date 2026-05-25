@@ -116,7 +116,7 @@ const generateContractAnalysis = async ({ text, filename, language, documentId }
 
   const cleaned = cleanText(text);
   const trimmed = cleaned.length > 14000 ? cleaned.slice(0, 14000) : cleaned;
-  const prompt = buildContractAnalysisPrompt({ text: trimmed, filename, language });
+  const { systemInstruction, prompt } = buildContractAnalysisPrompt({ text: trimmed, filename, language });
   const client = new GoogleGenerativeAI(apiKey);
 
   let lastError;
@@ -124,6 +124,7 @@ const generateContractAnalysis = async ({ text, filename, language, documentId }
     try {
       const model = client.getGenerativeModel({
         model: modelName,
+        systemInstruction,
         generationConfig: {
           temperature: 0.2,
         },

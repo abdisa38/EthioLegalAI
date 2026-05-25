@@ -11,7 +11,7 @@ const getGeminiClient = () => {
 
 const generateTenantAnswer = async ({ message, language }) => {
   const client = getGeminiClient();
-  const prompt = buildTenantPrompt({ message, language });
+  const { systemInstruction, prompt } = buildTenantPrompt({ message, language });
   const modelEnv = process.env.GEMINI_MODEL;
   const modelFallbacks = [
     modelEnv,
@@ -25,6 +25,7 @@ const generateTenantAnswer = async ({ message, language }) => {
     try {
       const model = client.getGenerativeModel({
         model: modelName,
+        systemInstruction,
         generationConfig: {
           temperature: 0.2,
           topP: 0.9,
