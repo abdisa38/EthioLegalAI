@@ -92,14 +92,14 @@ export default function ContractAnalysisPage() {
       </motion.div>
 
       {/* Summary cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 16, marginBottom: 28 }}>
-        {[
-          { label: 'Overall Risk', value: '68/100', color: '#f59e0b', icon: TrendingDown, desc: 'Medium Risk' },
-          { label: 'High Risk Clauses', value: highCount, color: '#ef4444', icon: AlertTriangle, desc: 'Require action' },
-          { label: 'Medium Risk', value: medCount, color: '#f59e0b', icon: Info, desc: 'Review needed' },
-          { label: 'Safe Clauses', value: lowCount, color: '#10b981', icon: CheckCircle, desc: 'Compliant' },
-          { label: 'AI Confidence', value: '96%', color: '#6366f1', icon: Shield, desc: 'Analysis accuracy' },
-        ].map((stat, i) => (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 16, marginBottom: 28 }}>
+          {[
+            { label: 'Overall Risk', value: `${riskScore}/100`, color: '#f59e0b', icon: TrendingDown, desc: riskLabel },
+            { label: 'High Risk Clauses', value: highCount, color: '#ef4444', icon: AlertTriangle, desc: 'Require action' },
+            { label: 'Medium Risk', value: medCount, color: '#f59e0b', icon: Info, desc: 'Review needed' },
+            { label: 'Safe Clauses', value: lowCount, color: '#10b981', icon: CheckCircle, desc: 'Compliant' },
+            { label: 'AI Confidence', value: aiConfidence ? `${Math.round(aiConfidence)}%` : '—', color: '#6366f1', icon: Shield, desc: 'Analysis accuracy' },
+          ].map((stat, i) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
             style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: '18px 20px' }}>
             <div style={{ width: 34, height: 34, borderRadius: 8, background: `${stat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
