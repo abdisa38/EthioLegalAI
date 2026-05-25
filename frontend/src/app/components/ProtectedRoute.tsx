@@ -5,7 +5,11 @@ export default function ProtectedRoute() {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
-    return null;
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', background: '#080b18' }}>
+        Checking your session...
+      </div>
+    );
   }
 
   if (!isAuthenticated) {
