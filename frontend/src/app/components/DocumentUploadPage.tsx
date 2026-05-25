@@ -384,6 +384,7 @@ export default function DocumentUploadPage() {
     let step = 0;
     const advance = () => {
       if (step >= SCAN_STEPS.length) {
+        setScanStep(SCAN_STEPS.length);
         setScanDone(true);
         return;
       }
@@ -430,20 +431,35 @@ export default function DocumentUploadPage() {
     setAnalysisError('');
   };
 
+  const demoMode = !uploadedDoc && !analysis;
   const safeRiskScore = Number(analysis?.riskScore ?? uploadedDoc?.riskScore ?? RESULT.riskScore);
+  const baseResult = demoMode
+    ? RESULT
+    : {
+        fileName: uploadedDoc?.filename || fileName,
+        docType: 'Legal Document',
+        summary: uploadedDoc?.summary || 'Analysis is processing. Check back shortly.',
+        riskScore: Number.isNaN(safeRiskScore) ? 0 : safeRiskScore,
+        keyFacts: [],
+        risks: [],
+        timeline: [],
+        sideBySide: [],
+        suggestedActions: [],
+        aiConfidence: undefined,
+      };
   const result = {
-    ...RESULT,
+    ...baseResult,
     ...analysis,
-    fileName: analysis?.fileName || uploadedDoc?.filename || fileName,
-    docType: analysis?.docType || RESULT.docType,
-    summary: analysis?.summary || uploadedDoc?.summary || RESULT.summary,
-    riskScore: Number.isNaN(safeRiskScore) ? RESULT.riskScore : safeRiskScore,
-    keyFacts: analysis?.keyFacts?.length ? analysis.keyFacts : RESULT.keyFacts,
-    risks: analysis?.risks?.length ? analysis.risks : RESULT.risks,
-    timeline: analysis?.timeline?.length ? analysis.timeline : RESULT.timeline,
-    sideBySide: analysis?.sideBySide?.length ? analysis.sideBySide : RESULT.sideBySide,
-    suggestedActions: analysis?.suggestedActions?.length ? analysis.suggestedActions : RESULT.suggestedActions,
-    aiConfidence: analysis?.aiConfidence ?? RESULT.aiConfidence,
+    fileName: analysis?.fileName || baseResult.fileName,
+    docType: analysis?.docType || baseResult.docType,
+    summary: analysis?.summary || baseResult.summary,
+    riskScore: Number.isNaN(safeRiskScore) ? baseResult.riskScore : safeRiskScore,
+    keyFacts: analysis?.keyFacts?.length ? analysis.keyFacts : baseResult.keyFacts,
+    risks: analysis?.risks?.length ? analysis.risks : baseResult.risks,
+    timeline: analysis?.timeline?.length ? analysis.timeline : baseResult.timeline,
+    sideBySide: analysis?.sideBySide?.length ? analysis.sideBySide : baseResult.sideBySide,
+    suggestedActions: analysis?.suggestedActions?.length ? analysis.suggestedActions : baseResult.suggestedActions,
+    aiConfidence: analysis?.aiConfidence ?? baseResult.aiConfidence,
   };
   const high = result.risks.filter(r => r.severity === 'high').length;
   const med  = result.risks.filter(r => r.severity === 'medium').length;

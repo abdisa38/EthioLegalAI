@@ -1,61 +1,11 @@
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { motion } from 'motion/react';
 import { AlertTriangle, CheckCircle, Shield, FileSearch, Upload, Info, TrendingDown, DollarSign, Clock } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer, Tooltip } from 'recharts';
+import { useQuery } from '@tanstack/react-query';
+import { getContractAnalysisRequest } from '../api/contracts';
+import type { ContractAnalysis, RiskLevel } from '../api/contracts';
 
-const radarData = [
-  { subject: 'Notice Period', A: 30, fullMark: 100 },
-  { subject: 'Repair Duties', A: 55, fullMark: 100 },
-  { subject: 'Deposit Terms', A: 80, fullMark: 100 },
-  { subject: 'Termination', A: 25, fullMark: 100 },
-  { subject: 'Payment Terms', A: 75, fullMark: 100 },
-  { subject: 'Privacy Rights', A: 90, fullMark: 100 },
-];
-
-const clauses = [
-  {
-    text: 'Landlord may terminate lease with 7 days notice for any reason.',
-    risk: 'high',
-    article: 'Civil Code Art. 2975',
-    explanation: 'Ethiopian law requires minimum 30 days written notice. This clause is legally unenforceable.',
-    safer: 'Landlord may terminate lease with minimum 30 days written notice as required by Ethiopian Civil Code.'
-  },
-  {
-    text: 'Tenant assumes full responsibility for all property maintenance including structural repairs.',
-    risk: 'high',
-    article: 'Housing Proclamation 35/1998',
-    explanation: 'Structural repairs are legally the landlord\'s responsibility under Ethiopian housing law.',
-    safer: 'Tenant is responsible for minor maintenance. Landlord bears responsibility for structural and major repairs.'
-  },
-  {
-    text: 'Security deposit of 2 months rent must be paid upfront.',
-    risk: 'medium',
-    article: 'Civil Code Art. 2955',
-    explanation: '2 months deposit is above the standard 1-month deposit common in Addis Ababa. Negotiate for 1 month.',
-    safer: 'Security deposit of 1 month rent, refundable within 30 days of lease termination.'
-  },
-  {
-    text: 'Landlord reserves the right to enter the property at any time.',
-    risk: 'medium',
-    article: 'Civil Code Art. 2910',
-    explanation: 'Landlord must provide at least 24 hours notice before entry except in emergencies.',
-    safer: 'Landlord may enter premises with minimum 24 hours notice except in case of emergency.'
-  },
-  {
-    text: 'No subletting without prior written consent.',
-    risk: 'low',
-    article: 'Civil Code Art. 2920',
-    explanation: 'This is standard and compliant with Ethiopian rental law.',
-    safer: null
-  },
-  {
-    text: 'Rent to be paid on the 1st of each month via bank transfer.',
-    risk: 'low',
-    article: 'Standard',
-    explanation: 'Clear, standard payment terms. This clause is fair and compliant.',
-    safer: null
-  },
-];
 
 const riskConfig = {
   high: { color: '#ef4444', bg: 'rgba(239,68,68,0.08)', border: 'rgba(239,68,68,0.2)', label: 'High Risk', icon: AlertTriangle },
@@ -65,6 +15,62 @@ const riskConfig = {
 
 export default function ContractAnalysisPage() {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const documentId = params.get('documentId');
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['contract-analysis', documentId],
+    queryFn: () => getContractAnalysisRequest(documentId as string),
+    enabled: Boolean(documentId),
+  });
+
+  if (!documentId) {
+    return (
+      <div style={{ padding: '48px 28px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9', marginBottom: 8 }}>Select a document to analyze</h1>
+        <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Choose a document from your library or upload a new contract to view its risk analysis.</p>
+        <button onClick={() => navigate('/app/documents')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+          View My Documents
+        </button>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return <div style={{ color: '#94a3b8', padding: '48px', textAlign: 'center' }}>Loading contract analysis...</div>;
+  }
+
+  if (isError || !data?.analysis) {
+    return (
+      <div style={{ padding: '48px 28px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9', marginBottom: 8 }}>Analysis not available yet</h1>
+        <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Run a fresh analysis by uploading the document again.</p>
+        <button onClick={() => navigate('/app/upload')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+          Analyze New Contract
+        </button>
+      </div>
+    );
+  }
+
+  const analysis: ContractAnalysis = data.analysis;
+  const clauses = analysis.risks?.length
+    ? analysis.risks.map(risk => ({
+        text: risk.clause,
+        risk: risk.severity as RiskLevel,
+        article: risk.article || 'General guidance',
+        explanation: risk.explanation,
+        safer: risk.safer || null,
+      }))
+    : [];
+
+  const radarData = analysis.riskBreakdown?.length
+    ? analysis.riskBreakdown.map(item => ({ subject: item.subject, A: item.score, fullMark: 100 }))
+    : [];
+
+  const financialRisks = analysis.financialRisks?.length ? analysis.financialRisks : [];
+  const fileLabel = analysis.fileName || data.document?.filename || 'Contract';
+  const riskScore = analysis.riskScore ?? 0;
+  const aiConfidence = analysis.aiConfidence ?? 0;
 
   const highCount = clauses.filter(c => c.risk === 'high').length;
   const medCount = clauses.filter(c => c.risk === 'medium').length;
