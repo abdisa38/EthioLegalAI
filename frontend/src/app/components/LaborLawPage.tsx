@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 import { TrendingUp, MessageSquare, AlertTriangle, DollarSign, Clock, Shield, FileText, Users, ChevronRight, Briefcase, CheckCircle } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import { askLaborAssistantRequest } from '../api/laborAssistant';
 
 const rights = [
   { icon: Clock, title: 'Working Hours & Overtime', law: 'Labor Proc. 1156/2019 Art. 61', desc: 'Maximum 8 hours/day, 48 hours/week. Overtime must be paid at 125% of regular rate. Weekend work: 150%. Night shift (10pm–6am): 175%.', color: '#6366f1', highlight: ['8 hrs/day max', 'OT: 125%', 'Weekend: 150%'] },
@@ -30,6 +32,36 @@ const faqs = [
 export default function LaborLawPage() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [assistantError, setAssistantError] = useState('');
+  const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>([
+    'Unpaid salary',
+    'Overtime pay',
+    'Termination notice',
+    'Severance entitlement',
+  ]);
+
+  const laborMutation = useMutation({
+    mutationFn: askLaborAssistantRequest,
+    onSuccess: data => {
+      setAnswer(data.answer);
+      setSuggestedPrompts(data.suggestedPrompts);
+      setAssistantError('');
+    },
+    onError: error => {
+      const message = error instanceof Error ? error.message : 'Unable to get an answer right now.';
+      setAssistantError(message);
+    },
+  });
+
+  const submitQuestion = (value?: string) => {
+    const payload = (value ?? question).trim();
+    if (!payload) return;
+    setAnswer('');
+    setAssistantError('');
+    laborMutation.mutate({ message: payload });
+  };
 
   return (
     <div style={{ padding: '32px 28px', maxWidth: 1100, margin: '0 auto' }}>
@@ -150,6 +182,45 @@ export default function LaborLawPage() {
         <div>
           <h3 style={{ fontSize: 17, fontWeight: 700, color: '#f1f5f9', marginBottom: 8 }}>Have a Workplace Dispute?</h3>
           <p style={{ color: '#64748b', fontSize: 14 }}>Describe your situation and get personalized guidance from our AI legal assistant.</p>
+          <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
+            {suggestedPrompts.map(tag => (
+              <button
+                key={tag}
+                onClick={() => {
+                  setQuestion(tag);
+                  submitQuestion(tag);
+                }}
+                style={{ padding: '4px 12px', borderRadius: 100, background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.25)', fontSize: 12, color: '#f59e0b', cursor: 'pointer' }}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+          <div style={{ marginTop: 16 }}>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              <input
+                value={question}
+                onChange={event => setQuestion(event.target.value)}
+                placeholder="Describe your labor issue..."
+                style={{ flex: 1, minWidth: 240, background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, padding: '10px 12px', color: '#e2e8f0', fontSize: 13, outline: 'none' }}
+              />
+              <button
+                onClick={() => submitQuestion()}
+                disabled={laborMutation.isPending}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', borderRadius: 10, background: 'linear-gradient(135deg, #f59e0b, #ef4444)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 700, opacity: laborMutation.isPending ? 0.7 : 1 }}
+              >
+                {laborMutation.isPending ? 'Asking...' : 'Ask Labor AI'}
+              </button>
+            </div>
+            {assistantError && (
+              <div style={{ marginTop: 10, color: '#fca5a5', fontSize: 12 }}>{assistantError}</div>
+            )}
+            {answer && (
+              <div style={{ marginTop: 12, background: 'rgba(15,23,42,0.5)', border: '1px solid rgba(148,163,184,0.15)', borderRadius: 12, padding: '12px 14px', color: '#cbd5e1', fontSize: 13, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+                {answer}
+              </div>
+            )}
+          </div>
         </div>
         <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: 12, background: 'linear-gradient(135deg, #f59e0b, #ef4444)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 15, fontWeight: 700, flexShrink: 0 }}>
           <MessageSquare size={18} /> Ask Labor AI
