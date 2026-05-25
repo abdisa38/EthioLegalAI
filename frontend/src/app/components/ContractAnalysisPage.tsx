@@ -75,6 +75,7 @@ export default function ContractAnalysisPage() {
   const highCount = clauses.filter(c => c.risk === 'high').length;
   const medCount = clauses.filter(c => c.risk === 'medium').length;
   const lowCount = clauses.filter(c => c.risk === 'low').length;
+  const riskLabel = riskScore >= 70 ? 'High Risk' : riskScore >= 40 ? 'Medium Risk' : 'Low Risk';
 
   return (
     <div style={{ padding: '32px 28px', maxWidth: 1100, margin: '0 auto' }}>
