@@ -64,7 +64,7 @@ const normalizeAnalysis = (analysis, { filename, documentId, language }) => {
   const warnings = [
     ...safeArray(analysis.warnings).map((item) => String(item).trim()).filter(Boolean),
   ];
-  if (!warnings.some((item) => item.includes("Educational") || item.includes("ትምህር")) && disclaimer) {
+  if (disclaimer && !warnings.some((item) => item.includes(disclaimer))) {
     warnings.push(disclaimer);
   }
 
