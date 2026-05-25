@@ -595,15 +595,21 @@ export default function DocumentUploadPage() {
               </div>
             </div>
 
+            {analysisError && (
+              <div style={{ marginBottom: 18, padding: '12px 16px', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 12, color: '#fca5a5', fontSize: 13 }}>
+                {analysisError}
+              </div>
+            )}
+
             {/* Quick stats */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 12, marginBottom: 22 }}>
-              {[
-                { label: 'Risk Score', value: `${result.riskScore}/100`, color: '#f59e0b', icon: TrendingDown },
-                { label: 'High Risk', value: String(high), color: '#ef4444', icon: AlertTriangle },
-                { label: 'Medium Risk', value: String(med), color: '#f59e0b', icon: Info },
-                { label: 'Compliant', value: String(low), color: '#10b981', icon: CheckCircle },
-                { label: 'AI Accuracy', value: '96%', color: '#6366f1', icon: Zap },
-              ].map(s => (
+                {[
+                  { label: 'Risk Score', value: `${result.riskScore}/100`, color: '#f59e0b', icon: TrendingDown },
+                  { label: 'High Risk', value: String(high), color: '#ef4444', icon: AlertTriangle },
+                  { label: 'Medium Risk', value: String(med), color: '#f59e0b', icon: Info },
+                  { label: 'Compliant', value: String(low), color: '#10b981', icon: CheckCircle },
+                  { label: 'AI Accuracy', value: result.aiConfidence ? `${Math.round(result.aiConfidence)}%` : '—', color: '#6366f1', icon: Zap },
+                ].map(s => (
                 <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                   style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '14px 16px' }}>
                   <div style={{ width: 30, height: 30, borderRadius: 8, background: `${s.color}14`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
@@ -656,7 +662,7 @@ export default function DocumentUploadPage() {
                         <CheckCircle size={16} color="#10b981" />
                         <h3 style={{ fontSize: 15, fontWeight: 700 }}>Recommended Actions</h3>
                       </div>
-                      {['Negotiate the 7-day termination notice to 30 days (legally required)', 'Remove or rewrite the blanket repair responsibility clause', 'Negotiate security deposit down to 1 month (8,500 ETB)', 'Add a 24-hour notice-of-entry clause for landlord visits'].map((a, i) => (
+                      {result.suggestedActions.map((a, i) => (
                         <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 9 }}>
                           <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#10b981', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{i + 1}</div>
                           <span style={{ color: '#94a3b8', fontSize: 13, lineHeight: 1.55 }}>{a}</span>
