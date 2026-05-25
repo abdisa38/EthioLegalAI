@@ -195,10 +195,11 @@ function ActionBar({
   onFeedback: (v: Feedback) => void;
 }) {
   const [copied, setCopied] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [savedPulse, setSavedPulse] = useState(false);
 
   const copy = () => { onCopy(); setCopied(true); setTimeout(() => setCopied(false), 2000); };
-  const save = () => { onSave(); setSaved(true); setTimeout(() => setSaved(false), 2500); };
+  const save = () => { onSave(); setSavedPulse(true); setTimeout(() => setSavedPulse(false), 2000); };
+  const saved = Boolean(msg.starred);
 
   return (
     <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
@@ -211,7 +212,7 @@ function ActionBar({
       <button onClick={save}
         style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: saved ? 'rgba(245,158,11,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${saved ? 'rgba(245,158,11,0.3)' : 'rgba(255,255,255,0.08)'}`, cursor: 'pointer', color: saved ? '#f59e0b' : '#64748b', fontSize: 12, transition: 'all 0.2s' }}>
         <Bookmark size={11} fill={saved ? '#f59e0b' : 'none'} />
-        {saved ? 'Saved' : 'Save'}
+        {saved ? 'Saved' : savedPulse ? 'Saving...' : 'Save'}
       </button>
       <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: '#64748b', fontSize: 12 }}>
         <Share2 size={11} /> Share
