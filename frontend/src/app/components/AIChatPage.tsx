@@ -349,6 +349,7 @@ export default function AIChatPage() {
         chatId: response.id,
         starred: false,
         confidence: response.confidence,
+        category: 'General',
         followups: response.suggestedPrompts,
       });
     } catch (error) {
