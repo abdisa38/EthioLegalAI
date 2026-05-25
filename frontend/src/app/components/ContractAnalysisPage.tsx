@@ -82,7 +82,7 @@ export default function ContractAnalysisPage() {
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           <div>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>Contract Risk Analysis</h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>AI-powered analysis of rental_agreement_bole.pdf</p>
+            <p style={{ color: '#64748b', fontSize: 15 }}>AI-powered analysis of {fileLabel}</p>
           </div>
           <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <Upload size={14} /> Analyze New Contract
