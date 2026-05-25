@@ -511,7 +511,7 @@ export default function AIChatPage() {
                     <ActionBar
                       msg={msg}
                       onCopy={() => navigator.clipboard?.writeText(msg.text)}
-                      onSave={() => {}}
+                      onSave={() => toggleSaved(msg)}
                       onFeedback={(v) => setFeedback(msg.id, v)}
                     />
                   )}
