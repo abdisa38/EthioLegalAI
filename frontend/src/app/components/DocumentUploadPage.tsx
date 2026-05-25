@@ -350,6 +350,10 @@ export default function DocumentUploadPage() {
     setStage('uploading');
     setProgress(0);
     setScanStep(0);
+    setScanDone(false);
+    setUploadedDoc(null);
+    setAnalysis(null);
+    setAnalysisError('');
 
     // Simulate upload progress
     let p = 0;
@@ -369,7 +373,10 @@ export default function DocumentUploadPage() {
     setStage('uploading');
     setProgress(0);
     setScanStep(0);
+    setScanDone(false);
     setUploadedDoc(null);
+    setAnalysis(null);
+    setAnalysisError('');
     uploadMutation.mutate(file);
   };
 
@@ -377,7 +384,7 @@ export default function DocumentUploadPage() {
     let step = 0;
     const advance = () => {
       if (step >= SCAN_STEPS.length) {
-        setTimeout(() => setStage('results'), 500);
+        setScanDone(true);
         return;
       }
       setScanStep(step);
@@ -385,6 +392,14 @@ export default function DocumentUploadPage() {
     };
     advance();
   };
+
+  useEffect(() => {
+    if (stage !== 'scanning') return;
+    if (!scanDone) return;
+    const waitForAnalysis = Boolean(uploadedDoc);
+    if (waitForAnalysis && !analysis && !analysisError) return;
+    setStage('results');
+  }, [analysis, analysisError, scanDone, stage, uploadedDoc]);
 
   const handleFile = (file: File) => {
     const err = validateFile(file);
