@@ -1,6 +1,6 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { cleanText } = require("../utils/textCleaner");
-const { buildContractAnalysisPrompt } = require("../ai/promptManager");
+const { buildContractAnalysisPrompt, getLanguageProfile } = require("../ai/promptManager");
 
 const DEFAULT_MODEL_FALLBACKS = [
   process.env.GEMINI_MODEL,
@@ -37,8 +37,9 @@ const parseJsonResponse = (text) => {
   return JSON.parse(jsonText);
 };
 
-const normalizeAnalysis = (analysis, { filename, documentId }) => {
+const normalizeAnalysis = (analysis, { filename, documentId, language }) => {
   const safeArray = (value) => (Array.isArray(value) ? value : []);
+  const disclaimer = getLanguageProfile(language).disclaimer;
 
   const risks = safeArray(analysis.risks).map((risk, index) => ({
     id: Number.isFinite(risk?.id) ? Number(risk.id) : index + 1,
@@ -67,7 +68,9 @@ const normalizeAnalysis = (analysis, { filename, documentId }) => {
     summary: String(analysis.summary || "Summary not available.").trim(),
     riskScore,
     aiConfidence: clamp(toNumber(analysis.aiConfidence, 90), 0, 100),
-    warnings: safeArray(analysis.warnings).map((item) => String(item).trim()).filter(Boolean),
+    warnings: [
+      ...safeArray(analysis.warnings).map((item) => String(item).trim()).filter(Boolean),
+    ].filter(Boolean),
     suggestedActions: safeArray(analysis.suggestedActions).map((item) => String(item).trim()).filter(Boolean),
     keyFacts: safeArray(analysis.keyFacts).map((fact) => ({
       label: String(fact?.label || "").trim(),
