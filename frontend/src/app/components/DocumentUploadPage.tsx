@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { useMutation } from '@tanstack/react-query';
@@ -9,7 +9,9 @@ import {
   FileX, Printer, SplitSquareHorizontal, List, BarChart3
 } from 'lucide-react';
 import { uploadDocumentRequest } from '../api/documents';
+import { analyzeContractRequest } from '../api/contracts';
 import type { DocumentRecord } from '../api/documents';
+import type { ContractAnalysis } from '../api/contracts';
 
 // ─── Types & constants ────────────────────────────────────────────────────────
 
