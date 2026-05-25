@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 import { Shield, MessageSquare, AlertTriangle, Home, DollarSign, Clock, Wrench, FileText, Phone, ChevronRight, CheckCircle } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import { askTenantAssistantRequest } from '../api/tenantAssistant';
 
 const emergencyCards = [
   { icon: AlertTriangle, title: 'Illegal Eviction Threatened', color: '#ef4444', desc: 'If your landlord threatens immediate eviction without notice, you have the right to stay. Contact local Woreda office immediately.', action: 'Get Emergency Help' },
@@ -28,6 +30,36 @@ const faqs = [
 export default function TenantRightsPage() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [assistantError, setAssistantError] = useState('');
+  const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>([
+    'Eviction notice',
+    'Deposit dispute',
+    'Rent increase',
+    'Illegal entry',
+  ]);
+
+  const tenantMutation = useMutation({
+    mutationFn: askTenantAssistantRequest,
+    onSuccess: data => {
+      setAnswer(data.answer);
+      setSuggestedPrompts(data.suggestedPrompts);
+      setAssistantError('');
+    },
+    onError: error => {
+      const message = error instanceof Error ? error.message : 'Unable to get an answer right now.';
+      setAssistantError(message);
+    },
+  });
+
+  const submitQuestion = (value?: string) => {
+    const payload = (value ?? question).trim();
+    if (!payload) return;
+    setAnswer('');
+    setAssistantError('');
+    tenantMutation.mutate({ message: payload });
+  };
 
   return (
     <div style={{ padding: '32px 28px', maxWidth: 1100, margin: '0 auto' }}>
@@ -125,9 +157,43 @@ export default function TenantRightsPage() {
           <h3 style={{ fontSize: 17, fontWeight: 700, color: '#f1f5f9', marginBottom: 8 }}>Have a Specific Tenant Question?</h3>
           <p style={{ color: '#64748b', fontSize: 14 }}>Ask our AI about your exact situation. Get answers in English, Amharic, or Afaan Oromo.</p>
           <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
-            {['Eviction notice', 'Deposit dispute', 'Rent increase', 'Illegal entry'].map(tag => (
-              <span key={tag} style={{ padding: '4px 12px', borderRadius: 100, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', fontSize: 12, color: '#34d399' }}>{tag}</span>
+            {suggestedPrompts.map(tag => (
+              <button
+                key={tag}
+                onClick={() => {
+                  setQuestion(tag);
+                  submitQuestion(tag);
+                }}
+                style={{ padding: '4px 12px', borderRadius: 100, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', fontSize: 12, color: '#34d399', cursor: 'pointer' }}
+              >
+                {tag}
+              </button>
             ))}
+          </div>
+          <div style={{ marginTop: 16 }}>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              <input
+                value={question}
+                onChange={event => setQuestion(event.target.value)}
+                placeholder="Describe your tenant issue..."
+                style={{ flex: 1, minWidth: 240, background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, padding: '10px 12px', color: '#e2e8f0', fontSize: 13, outline: 'none' }}
+              />
+              <button
+                onClick={() => submitQuestion()}
+                disabled={tenantMutation.isPending}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', borderRadius: 10, background: 'linear-gradient(135deg, #10b981, #06b6d4)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 700, opacity: tenantMutation.isPending ? 0.7 : 1 }}
+              >
+                {tenantMutation.isPending ? 'Asking...' : 'Ask Tenant AI'}
+              </button>
+            </div>
+            {assistantError && (
+              <div style={{ marginTop: 10, color: '#fca5a5', fontSize: 12 }}>{assistantError}</div>
+            )}
+            {answer && (
+              <div style={{ marginTop: 12, background: 'rgba(15,23,42,0.5)', border: '1px solid rgba(148,163,184,0.15)', borderRadius: 12, padding: '12px 14px', color: '#cbd5e1', fontSize: 13, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+                {answer}
+              </div>
+            )}
           </div>
         </div>
         <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: 12, background: 'linear-gradient(135deg, #10b981, #06b6d4)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 15, fontWeight: 700, flexShrink: 0 }}>
