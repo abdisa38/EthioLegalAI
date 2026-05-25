@@ -1,5 +1,14 @@
 const Chat = require("../models/Chat");
 const { generateLaborAnswer } = require("../services/laborAssistantService");
+const { calculateConfidence } = require("../utils/confidenceScorer");
+
+const buildChunks = (text) => {
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  if (sentences.length <= 1) {
+    return [text];
+  }
+  return sentences;
+};
 
 const askLaborAssistant = async (req, res, next) => {
   try {
@@ -9,6 +18,8 @@ const askLaborAssistant = async (req, res, next) => {
     }
 
     const answer = await generateLaborAnswer({ message, language });
+    const confidence = calculateConfidence(answer, false);
+    const chunks = buildChunks(answer);
 
     await Chat.create({
       userId: req.user._id,
@@ -21,6 +32,10 @@ const askLaborAssistant = async (req, res, next) => {
 
     return res.json({
       answer,
+      chunks,
+      confidence,
+      contextUsed: false,
+      sources: [],
       suggestedPrompts: [
         "My salary is delayed for two months. What should I do?",
         "Am I entitled to overtime pay for weekend work?",
