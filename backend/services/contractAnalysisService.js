@@ -1,6 +1,6 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const { SYSTEM_PROMPT } = require("../ai/systemPrompt");
 const { cleanText } = require("../utils/textCleaner");
+const { buildContractAnalysisPrompt } = require("../ai/promptManager");
 
 const DEFAULT_MODEL_FALLBACKS = [
   process.env.GEMINI_MODEL,
@@ -35,53 +35,6 @@ const parseJsonResponse = (text) => {
   }
   const jsonText = text.slice(start, end + 1);
   return JSON.parse(jsonText);
-};
-
-const buildPrompt = ({ text, filename, language }) => {
-  const langHint = language ? `Respond in ${language}.` : "Respond in English.";
-  return `
-${SYSTEM_PROMPT}
-You are analyzing an Ethiopian legal contract for risk. ${langHint}
-Return JSON only, no markdown or extra text.
-
-Required JSON shape:
-{
-  "docType": "string",
-  "summary": "string",
-  "riskScore": 0,
-  "aiConfidence": 0,
-  "warnings": ["string"],
-  "suggestedActions": ["string"],
-  "keyFacts": [{ "label": "string", "value": "string", "risk": true }],
-  "risks": [
-    {
-      "id": 1,
-      "severity": "high|medium|low",
-      "clause": "string",
-      "explanation": "string",
-      "article": "string",
-      "safer": "string or null",
-      "confidence": 0
-    }
-  ],
-  "timeline": [{ "date": "string", "label": "string", "type": "start|payment|milestone|deadline|end|other", "urgent": true }],
-  "sideBySide": [{ "original": "string", "simplified": "string", "risk": "high|medium|low" }],
-  "riskBreakdown": [{ "subject": "string", "score": 0 }],
-  "financialRisks": [{ "label": "string", "value": "string", "note": "string", "risk": true }]
-}
-
-Rules:
-- Be conservative: do not invent legal citations. If unsure, use "General guidance" for article.
-- Summaries must be concise (3-5 sentences).
-- riskScore is 0-100 where higher means more risk to the user.
-- aiConfidence is 0-100.
-- Include 4-8 risks max.
-- Include 3-6 keyFacts and 3-6 suggestedActions.
-
-File name: ${filename || "Unknown"}
-Contract text:
-${text}
-`.trim();
 };
 
 const normalizeAnalysis = (analysis, { filename, documentId }) => {
@@ -155,7 +108,7 @@ const generateContractAnalysis = async ({ text, filename, language, documentId }
 
   const cleaned = cleanText(text);
   const trimmed = cleaned.length > 14000 ? cleaned.slice(0, 14000) : cleaned;
-  const prompt = buildPrompt({ text: trimmed, filename, language });
+  const prompt = buildContractAnalysisPrompt({ text: trimmed, filename, language });
   const client = new GoogleGenerativeAI(apiKey);
 
   let lastError;
