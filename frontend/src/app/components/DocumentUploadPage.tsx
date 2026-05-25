@@ -422,17 +422,28 @@ export default function DocumentUploadPage() {
     setStage('idle');
     setProgress(0);
     setScanStep(0);
+    setScanDone(false);
     setFileError('');
     setFileName('');
     setUploadedDoc(null);
+    setAnalysis(null);
+    setAnalysisError('');
   };
 
-  const safeRiskScore = uploadedDoc?.riskScore ? Number(uploadedDoc.riskScore) : RESULT.riskScore;
+  const safeRiskScore = Number(analysis?.riskScore ?? uploadedDoc?.riskScore ?? RESULT.riskScore);
   const result = {
     ...RESULT,
-    fileName: uploadedDoc?.filename || fileName,
-    summary: uploadedDoc?.summary || RESULT.summary,
+    ...analysis,
+    fileName: analysis?.fileName || uploadedDoc?.filename || fileName,
+    docType: analysis?.docType || RESULT.docType,
+    summary: analysis?.summary || uploadedDoc?.summary || RESULT.summary,
     riskScore: Number.isNaN(safeRiskScore) ? RESULT.riskScore : safeRiskScore,
+    keyFacts: analysis?.keyFacts?.length ? analysis.keyFacts : RESULT.keyFacts,
+    risks: analysis?.risks?.length ? analysis.risks : RESULT.risks,
+    timeline: analysis?.timeline?.length ? analysis.timeline : RESULT.timeline,
+    sideBySide: analysis?.sideBySide?.length ? analysis.sideBySide : RESULT.sideBySide,
+    suggestedActions: analysis?.suggestedActions?.length ? analysis.suggestedActions : RESULT.suggestedActions,
+    aiConfidence: analysis?.aiConfidence ?? RESULT.aiConfidence,
   };
   const high = result.risks.filter(r => r.severity === 'high').length;
   const med  = result.risks.filter(r => r.severity === 'medium').length;
