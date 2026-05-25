@@ -24,7 +24,13 @@ const generateAnswer = async ({ message, language, context, sources }) => {
 
   for (const modelName of modelFallbacks) {
     try {
-      const model = client.getGenerativeModel({ model: modelName });
+      const model = client.getGenerativeModel({
+        model: modelName,
+        generationConfig: {
+          temperature: 0.2,
+          topP: 0.9,
+        },
+      });
       const result = await model.generateContent(prompt);
       const response = result.response;
       return ensureStructuredResponse(response.text(), language);
