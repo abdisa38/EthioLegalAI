@@ -30,7 +30,6 @@ const chatSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chat",
       default: null,
-      index: true,
     },
     
     question: {

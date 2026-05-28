@@ -46,32 +46,57 @@ const register = async (req, res, next) => {
       return res.status(400).json({ error: { message: "Name, email, and password are required" } });
     }
 
+    // Check if user already exists (simple query)
     const existingUser = await User.findOne({ 
-      email: email.toLowerCase(),
-      isDeleted: { $ne: true }
+      email: email.toLowerCase()
     });
     
-    if (existingUser) {
+    // Check if user exists and is not deleted
+    if (existingUser && !existingUser.isDeleted) {
       return res.status(409).json({ error: { message: "Email is already registered" } });
     }
 
-    const user = await User.create({
+    // Create new user with explicit field values
+    const userData = {
       name,
-      email,
+      email: email.toLowerCase(),
       password,
       languagePreference: languagePreference || "en",
       isActive: true,
+      isDeleted: false,
       isEmailVerified: false,
+      failedLoginAttempts: 0,
+      twoFactorEnabled: false,
+      role: "user",
+      permissions: [],
       subscription: {
         plan: "free",
         status: "active",
+        startDate: null,
+        endDate: null,
         limits: {
           maxDocuments: 10,
           maxChats: 50,
           maxStorageBytes: 10485760,
         },
       },
-    });
+      profile: {
+        bio: "",
+        avatarUrl: "",
+        phone: "",
+        organization: "",
+        location: "",
+      },
+      preferences: {
+        emailNotifications: true,
+        marketingEmails: false,
+        theme: "light",
+        timezone: "UTC",
+        dateFormat: "MM/DD/YYYY",
+      },
+    };
+
+    const user = await User.create(userData);
 
     const accessToken = generateAccessToken(user);
     const refresh = await issueRefreshToken({
@@ -106,12 +131,13 @@ const login = async (req, res, next) => {
       return res.status(400).json({ error: { message: "Email and password are required" } });
     }
 
+    // Find user (simple query)
     const user = await User.findOne({ 
-      email: email.toLowerCase(),
-      isDeleted: { $ne: true } // Handle soft delete
+      email: email.toLowerCase()
     }).select("+password");
     
-    if (!user) {
+    // Check if user exists and is not deleted
+    if (!user || user.isDeleted) {
       logSecurityEvent("login_failed", { email, ip: req.ip });
       return res.status(401).json({ error: { message: "Invalid credentials" } });
     }
