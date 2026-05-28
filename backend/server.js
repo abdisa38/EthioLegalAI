@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const { apiLimiter } = require("./middleware/rateLimiters");
 const sanitizeRequest = require("./middleware/sanitizeRequest");
 const errorHandler = require("./middleware/errorHandler");
-const connectDatabase = require("./config/db");
+const { connectDatabase } = require("./config/db");
 const apiRoutes = require("./routes");
 const { validateEnv } = require("./config/env");
 
