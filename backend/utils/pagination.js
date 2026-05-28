@@ -1,223 +1,213 @@
 /**
- * Pagination Utilities
- * Provides reusable pagination logic for all MongoDB queries
+ * Reusable Pagination Utility
+ * Provides consistent pagination across all models
  */
-
-// Default pagination options
-const DEFAULT_PAGE = 1;
-const DEFAULT_LIMIT = 20;
-const MAX_LIMIT = 100;
 
 /**
- * Parse pagination parameters from request
- * @param {Object} query - Express query object
- * @returns {Object} - { page, limit, skip, sort }
+ * Paginate query results
+ * @param {Object} model - Mongoose model
+ * @param {Object} query - Query conditions
+ * @param {Object} options - Pagination options
+ * @returns {Promise<Object>} Paginated results
  */
-function parsePagination(query) {
-  let page = parseInt(query.page) || DEFAULT_PAGE;
-  let limit = parseInt(query.limit) || DEFAULT_LIMIT;
-  const sortBy = query.sortBy || "-createdAt";
+const paginate = async (model, query = {}, options = {}) => {
+  const {
+    page = 1,
+    limit = 10,
+    sort = { createdAt: -1 },
+    select = '',
+    populate = null,
+    lean = true,
+  } = options;
 
-  // Validate
-  if (page < 1) page = DEFAULT_PAGE;
-  if (limit < 1) limit = DEFAULT_LIMIT;
-  if (limit > MAX_LIMIT) limit = MAX_LIMIT;
+  // Validate pagination parameters
+  const pageNum = Math.max(1, parseInt(page, 10));
+  const limitNum = Math.min(100, Math.max(1, parseInt(limit, 10))); // Max 100 items per page
+  const skip = (pageNum - 1) * limitNum;
 
-  const skip = (page - 1) * limit;
+  // Build query
+  let queryBuilder = model.find(query);
 
-  // Parse sort string (e.g., "-createdAt" or "name")
-  const sort = {};
-  const sortField = sortBy.startsWith("-") ? sortBy.slice(1) : sortBy;
-  const sortOrder = sortBy.startsWith("-") ? -1 : 1;
-  sort[sortField] = sortOrder;
+  // Apply select
+  if (select) {
+    queryBuilder = queryBuilder.select(select);
+  }
 
-  return {
-    page,
-    limit,
-    skip,
-    sort,
-    sortBy,
-  };
-}
-
-/**
- * Execute paginated query with metadata
- * @param {Model} model - Mongoose model
- * @param {Object} query - Query filter object
- * @param {Object} pagination - Pagination options
- * @param {String} select - Fields to select
- * @param {Array} populate - Fields to populate
- * @returns {Promise<Object>} - { data, pagination, total }
- */
-async function executePaginatedQuery(
-  model,
-  query,
-  pagination,
-  select = null,
-  populate = []
-) {
-  try {
-    // Get total count
-    const total = await model.countDocuments(query);
-
-    // Execute query
-    let queryBuilder = model.find(query);
-
-    // Apply selections
-    if (select) {
-      queryBuilder = queryBuilder.select(select);
-    }
-
-    // Apply population
-    if (populate && populate.length > 0) {
-      for (const pop of populate) {
+  // Apply populate
+  if (populate) {
+    if (Array.isArray(populate)) {
+      populate.forEach((pop) => {
         queryBuilder = queryBuilder.populate(pop);
-      }
+      });
+    } else {
+      queryBuilder = queryBuilder.populate(populate);
     }
-
-    // Apply sorting, skip, and limit
-    const data = await queryBuilder
-      .sort(pagination.sort)
-      .skip(pagination.skip)
-      .limit(pagination.limit)
-      .lean();
-
-    // Calculate metadata
-    const totalPages = Math.ceil(total / pagination.limit);
-    const hasNextPage = pagination.page < totalPages;
-    const hasPrevPage = pagination.page > 1;
-
-    return {
-      data,
-      pagination: {
-        page: pagination.page,
-        limit: pagination.limit,
-        total,
-        totalPages,
-        hasNextPage,
-        hasPrevPage,
-        skip: pagination.skip,
-      },
-    };
-  } catch (err) {
-    throw new Error(`Pagination query error: ${err.message}`);
   }
-}
 
-/**
- * Middleware to attach pagination to request
- */
-function paginationMiddleware(req, res, next) {
-  req.pagination = parsePagination(req.query);
-  next();
-}
+  // Apply sort
+  queryBuilder = queryBuilder.sort(sort);
 
-/**
- * Format paginated response
- */
-function formatPaginatedResponse(data, pagination, success = true) {
+  // Apply pagination
+  queryBuilder = queryBuilder.skip(skip).limit(limitNum);
+
+  // Apply lean for better performance
+  if (lean) {
+    queryBuilder = queryBuilder.lean();
+  }
+
+  // Execute query and count in parallel
+  const [results, totalCount] = await Promise.all([
+    queryBuilder.exec(),
+    model.countDocuments(query),
+  ]);
+
+  // Calculate pagination metadata
+  const totalPages = Math.ceil(totalCount / limitNum);
+  const hasNextPage = pageNum < totalPages;
+  const hasPrevPage = pageNum > 1;
+
   return {
-    success,
-    data,
-    pagination,
-    timestamp: new Date().toISOString(),
+    data: results,
+    pagination: {
+      currentPage: pageNum,
+      totalPages,
+      totalCount,
+      limit: limitNum,
+      hasNextPage,
+      hasPrevPage,
+      nextPage: hasNextPage ? pageNum + 1 : null,
+      prevPage: hasPrevPage ? pageNum - 1 : null,
+    },
   };
-}
+};
 
 /**
- * Cursor-based pagination for large datasets
- * @param {Model} model - Mongoose model
- * @param {Object} query - Query filter
- * @param {String} cursor - Cursor for next page
- * @param {Number} limit - Results per page
- * @param {String} cursorField - Field to use for cursor (default: _id)
+ * Cursor-based pagination for real-time data
+ * Better for infinite scroll and real-time updates
  */
-async function getCursorPaginated(
-  model,
-  query,
-  cursor = null,
-  limit = 20,
-  cursorField = "_id"
-) {
-  try {
-    const finalQuery = { ...query };
+const cursorPaginate = async (model, query = {}, options = {}) => {
+  const {
+    cursor = null,
+    limit = 10,
+    sort = { createdAt: -1 },
+    select = '',
+    populate = null,
+    lean = true,
+  } = options;
 
-    if (cursor) {
-      finalQuery[cursorField] = { $gt: cursor };
+  const limitNum = Math.min(100, Math.max(1, parseInt(limit, 10)));
+
+  // Build query with cursor
+  let queryBuilder = model.find(query);
+
+  if (cursor) {
+    const sortField = Object.keys(sort)[0];
+    const sortOrder = sort[sortField];
+    
+    if (sortOrder === -1) {
+      queryBuilder = queryBuilder.where(sortField).lt(cursor);
+    } else {
+      queryBuilder = queryBuilder.where(sortField).gt(cursor);
     }
-
-    const data = await model
-      .find(finalQuery)
-      .sort({ [cursorField]: 1 })
-      .limit(limit + 1)
-      .lean();
-
-    const hasMore = data.length > limit;
-    const results = data.slice(0, limit);
-    const nextCursor = hasMore ? results[results.length - 1][cursorField] : null;
-
-    return {
-      data: results,
-      hasMore,
-      nextCursor,
-    };
-  } catch (err) {
-    throw new Error(`Cursor pagination error: ${err.message}`);
   }
-}
+
+  // Apply select
+  if (select) {
+    queryBuilder = queryBuilder.select(select);
+  }
+
+  // Apply populate
+  if (populate) {
+    if (Array.isArray(populate)) {
+      populate.forEach((pop) => {
+        queryBuilder = queryBuilder.populate(pop);
+      });
+    } else {
+      queryBuilder = queryBuilder.populate(populate);
+    }
+  }
+
+  // Apply sort and limit
+  queryBuilder = queryBuilder.sort(sort).limit(limitNum + 1);
+
+  // Apply lean
+  if (lean) {
+    queryBuilder = queryBuilder.lean();
+  }
+
+  const results = await queryBuilder.exec();
+  const hasMore = results.length > limitNum;
+
+  if (hasMore) {
+    results.pop(); // Remove extra item
+  }
+
+  const nextCursor = hasMore && results.length > 0
+    ? results[results.length - 1][Object.keys(sort)[0]]
+    : null;
+
+  return {
+    data: results,
+    pagination: {
+      nextCursor,
+      hasMore,
+      limit: limitNum,
+    },
+  };
+};
 
 /**
- * Aggregate with pagination
+ * Aggregation pagination
+ * For complex queries with aggregation pipeline
  */
-async function getAggregatedWithPagination(
-  model,
-  pipeline,
-  pagination
-) {
-  try {
-    // Add count stage
-    const countPipeline = [...pipeline, { $count: "total" }];
-    const countResult = await model.aggregate(countPipeline);
-    const total = countResult[0]?.total || 0;
+const aggregatePaginate = async (model, pipeline = [], options = {}) => {
+  const {
+    page = 1,
+    limit = 10,
+  } = options;
 
-    // Add pagination stages
-    const paginatedPipeline = [
-      ...pipeline,
-      { $sort: pagination.sort },
-      { $skip: pagination.skip },
-      { $limit: pagination.limit },
-    ];
+  const pageNum = Math.max(1, parseInt(page, 10));
+  const limitNum = Math.min(100, Math.max(1, parseInt(limit, 10)));
+  const skip = (pageNum - 1) * limitNum;
 
-    const data = await model.aggregate(paginatedPipeline);
+  // Create count pipeline
+  const countPipeline = [...pipeline, { $count: 'total' }];
 
-    const totalPages = Math.ceil(total / pagination.limit);
-    const hasNextPage = pagination.page < totalPages;
-    const hasPrevPage = pagination.page > 1;
+  // Create data pipeline
+  const dataPipeline = [
+    ...pipeline,
+    { $skip: skip },
+    { $limit: limitNum },
+  ];
 
-    return {
-      data,
-      pagination: {
-        page: pagination.page,
-        limit: pagination.limit,
-        total,
-        totalPages,
-        hasNextPage,
-        hasPrevPage,
-      },
-    };
-  } catch (err) {
-    throw new Error(`Aggregation pagination error: ${err.message}`);
-  }
-}
+  // Execute both pipelines in parallel
+  const [countResult, results] = await Promise.all([
+    model.aggregate(countPipeline),
+    model.aggregate(dataPipeline),
+  ]);
+
+  const totalCount = countResult[0]?.total || 0;
+  const totalPages = Math.ceil(totalCount / limitNum);
+  const hasNextPage = pageNum < totalPages;
+  const hasPrevPage = pageNum > 1;
+
+  return {
+    data: results,
+    pagination: {
+      currentPage: pageNum,
+      totalPages,
+      totalCount,
+      limit: limitNum,
+      hasNextPage,
+      hasPrevPage,
+      nextPage: hasNextPage ? pageNum + 1 : null,
+      prevPage: hasPrevPage ? pageNum - 1 : null,
+    },
+  };
+};
 
 module.exports = {
-  DEFAULT_PAGE,
-  DEFAULT_LIMIT,
-  MAX_LIMIT,
-  parsePagination,
-  executePaginatedQuery,
-  paginationMiddleware,
-  formatPaginatedResponse,
-  getCursorPaginated,
-  getAggregatedWithPagination,
+  paginate,
+  cursorPaginate,
+  aggregatePaginate,
 };
