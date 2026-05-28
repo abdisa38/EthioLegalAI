@@ -6,7 +6,7 @@ import {
   FileSearch, Shield, TrendingUp, Bookmark, Settings, LogOut,
   Bell, Globe, ChevronDown, Menu, X, Bot, User
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '@/shared/hooks';
 
 const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/app' },

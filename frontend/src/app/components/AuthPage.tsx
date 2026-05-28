@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { motion } from 'motion/react';
 import { Scale, Eye, EyeOff, ArrowRight, ArrowLeft, Mail, Lock, User, Github, Chrome } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '@/shared/hooks';
 
 export default function AuthPage() {
   const navigate = useNavigate();
