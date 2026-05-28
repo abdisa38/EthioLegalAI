@@ -79,8 +79,14 @@ const revokeRefreshToken = async ({ tokenRecord, ip, reason }) => {
 
 const revokeAllForUser = async ({ userId, reason }) => {
   await RefreshToken.updateMany(
-    { userId, revokedAt: null },
-    { $set: { revokedAt: new Date() } }
+    { userId, isRevoked: false },
+    { 
+      $set: { 
+        isRevoked: true,
+        revokedAt: new Date(),
+        revocationReason: reason ? reason.toUpperCase().replace(/\s+/g, '_') : 'USER_LOGOUT'
+      } 
+    }
   );
   logSecurityEvent("refresh_token_revoked_all", { reason, userId });
 };
