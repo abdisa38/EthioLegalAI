@@ -16,6 +16,7 @@ const issueRefreshToken = async ({ userId, ip, userAgent }) => {
   const token = generateToken();
   const tokenHash = hashToken(token);
   const expiresAt = new Date(Date.now() + getRefreshTtlMs());
+  const tokenFamily = crypto.randomBytes(16).toString("hex"); // Generate token family
 
   await RefreshToken.create({
     userId,
@@ -23,27 +24,56 @@ const issueRefreshToken = async ({ userId, ip, userAgent }) => {
     expiresAt,
     createdByIp: ip,
     userAgent,
+    tokenFamily,
+    isRevoked: false,
   });
 
   return { token, tokenHash, expiresAt };
 };
 
 const rotateRefreshToken = async ({ tokenRecord, userId, ip, userAgent }) => {
-  const next = await issueRefreshToken({ userId, ip, userAgent });
+  const token = generateToken();
+  const tokenHash = hashToken(token);
+  const expiresAt = new Date(Date.now() + getRefreshTtlMs());
+  
+  // Preserve token family for rotation chain
+  const tokenFamily = tokenRecord.tokenFamily || crypto.randomBytes(16).toString("hex");
+
+  await RefreshToken.create({
+    userId,
+    tokenHash,
+    expiresAt,
+    createdByIp: ip,
+    userAgent,
+    tokenFamily,
+    isRevoked: false,
+  });
+
+  // Mark old token as revoked
+  tokenRecord.isRevoked = true;
   tokenRecord.revokedAt = new Date();
   tokenRecord.revokedByIp = ip;
-  tokenRecord.replacedByTokenHash = next.tokenHash;
+  tokenRecord.replacedByTokenHash = tokenHash;
   await tokenRecord.save();
-  return next;
+  
+  return { token, tokenHash, expiresAt };
 };
 
 const revokeRefreshToken = async ({ tokenRecord, ip, reason }) => {
   if (!tokenRecord || tokenRecord.revokedAt) return;
+  tokenRecord.isRevoked = true;
   tokenRecord.revokedAt = new Date();
   tokenRecord.revokedByIp = ip;
+  if (reason) {
+    tokenRecord.revocationReason = reason.toUpperCase().replace(/\s+/g, '_');
+  }
   await tokenRecord.save();
   if (reason) {
-    logSecurityEvent("refresh_token_revoked", { reason, tokenId: tokenRecord._id?.toString(), userId: tokenRecord.userId?.toString() });
+    logSecurityEvent("refresh_token_revoked", { 
+      reason, 
+      tokenId: tokenRecord._id?.toString(), 
+      userId: tokenRecord.userId?.toString() 
+    });
   }
 };
 

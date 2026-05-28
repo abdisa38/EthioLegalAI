@@ -46,7 +46,11 @@ const register = async (req, res, next) => {
       return res.status(400).json({ error: { message: "Name, email, and password are required" } });
     }
 
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    const existingUser = await User.findOne({ 
+      email: email.toLowerCase(),
+      isDeleted: { $ne: true }
+    });
+    
     if (existingUser) {
       return res.status(409).json({ error: { message: "Email is already registered" } });
     }
@@ -56,6 +60,17 @@ const register = async (req, res, next) => {
       email,
       password,
       languagePreference: languagePreference || "en",
+      isActive: true,
+      isEmailVerified: false,
+      subscription: {
+        plan: "free",
+        status: "active",
+        limits: {
+          maxDocuments: 10,
+          maxChats: 50,
+          maxStorageBytes: 10485760,
+        },
+      },
     });
 
     const accessToken = generateAccessToken(user);
@@ -78,6 +93,7 @@ const register = async (req, res, next) => {
       },
     });
   } catch (error) {
+    console.error('Registration error:', error);
     return next(error);
   }
 };
@@ -90,16 +106,36 @@ const login = async (req, res, next) => {
       return res.status(400).json({ error: { message: "Email and password are required" } });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase() }).select("+password");
+    const user = await User.findOne({ 
+      email: email.toLowerCase(),
+      isDeleted: { $ne: true } // Handle soft delete
+    }).select("+password");
+    
     if (!user) {
       logSecurityEvent("login_failed", { email, ip: req.ip });
       return res.status(401).json({ error: { message: "Invalid credentials" } });
     }
 
+    // Check if account is locked
+    if (user.lockUntil && user.lockUntil > Date.now()) {
+      return res.status(423).json({ 
+        error: { message: "Account is temporarily locked. Please try again later." } 
+      });
+    }
+
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
+      // Handle failed login attempt
+      if (user.handleFailedLogin) {
+        await user.handleFailedLogin();
+      }
       logSecurityEvent("login_failed", { email, ip: req.ip });
       return res.status(401).json({ error: { message: "Invalid credentials" } });
+    }
+
+    // Update last login
+    if (user.updateLastLogin) {
+      await user.updateLastLogin(req.ip);
     }
 
     const accessToken = generateAccessToken(user);
@@ -117,10 +153,11 @@ const login = async (req, res, next) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        languagePreference: user.languagePreference,
+        languagePreference: user.languagePreference || "en",
       },
     });
   } catch (error) {
+    console.error('Login error:', error);
     return next(error);
   }
 };

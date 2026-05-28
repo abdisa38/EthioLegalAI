@@ -210,8 +210,14 @@ const userSchema = new mongoose.Schema(
         enum: ["active", "inactive", "cancelled", "expired"],
         default: "active",
       },
-      startDate: Date,
-      endDate: Date,
+      startDate: {
+        type: Date,
+        default: null,
+      },
+      endDate: {
+        type: Date,
+        default: null,
+      },
       limits: {
         maxDocuments: { type: Number, default: 10 },
         maxChats: { type: Number, default: 50 },
@@ -340,7 +346,12 @@ userSchema.pre("save", function (next) {
 // ==================== INSTANCE METHODS ====================
 // Compare password
 userSchema.methods.comparePassword = async function (candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
+  try {
+    return await bcrypt.compare(candidatePassword, this.password);
+  } catch (error) {
+    console.error('Password comparison error:', error);
+    return false;
+  }
 };
 
 // Check if password was changed after JWT was issued
