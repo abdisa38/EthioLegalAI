@@ -15,8 +15,10 @@ import { useTheme } from "next-themes";
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { useLanguage } from "../providers/LanguageProvider";
+import { useMobileSidebar } from "../context/MobileSidebarContext";
 import { Button } from "../components/ui/button";
 import { cn } from "../components/ui/utils";
+import { useMediaQuery } from "../../shared/hooks";
 import {
   Sidebar,
   SidebarContent,
@@ -27,6 +29,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarSeparator,
+  SidebarInset,
   SidebarTrigger,
 } from "../components/ui/sidebar";
 
@@ -52,6 +55,8 @@ export default function AppLayout() {
   const { user, logout } = useAuth();
   const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
+  const { isOpen: isSidebarOpen, closeSidebar } = useMobileSidebar();
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const nextLanguage = () => {
     if (language === "en") setLanguage("am");
@@ -59,14 +64,23 @@ export default function AppLayout() {
     else setLanguage("en");
   };
 
+  const handleNavigation = () => {
+    if (isMobile) {
+      closeSidebar();
+    }
+  };
+
   return (
-    <SidebarProvider defaultOpen>
+    <SidebarProvider defaultOpen={!isMobile}>
       <div className="min-h-svh w-full bg-background text-foreground">
-        <Sidebar>
+        <Sidebar className="hidden md:flex">
           <SidebarHeader className="px-3 py-3">
             <button
               className="w-full text-left"
-              onClick={() => navigate("/app")}
+              onClick={() => {
+                navigate("/app");
+                handleNavigation();
+              }}
             >
               <div className="flex items-center gap-2">
                 <div className="size-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-sm font-semibold">
@@ -92,6 +106,7 @@ export default function AppLayout() {
                     <NavLink
                       to={item.to}
                       end={item.to === "/app"}
+                      onClick={handleNavigation}
                       className={({ isActive }) =>
                         cn(
                           "gap-2",
@@ -114,6 +129,7 @@ export default function AppLayout() {
                 <SidebarMenuButton asChild>
                   <NavLink
                     to="/app/settings"
+                    onClick={handleNavigation}
                     className={({ isActive }) =>
                       cn(
                         "gap-2",
@@ -142,16 +158,21 @@ export default function AppLayout() {
           </SidebarFooter>
         </Sidebar>
 
-        <div className="flex min-h-svh flex-1 flex-col md:pl-[var(--sidebar-width)]">
+        <SidebarInset>
           <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b bg-background/80 px-3 backdrop-blur md:px-4">
             <div className="flex items-center gap-2">
-              <SidebarTrigger />
-              <div className="hidden sm:block text-sm font-medium">
+              <SidebarTrigger className="md:hidden" />
+              <div className="text-sm font-medium">
                 {user?.name || "Welcome"}
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={nextLanguage}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={nextLanguage}
+                className="text-xs"
+              >
                 {languageLabel(language)}
               </Button>
               <Button
@@ -167,12 +188,36 @@ export default function AppLayout() {
               </Button>
             </div>
           </header>
-          <main className="flex-1 p-4 md:p-6">
+          <main className="flex-1 p-3 md:p-6 overflow-auto">
             <Outlet />
           </main>
-        </div>
+        </SidebarInset>
+
+        {/* Mobile Bottom Navigation */}
+        {isMobile && (
+          <nav className="fixed bottom-0 left-0 right-0 border-t bg-background/80 backdrop-blur">
+            <div className="flex items-center overflow-x-auto">
+              {navItems.slice(0, 4).map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.to === "/app"}
+                  onClick={handleNavigation}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex flex-col items-center gap-1 flex-1 px-2 py-2 min-w-fit text-xs text-muted-foreground transition-colors",
+                      isActive && "text-primary",
+                    )
+                  }
+                >
+                  <item.icon className="size-5" />
+                  <span className="truncate">{item.label.split(" ")[0]}</span>
+                </NavLink>
+              ))}
+            </div>
+          </nav>
+        )}
       </div>
     </SidebarProvider>
   );
 }
-
