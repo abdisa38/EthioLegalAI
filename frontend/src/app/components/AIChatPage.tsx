@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Scale, Send, Paperclip, Mic, MicOff, Copy, Bookmark,
@@ -6,7 +6,10 @@ import {
   ChevronDown, BookOpen, ExternalLink, Check, Zap, Plus,
   Hash, User, X, RotateCcw
 } from 'lucide-react';
+import { toast } from 'sonner';
 import { chatRequest, toggleStarChatRequest } from '../api/ai';
+import { useLanguage } from '../providers/LanguageProvider';
+import { getErrorMessage } from '../../shared/api/errors';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -277,13 +280,25 @@ export default function AIChatPage() {
   const [streamText, setStreamText] = useState('');
   const [awaitingStream, setAwaitingStream] = useState(false);
   const [input, setInput] = useState('');
-  const [lang, setLang] = useState('EN');
   const [recording, setRecording] = useState(false);
   const [atBottom, setAtBottom] = useState(true);
   const streamRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { language, setLanguage } = useLanguage();
+
+  const lang = useMemo(() => {
+    if (language === 'am') return 'አማ';
+    if (language === 'om') return 'ORM';
+    return 'EN';
+  }, [language]);
+
+  const setLang = (value: string) => {
+    if (value === 'አማ') setLanguage('am');
+    else if (value === 'ORM') setLanguage('om');
+    else setLanguage('en');
+  };
 
   // Auto-grow textarea
   useEffect(() => {
@@ -353,7 +368,7 @@ export default function AIChatPage() {
         followups: response.suggestedPrompts,
       });
     } catch (error) {
-      console.error('Chat request failed:', error);
+      toast.error(getErrorMessage(error));
       setAwaitingStream(false);
       setStreamingId(null);
       setStreamText('');
@@ -386,7 +401,7 @@ export default function AIChatPage() {
       const updated = await toggleStarChatRequest(message.chatId);
       setMessages(prev => prev.map(m => m.id === message.id ? { ...m, starred: updated.starred } : m));
     } catch (error) {
-      console.error('Failed to toggle saved chat:', error);
+      toast.error(getErrorMessage(error));
     }
   };
 

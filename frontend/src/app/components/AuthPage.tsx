@@ -15,7 +15,7 @@ export default function AuthPage() {
   const location = useLocation();
   const isForgot = location.pathname === '/forgot-password';
   const isRegister = location.pathname === '/register';
-  const from = (location.state as { from?: Location } | null)?.from?.pathname || '/app';
+  const from = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname || '/app';
 
   const [showPassword, setShowPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);

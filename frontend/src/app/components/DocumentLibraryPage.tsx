@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 import { FileText, Search, Upload, Trash2, Download, Eye, Filter, Clock, AlertTriangle, CheckCircle, Info } from 'lucide-react';
-import { Skeleton } from './ui/skeleton';
 import EmptyState from '../../shared/components/states/EmptyState';
 import ErrorState from '../../shared/components/states/ErrorState';
+import DocumentsPageSkeleton from '../../features/documents/components/DocumentsPageSkeleton';
 import { useDeleteDocument, useDocuments } from '../../features/documents/hooks/useDocuments';
+import { useDebouncedValue } from '../../shared/hooks/useDebouncedValue';
 
 type RiskLevel = 'high' | 'medium' | 'low';
 
@@ -41,6 +42,7 @@ export default function DocumentLibraryPage() {
   const [search, setSearch] = useState('');
   const [filterRisk, setFilterRisk] = useState<RiskLevel | 'all'>('all');
   const [filterType, setFilterType] = useState('All');
+  const debouncedSearch = useDebouncedValue(search, 250);
 
   const {
     data: documents,
@@ -57,30 +59,14 @@ export default function DocumentLibraryPage() {
   const filtered = (documents || []).filter(doc => {
     const docType = typeFromName(doc.filename);
     const risk = riskFromScore(doc.riskScore);
-    if (search && !doc.filename.toLowerCase().includes(search.toLowerCase())) return false;
+    if (debouncedSearch && !doc.filename.toLowerCase().includes(debouncedSearch.toLowerCase())) return false;
     if (filterRisk !== 'all' && risk !== filterRisk) return false;
     if (filterType !== 'All' && docType !== filterType) return false;
     return true;
   });
 
   if (isLoading) {
-    return (
-      <div className="space-y-4">
-        <div className="flex items-center justify-between gap-4">
-          <div className="space-y-2">
-            <Skeleton className="h-7 w-40" />
-            <Skeleton className="h-4 w-72" />
-          </div>
-          <Skeleton className="h-10 w-40" />
-        </div>
-        <Skeleton className="h-10 w-full" />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} className="h-32 w-full" />
-          ))}
-        </div>
-      </div>
-    );
+    return <DocumentsPageSkeleton />;
   }
 
   if (isError) {
