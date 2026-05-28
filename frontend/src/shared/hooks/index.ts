@@ -6,3 +6,4 @@ export { useLanguage } from './useLanguage';
 export { useDebounce } from './useDebounce';
 export { useLocalStorage } from './useLocalStorage';
 export { useCopyToClipboard } from './useCopyToClipboard';
+export { useCommandPalette } from './useCommandPalette';
