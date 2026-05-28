@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo } from 'react';
-import { useLocalStorage } from '../../hooks';
+import { useLocalStorage } from '@/shared/hooks';
 
 type MobileSidebarContextValue = {
   isOpen: boolean;
