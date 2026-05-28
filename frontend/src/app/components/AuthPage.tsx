@@ -1,51 +1,70 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { motion } from 'motion/react';
 import { Scale, Eye, EyeOff, ArrowRight, ArrowLeft, Mail, Lock, User, Github, Chrome } from 'lucide-react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../providers/LanguageProvider';
+import { getErrorMessage } from '../../shared/api/errors';
 
 export default function AuthPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const isForgot = location.pathname === '/forgot-password';
   const isRegister = location.pathname === '/register';
+  const from = (location.state as { from?: Location } | null)?.from?.pathname || '/app';
 
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login, register } = useAuth();
+  const { language } = useLanguage();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const schema = useMemo(() => {
+    const email = z.string().email('Enter a valid email');
+    const password = z.string().min(6, 'Password must be at least 6 characters');
+    if (isForgot) return z.object({ email });
+    if (isRegister) return z.object({ name: z.string().min(2, 'Enter your full name'), email, password });
+    return z.object({ email, password });
+  }, [isForgot, isRegister]);
+
+  type FormValues = {
+    name?: string;
+    email: string;
+    password?: string;
+  };
+
+  const form = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { name: '', email: '', password: '' },
+    mode: 'onSubmit',
+  });
+
+  const onSubmit = async (values: FormValues) => {
     if (isForgot) {
       setSubmitted(true);
-    } else {
-      try {
-        setIsSubmitting(true);
-        setError('');
+      toast.success('Reset instructions sent');
+      return;
+    }
 
-        if (isRegister) {
-          await register({
-            name,
-            email,
-            password,
-            languagePreference: 'en',
-          });
-        } else {
-          await login({ email, password });
-        }
-
-        navigate('/app');
-      } catch (err) {
-        const message = err instanceof Error ? err.message : 'Unable to sign in. Please try again.';
-        setError(message);
-      } finally {
-        setIsSubmitting(false);
+    try {
+      if (isRegister) {
+        await register({
+          name: values.name || '',
+          email: values.email,
+          password: values.password || '',
+          languagePreference: language,
+        });
+        toast.success('Account created');
+      } else {
+        await login({ email: values.email, password: values.password || '' });
+        toast.success('Signed in');
       }
+      navigate(from);
+    } catch (err) {
+      toast.error(getErrorMessage(err));
     }
   };
 
@@ -143,16 +162,21 @@ export default function AuthPage() {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <form onSubmit={form.handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 {isRegister && (
                   <div>
                     <label style={{ display: 'block', color: '#94a3b8', fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Full Name</label>
                     <div style={{ position: 'relative' }}>
                       <User size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
-                      <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Tigist Bekele"
+                      <input type="text" placeholder="Tigist Bekele" {...form.register('name')}
                         style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 14px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
                         className="focus:border-indigo-500/50 transition-colors" />
                     </div>
+                    {form.formState.errors.name?.message && (
+                      <div style={{ marginTop: 6, color: '#f87171', fontSize: 12 }}>
+                        {form.formState.errors.name.message}
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -160,10 +184,15 @@ export default function AuthPage() {
                   <label style={{ display: 'block', color: '#94a3b8', fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Email</label>
                   <div style={{ position: 'relative' }}>
                     <Mail size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
-                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
+                    <input type="email" placeholder="you@example.com" {...form.register('email')}
                       style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 14px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
                       className="focus:border-indigo-500/50 transition-colors" />
                   </div>
+                  {form.formState.errors.email?.message && (
+                    <div style={{ marginTop: 6, color: '#f87171', fontSize: 12 }}>
+                      {form.formState.errors.email.message}
+                    </div>
+                  )}
                 </div>
 
                 {!isForgot && (
@@ -174,13 +203,18 @@ export default function AuthPage() {
                     </div>
                     <div style={{ position: 'relative' }}>
                       <Lock size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
-                      <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••"
+                      <input type={showPassword ? 'text' : 'password'} placeholder="••••••••" {...form.register('password')}
                         style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 42px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
                         className="focus:border-indigo-500/50 transition-colors" />
                       <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', background: 'transparent', border: 'none', cursor: 'pointer', color: '#475569' }}>
                         {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                       </button>
                     </div>
+                    {form.formState.errors.password?.message && (
+                      <div style={{ marginTop: 6, color: '#f87171', fontSize: 12 }}>
+                        {form.formState.errors.password.message}
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -193,15 +227,9 @@ export default function AuthPage() {
                   </div>
                 )}
 
-                {error && (
-                  <div style={{ color: '#f87171', fontSize: 13, background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', padding: '10px 12px', borderRadius: 10 }}>
-                    {error}
-                  </div>
-                )}
-
                 <motion.button type="submit" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-                  disabled={isSubmitting}
-                  style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '14px', borderRadius: 10, border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 0 20px rgba(99,102,241,0.35)', marginTop: 4, opacity: isSubmitting ? 0.8 : 1 }}>
+                  disabled={form.formState.isSubmitting}
+                  style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '14px', borderRadius: 10, border: 'none', cursor: form.formState.isSubmitting ? 'not-allowed' : 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 0 20px rgba(99,102,241,0.35)', marginTop: 4, opacity: form.formState.isSubmitting ? 0.8 : 1 }}>
                   {isForgot ? 'Send Reset Link' : isRegister ? 'Create Account' : 'Sign In'}
                   <ArrowRight size={16} />
                 </motion.button>
@@ -226,7 +254,7 @@ export default function AuthPage() {
                 <Mail size={28} color="#10b981" />
               </div>
               <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: '#f1f5f9' }}>Check Your Email</h3>
-              <p style={{ color: '#64748b', fontSize: 15, marginBottom: 24 }}>We've sent reset instructions to <strong style={{ color: '#94a3b8' }}>{email}</strong></p>
+              <p style={{ color: '#64748b', fontSize: 15, marginBottom: 24 }}>We've sent reset instructions to <strong style={{ color: '#94a3b8' }}>{form.getValues('email')}</strong></p>
               <button onClick={() => navigate('/login')} style={{ color: '#818cf8', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6, margin: '0 auto' }}>
                 <ArrowLeft size={14} /> Back to Sign In
               </button>
