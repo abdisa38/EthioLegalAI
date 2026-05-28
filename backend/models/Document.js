@@ -1,4 +1,11 @@
 const mongoose = require("mongoose");
+const {
+  softDeletePlugin,
+  timestampPlugin,
+  paginationPlugin,
+  validationHelpersPlugin,
+  activityTrackingPlugin,
+} = require("../utils/baseSchema");
 
 const riskItemSchema = new mongoose.Schema(
   {
