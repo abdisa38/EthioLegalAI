@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -7,6 +7,7 @@ import {
   Bell, Globe, ChevronDown, Menu, X, Bot, User
 } from 'lucide-react';
 import { useAuth } from '@/shared/hooks';
+import { CommandDialog, CommandInput, CommandList, CommandGroup, CommandItem, CommandShortcut } from './ui/command';
 
 const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/app' },
@@ -36,6 +37,8 @@ export default function DashboardLayout() {
   const [lang, setLang] = useState('EN');
   const [aiFloatOpen, setAiFloatOpen] = useState(false);
   const { user, logout } = useAuth();
+  const [commandOpen, setCommandOpen] = useState(false);
+  useGlobalShortcuts(setCommandOpen, navigate);
 
   const isActive = (path: string) => {
     const pathname = location?.pathname ?? '';
@@ -281,6 +284,44 @@ export default function DashboardLayout() {
           </button>
         </div>
       </div>
+
+      {/* Command palette (Ctrl/Cmd+K) */}
+      <CommandDialog open={commandOpen} onOpenChange={setCommandOpen} title="Commands" description="Quick actions">
+        <CommandInput placeholder="Type a command or search... (e.g. 'new chat')" />
+        <CommandList>
+          <CommandGroup heading="Navigate">
+            <CommandItem onSelect={() => { navigate('/app'); setCommandOpen(false); }}>Home<CommandShortcut>H</CommandShortcut></CommandItem>
+            <CommandItem onSelect={() => { navigate('/app/chat'); setCommandOpen(false); }}>Open AI Chat<CommandShortcut>C</CommandShortcut></CommandItem>
+            <CommandItem onSelect={() => { navigate('/app/upload'); setCommandOpen(false); }}>Upload Document<CommandShortcut>U</CommandShortcut></CommandItem>
+            <CommandItem onSelect={() => { navigate('/app/documents'); setCommandOpen(false); }}>My Documents<CommandShortcut>D</CommandShortcut></CommandItem>
+          </CommandGroup>
+          <CommandGroup heading="Actions">
+            <CommandItem onSelect={() => { setAiFloatOpen(s => !s); setCommandOpen(false); }}>Toggle AI Assistant<CommandShortcut>⌘/Ctrl+A</CommandShortcut></CommandItem>
+            <CommandItem onSelect={() => { setSidebarOpen(s => !s); setCommandOpen(false); }}>Toggle Sidebar<CommandShortcut>⌘/Ctrl+B</CommandShortcut></CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </div>
   );
+}
+
+// Global keyboard shortcuts: open command palette and quick chat focus
+function useGlobalShortcuts(setCommandOpen: (v: boolean) => void, navigate: any) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      // Ctrl/Cmd+K opens command palette
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setCommandOpen(true);
+      }
+      // Quick focus / open chat when pressing '/'
+      if (e.key === '/' && (document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA')) {
+        e.preventDefault();
+        navigate('/app/chat');
+        setTimeout(() => (document.querySelector('textarea') as HTMLTextAreaElement | null)?.focus(), 50);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [setCommandOpen, navigate]);
 }

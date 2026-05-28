@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { MessageSquare, Search, Star, Trash2, Download, ArrowRight, Clock, Filter, Shield, TrendingUp, FileText } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getChatsRequest, toggleStarChatRequest, deleteChatRequest } from '../api/ai';
+import { Skeleton } from './ui/skeleton';
 
 const categoryConfig: Record<string, { color: string; icon: React.ElementType }> = {
   'Tenant Rights': { color: '#10b981', icon: Shield },
@@ -47,6 +48,23 @@ export default function ChatHistoryPage() {
 
   const starredChats = filtered.filter(c => c.starred);
   const recentChats = filtered.filter(c => !c.starred);
+
+  const groupByDate = (items: any[]) => {
+    const today: any[] = [];
+    const yesterday: any[] = [];
+    const older: any[] = [];
+    const now = new Date();
+    items.forEach(i => {
+      const d = new Date(i.createdAt);
+      const diff = Math.floor((now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24));
+      if (diff === 0) today.push(i);
+      else if (diff === 1) yesterday.push(i);
+      else older.push(i);
+    });
+    return { today, yesterday, older };
+  };
+
+  const grouped = groupByDate(filtered);
 
   const ChatCard = ({ chat }: { chat: any }) => {
     const cat = categoryConfig[chat.category] || { color: '#64748b', icon: MessageSquare };
@@ -97,7 +115,19 @@ export default function ChatHistoryPage() {
   };
 
   if (isLoading) {
-    return <div style={{ color: '#94a3b8', padding: '40px', textAlign: 'center' }}>Loading chats...</div>;
+    return (
+      <div style={{ padding: '24px' }}>
+        {[0,1,2].map(i => (
+          <div key={i} style={{ display: 'flex', gap: 14, marginBottom: 12 }}>
+            <Skeleton style={{ width: 40, height: 40, borderRadius: 10 }} />
+            <div style={{ flex: 1 }}>
+              <Skeleton style={{ height: 16, width: '50%', marginBottom: 8 }} />
+              <Skeleton style={{ height: 12, width: '80%' }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   return (
@@ -154,7 +184,24 @@ export default function ChatHistoryPage() {
             <h2 style={{ fontSize: 15, fontWeight: 700, color: '#94a3b8' }}>Recent</h2>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {recentChats.map(chat => <ChatCard key={chat.id} chat={chat} />)}
+            {grouped.today.length > 0 && (
+              <div>
+                <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, fontWeight: 700 }}>Today</div>
+                {grouped.today.map((chat: any) => <ChatCard key={chat.id} chat={chat} />)}
+              </div>
+            )}
+            {grouped.yesterday.length > 0 && (
+              <div>
+                <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, fontWeight: 700 }}>Yesterday</div>
+                {grouped.yesterday.map((chat: any) => <ChatCard key={chat.id} chat={chat} />)}
+              </div>
+            )}
+            {grouped.older.length > 0 && (
+              <div>
+                <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, fontWeight: 700 }}>Older</div>
+                {grouped.older.map((chat: any) => <ChatCard key={chat.id} chat={chat} />)}
+              </div>
+            )}
           </div>
         </div>
       )}
