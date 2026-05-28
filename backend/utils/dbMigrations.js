@@ -187,9 +187,9 @@ async function cleanupSoftDeletedRecords(daysOld = 90) {
     deletionDate.setDate(deletionDate.getDate() - daysOld);
 
     const models = [
-      { Model: require("./models/User"), name: "User" },
-      { Model: require("./models/Chat"), name: "Chat" },
-      { Model: require("./models/Document"), name: "Document" },
+      { Model: require("../models/User"), name: "User" },
+      { Model: require("../models/Chat"), name: "Chat" },
+      { Model: require("../models/Document"), name: "Document" },
     ];
 
     const results = {};
@@ -270,12 +270,12 @@ async function performHealthCheck() {
 
     // Check each model
     const models = [
-      { Model: require("./models/User"), name: "User" },
-      { Model: require("./models/Chat"), name: "Chat" },
-      { Model: require("./models/Document"), name: "Document" },
-      { Model: require("./models/Activity"), name: "Activity" },
-      { Model: require("./models/UserAnalytics"), name: "UserAnalytics" },
-      { Model: require("./models/AIUsage"), name: "AIUsage" },
+      { Model: require("../models/User"), name: "User" },
+      { Model: require("../models/Chat"), name: "Chat" },
+      { Model: require("../models/Document"), name: "Document" },
+      { Model: require("../models/Activity"), name: "Activity" },
+      { Model: require("../models/UserAnalytics"), name: "UserAnalytics" },
+      { Model: require("../models/AIUsage"), name: "AIUsage" },
     ];
 
     for (const { Model, name } of models) {
