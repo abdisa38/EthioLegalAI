@@ -388,6 +388,20 @@ export default function AIChatPage() {
     send(last.text);
   };
 
+  // Listen for external assistant events (from floating button / onboarding)
+  useEffect(() => {
+    const handler = (ev: Event) => {
+      const e = ev as CustomEvent;
+      const text = e?.detail?.text as string | undefined;
+      if (text) {
+        // Ensure chat is visible; scroll to bottom and send
+        setTimeout(() => send(text), 80);
+      }
+    };
+    window.addEventListener('assistant-send-preset', handler as EventListener);
+    return () => window.removeEventListener('assistant-send-preset', handler as EventListener);
+  }, [send]);
+
   const setFeedback = (id: string, fb: Feedback) =>
     setMessages(prev => prev.map(m => m.id === id ? { ...m, feedback: fb } : m));
 
