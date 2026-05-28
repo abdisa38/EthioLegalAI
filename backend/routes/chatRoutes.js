@@ -1,0 +1,12 @@
+const express = require("express");
+const { getChats, toggleStar, deleteChat } = require("../controllers/chatController");
+const { requireAuth } = require("../middleware/authMiddleware");
+
+const router = express.Router();
+
+router.use(requireAuth);
+router.get("/", getChats);
+router.patch("/:id/star", toggleStar);
+router.delete("/:id", deleteChat);
+
+module.exports = router;
