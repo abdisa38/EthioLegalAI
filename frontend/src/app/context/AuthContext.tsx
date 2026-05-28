@@ -1,8 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import type { AuthUser, LoginPayload, RegisterPayload } from '../api/auth';
 import { loginRequest, profileRequest, registerRequest, logoutRequest } from '../api/auth';
-
-const TOKEN_KEY = 'ethiolegal_token';
+import { TOKEN_KEY } from '../api/http';
 
 type AuthContextValue = {
   user: AuthUser | null;
@@ -39,6 +38,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     bootstrap();
+  }, []);
+
+  useEffect(() => {
+    const onLogout = () => {
+      localStorage.removeItem(TOKEN_KEY);
+      setUser(null);
+    };
+    window.addEventListener('auth:logout', onLogout);
+    return () => window.removeEventListener('auth:logout', onLogout);
   }, []);
 
   const login = async (payload: LoginPayload) => {
