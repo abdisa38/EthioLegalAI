@@ -11,13 +11,13 @@ const mongoose = require("mongoose");
 async function createAllIndexes() {
   try {
     const models = [
-      require("./models/User"),
-      require("./models/Chat"),
-      require("./models/Document"),
-      require("./models/RefreshToken"),
-      require("./models/Activity"),
-      require("./models/UserAnalytics"),
-      require("./models/AIUsage"),
+      require("../models/User"),
+      require("../models/Chat"),
+      require("../models/Document"),
+      require("../models/RefreshToken"),
+      require("../models/Activity"),
+      require("../models/UserAnalytics"),
+      require("../models/AIUsage"),
     ];
 
     for (const model of models) {
@@ -46,7 +46,7 @@ async function createAllIndexes() {
  */
 async function migrateUserData() {
   try {
-    const User = require("./models/User");
+    const User = require("../models/User");
     
     // Add soft delete fields to existing users
     const result = await User.updateMany(
@@ -83,7 +83,7 @@ async function migrateUserData() {
  */
 async function migrateChatData() {
   try {
-    const Chat = require("./models/Chat");
+    const Chat = require("../models/Chat");
     
     // Add tracking fields to existing chats
     const result = await Chat.updateMany(
@@ -118,7 +118,7 @@ async function migrateChatData() {
  */
 async function migrateDocumentData() {
   try {
-    const Document = require("./models/Document");
+    const Document = require("../models/Document");
     
     const result = await Document.updateMany(
       {
@@ -149,8 +149,8 @@ async function migrateDocumentData() {
  */
 async function initializeUserAnalytics() {
   try {
-    const User = require("./models/User");
-    const UserAnalytics = require("./models/UserAnalytics");
+    const User = require("../models/User");
+    const UserAnalytics = require("../models/UserAnalytics");
     
     // Get all users without analytics
     const users = await User.find({
