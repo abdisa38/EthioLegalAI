@@ -223,15 +223,54 @@ documentSchema.virtual("status").get(function () {
   return this.analysis ? "analyzed" : "pending";
 });
 
+// Virtual for file size in MB
+documentSchema.virtual("fileSizeMB").get(function () {
+  return (this.fileSize / (1024 * 1024)).toFixed(2);
+});
+
+// Virtual for processing status
+documentSchema.virtual("processingStatus").get(function () {
+  if (this.isDeleted) return "deleted";
+  if (!this.extractedText) return "pending_extraction";
+  if (!this.analysis) return "pending_analysis";
+  if (this.chunksCount === 0) return "pending_chunking";
+  return "completed";
+});
+
+// ==================== QUERY HELPERS ====================
 // Get active documents
 documentSchema.query.active = function () {
   return this.where({ isDeleted: false });
 };
 
+// Get by category
+documentSchema.query.byCategory = function (category) {
+  return this.where({ category, isDeleted: false });
+};
+
+// Get high risk documents
+documentSchema.query.highRisk = function (threshold = 70) {
+  return this.where({ riskScore: { $gte: threshold }, isDeleted: false });
+};
+
+// Get analyzed documents
+documentSchema.query.analyzed = function () {
+  return this.where({ analysis: { $exists: true }, isDeleted: false });
+};
+
+// Get recent documents
+documentSchema.query.recent = function (days = 7) {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+  return this.where({ createdAt: { $gte: date }, isDeleted: false });
+};
+
+// ==================== INSTANCE METHODS ====================
 // Soft delete
-documentSchema.methods.softDelete = async function () {
+documentSchema.methods.softDelete = async function (deletedBy = null) {
   this.isDeleted = true;
   this.deletedAt = new Date();
+  if (deletedBy) this.deletedBy = deletedBy;
   return this.save();
 };
 
@@ -239,6 +278,7 @@ documentSchema.methods.softDelete = async function () {
 documentSchema.methods.restore = async function () {
   this.isDeleted = false;
   this.deletedAt = null;
+  this.deletedBy = null;
   return this.save();
 };
 
@@ -246,7 +286,123 @@ documentSchema.methods.restore = async function () {
 documentSchema.methods.trackView = async function () {
   this.views = (this.views || 0) + 1;
   this.lastViewedAt = new Date();
+  return this.save({ validateBeforeSave: false });
+};
+
+// Add analysis
+documentSchema.methods.addAnalysis = async function (analysisData) {
+  this.analysis = analysisData;
+  this.summary = analysisData.summary;
+  this.riskScore = analysisData.riskScore;
   return this.save();
 };
+
+// Add chunks
+documentSchema.methods.addChunks = async function (chunks) {
+  this.chunks = chunks;
+  this.chunksCount = chunks.length;
+  return this.save();
+};
+
+// Get risk level
+documentSchema.methods.getRiskLevel = function () {
+  if (!this.riskScore) return "unknown";
+  if (this.riskScore >= 80) return "critical";
+  if (this.riskScore >= 60) return "high";
+  if (this.riskScore >= 40) return "medium";
+  return "low";
+};
+
+// ==================== STATIC METHODS ====================
+// Find by user with pagination
+documentSchema.statics.findByUser = function (userId, options = {}) {
+  return this.paginate({ userId, isDeleted: false }, options);
+};
+
+// Get user document stats
+documentSchema.statics.getUserStats = async function (userId) {
+  return this.aggregate([
+    { $match: { userId: mongoose.Types.ObjectId(userId), isDeleted: false } },
+    {
+      $group: {
+        _id: null,
+        totalDocuments: { $sum: 1 },
+        totalSize: { $sum: "$fileSize" },
+        analyzedCount: {
+          $sum: { $cond: [{ $ifNull: ["$analysis", false] }, 1, 0] },
+        },
+        averageRiskScore: { $avg: "$riskScore" },
+        totalViews: { $sum: "$views" },
+      },
+    },
+  ]);
+};
+
+// Get documents by category stats
+documentSchema.statics.getCategoryStats = async function (userId) {
+  return this.aggregate([
+    { $match: { userId: mongoose.Types.ObjectId(userId), isDeleted: false } },
+    {
+      $group: {
+        _id: "$category",
+        count: { $sum: 1 },
+        averageRiskScore: { $avg: "$riskScore" },
+        totalSize: { $sum: "$fileSize" },
+      },
+    },
+    { $sort: { count: -1 } },
+  ]);
+};
+
+// Get risk distribution
+documentSchema.statics.getRiskDistribution = async function (userId) {
+  return this.aggregate([
+    {
+      $match: {
+        userId: mongoose.Types.ObjectId(userId),
+        isDeleted: false,
+        riskScore: { $exists: true },
+      },
+    },
+    {
+      $bucket: {
+        groupBy: "$riskScore",
+        boundaries: [0, 25, 50, 75, 100],
+        default: "unknown",
+        output: {
+          count: { $sum: 1 },
+          documents: { $push: { _id: "$_id", filename: "$filename" } },
+        },
+      },
+    },
+  ]);
+};
+
+// Search documents
+documentSchema.statics.searchDocuments = async function (userId, searchTerm, options = {}) {
+  const query = {
+    userId,
+    isDeleted: false,
+    $text: { $search: searchTerm },
+  };
+  
+  return this.paginate(query, {
+    ...options,
+    sort: { score: { $meta: "textScore" } },
+    select: { score: { $meta: "textScore" } },
+  });
+};
+
+// ==================== PLUGINS ====================
+documentSchema.plugin(softDeletePlugin);
+documentSchema.plugin(timestampPlugin);
+documentSchema.plugin(paginationPlugin);
+documentSchema.plugin(validationHelpersPlugin);
+documentSchema.plugin(activityTrackingPlugin, {
+  modelName: "Document",
+  trackCreate: true,
+  trackUpdate: false,
+  trackDelete: true,
+});
 
 module.exports = mongoose.model("Document", documentSchema);
