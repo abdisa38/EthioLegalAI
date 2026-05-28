@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 import { FileText, Search, Upload, Trash2, Download, Eye, Filter, Clock, AlertTriangle, CheckCircle, Info } from 'lucide-react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { deleteDocumentRequest, getDocumentsRequest } from '../api/documents';
+import { Skeleton } from './ui/skeleton';
+import EmptyState from '../../shared/components/states/EmptyState';
+import ErrorState from '../../shared/components/states/ErrorState';
+import { useDeleteDocument, useDocuments } from '../../features/documents/hooks/useDocuments';
 
 type RiskLevel = 'high' | 'medium' | 'low';
 
@@ -36,22 +38,19 @@ const typeColors: Record<string, string> = {
 
 export default function DocumentLibraryPage() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const [search, setSearch] = useState('');
   const [filterRisk, setFilterRisk] = useState<RiskLevel | 'all'>('all');
   const [filterType, setFilterType] = useState('All');
 
-  const { data: documents, isLoading } = useQuery({
-    queryKey: ['documents'],
-    queryFn: getDocumentsRequest,
-  });
+  const {
+    data: documents,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useDocuments();
 
-  const deleteMutation = useMutation({
-    mutationFn: deleteDocumentRequest,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['documents'] });
-    },
-  });
+  const deleteMutation = useDeleteDocument();
 
   const docTypes = ['All', 'Rental', 'Employment', 'Legal Notice', 'Business', 'Government'];
 
@@ -65,7 +64,39 @@ export default function DocumentLibraryPage() {
   });
 
   if (isLoading) {
-    return <div style={{ color: '#94a3b8', padding: '40px', textAlign: 'center' }}>Loading documents...</div>;
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="space-y-2">
+            <Skeleton className="h-7 w-40" />
+            <Skeleton className="h-4 w-72" />
+          </div>
+          <Skeleton className="h-10 w-40" />
+        </div>
+        <Skeleton className="h-10 w-full" />
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-32 w-full" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <ErrorState error={error} onRetry={() => refetch()} />;
+  }
+
+  if (!documents?.length) {
+    return (
+      <EmptyState
+        title="No documents yet"
+        description="Upload your first document to start searching, analyzing, and chatting with AI using your files."
+        actionLabel="Upload document"
+        onAction={() => navigate('/app/upload')}
+        icon={<FileText className="size-6" />}
+      />
+    );
   }
 
   return (
