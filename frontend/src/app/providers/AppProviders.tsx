@@ -4,6 +4,7 @@ import { Toaster } from "../components/ui/sonner";
 import ErrorBoundary from "../../shared/components/ErrorBoundary";
 import ThemeProvider from "./ThemeProvider";
 import { LanguageProvider } from "./LanguageProvider";
+import { MobileSidebarProvider } from "../context/MobileSidebarContext";
 import { createQueryClient } from "./queryClient";
 
 const queryClient = createQueryClient();
@@ -19,8 +20,10 @@ export default function AppProviders({
         <ThemeProvider>
           <LanguageProvider>
             <AuthProvider>
-              {children}
-              <Toaster richColors />
+              <MobileSidebarProvider>
+                {children}
+                <Toaster richColors position="top-right" />
+              </MobileSidebarProvider>
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
