@@ -197,12 +197,25 @@ const documentSchema = new mongoose.Schema(
   }
 );
 
-// Compound indexes
+// Compound indexes for optimized queries
 documentSchema.index({ userId: 1, createdAt: -1 });
-documentSchema.index({ userId: 1, category: 1 });
-documentSchema.index({ userId: 1, isDeleted: 1 });
+documentSchema.index({ userId: 1, category: 1, createdAt: -1 });
+documentSchema.index({ userId: 1, isDeleted: 1, createdAt: -1 });
+documentSchema.index({ category: 1, riskScore: -1 });
+documentSchema.index({ riskScore: -1, createdAt: -1 });
 documentSchema.index({ createdAt: -1 });
-documentSchema.index({ riskScore: 1 });
+documentSchema.index({ lastViewedAt: -1 });
+
+// Text index for search
+documentSchema.index({ filename: "text", summary: "text" });
+
+// Sparse index for analyzed documents
+documentSchema.index({ "analysis.riskScore": -1 }, { sparse: true });
+documentSchema.index({ "analysis.docType": 1 }, { sparse: true });
+
+// Index for RAG queries
+documentSchema.index({ "chunks.category": 1 });
+documentSchema.index({ "chunks.hash": 1 }, { sparse: true });
 
 // Virtual for status
 documentSchema.virtual("status").get(function () {
