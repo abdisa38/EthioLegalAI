@@ -32,8 +32,6 @@ export default function DashboardLayout() {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const [lang, setLang] = useState('EN');
-  const [aiFloatOpen, setAiFloatOpen] = useState(false);
   const { user, logout } = useAuth();
   const [commandOpen, setCommandOpen] = useState(false);
   useGlobalShortcuts(setCommandOpen, navigate);
@@ -41,77 +39,118 @@ export default function DashboardLayout() {
   const isActive = (path: string) => {
     const pathname = location?.pathname ?? '';
     if (!pathname || !path) return false;
-    if (path === '/app') return pathname === '/app';
-    return pathname.startsWith(path);
+    return pathname === path || pathname.startsWith(path + '/');
   };
 
   const Sidebar = ({ mobile = false }: { mobile?: boolean }) => (
     <div style={{
-      width: mobile ? '100%' : sidebarOpen ? 240 : 64,
-      background: '#0d1124',
-      borderRight: '1px solid rgba(255,255,255,0.06)',
+      width: mobile ? '100%' : 260,
+      background: '#0a0a0a',
+      borderRight: '1px solid rgba(255,255,255,0.05)',
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
-      transition: 'width 0.3s ease',
-      overflow: 'hidden',
       flexShrink: 0,
     }}>
       {/* Logo */}
-      <div style={{ padding: '20px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)', minHeight: 68 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, overflow: 'hidden', cursor: 'pointer' }} onClick={() => navigate('/')}>
-          <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 10, width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 16px rgba(99,102,241,0.3)' }}>
-            <Scale size={18} color="white" />
+      <div style={{ padding: '16px 12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '8px' }} onClick={() => navigate('/app/chat')}>
+          <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 8, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <Scale size={16} color="white" />
           </div>
-          {(sidebarOpen || mobile) && (
-            <span style={{ fontSize: 16, fontWeight: 700, color: '#f1f5f9', whiteSpace: 'nowrap' }}>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9', lineHeight: 1.2 }}>
               EthioLegal <span style={{ color: '#10b981' }}>AI</span>
-            </span>
-          )}
+            </div>
+            <div style={{ fontSize: 10, color: '#52525b' }}>Ethiopian Law</div>
+          </div>
         </div>
-        {!mobile && (
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#475569', padding: 4 }}>
-            <Menu size={18} />
-          </button>
-        )}
+        
+        {/* New Chat Button */}
+        <motion.button 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigate('/app/chat')}
+          style={{ 
+            width: '100%', 
+            marginTop: 12,
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            gap: 8, 
+            padding: '10px', 
+            borderRadius: 8, 
+            border: '1px solid rgba(255,255,255,0.1)', 
+            background: 'rgba(255,255,255,0.03)',
+            cursor: 'pointer', 
+            color: '#e4e4e7',
+            fontSize: 13,
+            fontWeight: 500,
+            transition: 'all 0.2s'
+          }}
+          className="hover:bg-white/5">
+          <Plus size={16} />
+          New Chat
+        </motion.button>
       </div>
 
       {/* Nav items */}
-      <nav style={{ flex: 1, padding: '12px 8px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <nav style={{ flex: 1, padding: '8px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 1 }}>
         {navItems.map(item => {
           const active = isActive(item.path);
           return (
-            <button key={item.label}
+            <motion.button 
+              key={item.label}
+              whileHover={{ x: 2 }}
               onClick={() => { navigate(item.path); if (mobile) setMobileSidebarOpen(false); }}
               style={{
-                width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: sidebarOpen || mobile ? '10px 12px' : '10px', borderRadius: 10, border: 'none', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s',
-                background: active ? 'rgba(99,102,241,0.15)' : 'transparent',
-                color: active ? '#818cf8' : '#64748b',
-                justifyContent: sidebarOpen || mobile ? 'flex-start' : 'center',
+                width: '100%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 12, 
+                padding: '10px 12px', 
+                borderRadius: 8, 
+                border: 'none', 
+                cursor: 'pointer', 
+                textAlign: 'left', 
+                transition: 'all 0.2s',
+                background: active ? 'rgba(99,102,241,0.1)' : 'transparent',
+                color: active ? '#a5b4fc' : '#71717a',
+                fontSize: 14,
+                fontWeight: active ? 500 : 400,
               }}
-              className={!active ? 'hover:bg-white/5 hover:text-slate-300' : ''}>
+              className={!active ? 'hover:bg-white/5' : ''}>
               <item.icon size={18} style={{ flexShrink: 0 }} />
-              {(sidebarOpen || mobile) && <span style={{ fontSize: 14, fontWeight: active ? 600 : 400, whiteSpace: 'nowrap' }}>{item.label}</span>}
-              {active && (sidebarOpen || mobile) && <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#6366f1', marginLeft: 'auto' }} />}
-            </button>
+              <span>{item.label}</span>
+            </motion.button>
           );
         })}
       </nav>
 
       {/* Bottom */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '12px 8px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '8px' }}>
         <button onClick={() => navigate('/app/settings')}
-          style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: sidebarOpen || mobile ? '10px 12px' : '10px', borderRadius: 10, border: 'none', cursor: 'pointer', background: 'transparent', color: '#64748b', justifyContent: sidebarOpen || mobile ? 'flex-start' : 'center' }}
-          className="hover:bg-white/5 hover:text-slate-300">
+          style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'transparent', color: '#71717a', fontSize: 14 }}
+          className="hover:bg-white/5 transition-colors">
           <Settings size={18} style={{ flexShrink: 0 }} />
-          {(sidebarOpen || mobile) && <span style={{ fontSize: 14 }}>Settings</span>}
+          <span>Settings</span>
         </button>
-        <button onClick={() => { logout(); navigate('/login'); }}
-          style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: sidebarOpen || mobile ? '10px 12px' : '10px', borderRadius: 10, border: 'none', cursor: 'pointer', background: 'transparent', color: '#64748b', justifyContent: sidebarOpen || mobile ? 'flex-start' : 'center' }}
-          className="hover:bg-white/5 hover:text-slate-300">
-          <LogOut size={18} style={{ flexShrink: 0 }} />
-          {(sidebarOpen || mobile) && <span style={{ fontSize: 14 }}>Log out</span>}
-        </button>
+        
+        {/* User */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', marginTop: 4, borderRadius: 8, background: 'rgba(255,255,255,0.02)' }}>
+          <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <User size={14} color="white" />
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 13, color: '#e4e4e7', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.name || 'User'}</div>
+            <div style={{ fontSize: 11, color: '#52525b' }}>Free Plan</div>
+          </div>
+          <button onClick={() => { logout(); navigate('/login'); }}
+            style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#71717a', padding: 4 }}
+            className="hover:text-red-400 transition-colors">
+            <LogOut size={16} />
+          </button>
+        </div>
       </div>
     </div>
   );
