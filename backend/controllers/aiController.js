@@ -57,11 +57,13 @@ const chat = async (req, res, next) => {
       query: message,
       userId: req.user._id.toString(),
     });
+    
+    // Pass language to generateAnswer - it will be normalized in promptManager
     const answer = await generateAnswer({ message, language, context, sources });
     const confidence = calculateConfidence(answer, Boolean(context));
     const chunks = buildChunks(answer);
 
-    // Normalize language to code (en, am, om)
+    // Normalize language to code for database storage (en, am, om)
     const languageCode = normalizeLanguage(language);
     
     const savedChat = await Chat.create({
