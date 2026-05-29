@@ -1,103 +1,269 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import {
-  MessageSquare, Upload, FileSearch, Globe, Shield, TrendingUp,
-  FileText, Clock, ArrowRight, Zap, AlertTriangle, CheckCircle,
-  Bell, Search, X, Star, BarChart2, Activity, Brain, Sparkles,
-  ChevronUp, ChevronRight, BookOpen, Users, Award, Lightbulb,
-  Calendar, Target, Eye
+  MessageSquare, Upload, FileSearch, Shield, TrendingUp,
+  FileText, Sparkles, ArrowRight, Scale
 } from 'lucide-react';
-import { AreaChart, Area, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis } from 'recharts';
-
-const usageData = [
-  { day: 'Mon', queries: 4, docs: 1 }, { day: 'Tue', queries: 7, docs: 2 },
-  { day: 'Wed', queries: 5, docs: 0 }, { day: 'Thu', queries: 12, docs: 3 },
-  { day: 'Fri', queries: 9, docs: 2 }, { day: 'Sat', queries: 6, docs: 1 },
-  { day: 'Sun', queries: 10, docs: 2 },
-];
-
-const categoryData = [
-  { name: 'Labor', value: 31 }, { name: 'Tenant', value: 24 },
-  { name: 'Contract', value: 18 }, { name: 'Civil', value: 12 }, { name: 'Other', value: 15 },
-];
 
 const quickActions = [
-  { icon: MessageSquare, label: 'Ask Legal Question', desc: 'Chat in your language', color: '#6366f1', path: '/app/chat', hot: true },
-  { icon: Upload, label: 'Upload Contract', desc: 'Analyze any PDF', color: '#8b5cf6', path: '/app/upload' },
-  { icon: FileSearch, label: 'Contract Analysis', desc: 'Detect risks & clauses', color: '#10b981', path: '/app/contract-analysis' },
-  { icon: Globe, label: 'Translate Legal Text', desc: 'Amharic, Oromo, English', color: '#f59e0b', path: '/app/chat' },
-  { icon: Shield, label: 'Tenant Help', desc: 'Know your renter rights', color: '#ec4899', path: '/app/tenant-rights' },
-  { icon: TrendingUp, label: 'Labor Rights', desc: 'Worker protections', color: '#06b6d4', path: '/app/labor-law' },
+  { 
+    icon: MessageSquare, 
+    label: 'Ask Legal Question', 
+    desc: 'Get instant answers about Ethiopian law', 
+    color: '#6366f1', 
+    path: '/app/chat' 
+  },
+  { 
+    icon: Upload, 
+    label: 'Analyze Document', 
+    desc: 'Upload and review contracts or agreements', 
+    color: '#8b5cf6', 
+    path: '/app/upload' 
+  },
+  { 
+    icon: Shield, 
+    label: 'Tenant Rights', 
+    desc: 'Understand your rights as a renter', 
+    color: '#10b981', 
+    path: '/app/tenant-rights' 
+  },
+  { 
+    icon: TrendingUp, 
+    label: 'Labor Law', 
+    desc: 'Learn about worker protections', 
+    color: '#06b6d4', 
+    path: '/app/labor-law' 
+  },
 ];
 
-const recentChats = [
-  { q: 'Can landlord evict without notice?', time: '2h ago', category: 'Tenant Rights', confidence: 94 },
-  { q: 'What is overtime pay rate in Ethiopia?', time: '5h ago', category: 'Labor Law', confidence: 91 },
-  { q: 'Explain this termination clause', time: 'Yesterday', category: 'Contract', confidence: 87 },
-  { q: 'My employer owes me 3 months salary', time: '2d ago', category: 'Labor Law', confidence: 89 },
+const examplePrompts = [
+  "Can a landlord evict me without notice?",
+  "What are my overtime pay rights in Ethiopia?",
+  "How do I review an employment contract?",
+  "What is the minimum notice period for termination?",
+  "Explain security deposit laws in Ethiopia",
+  "What are my rights if salary is delayed?",
 ];
-
-const recentDocs = [
-  { name: 'Rental Agreement - Bole.pdf', type: 'Rental', risk: 'medium', date: 'May 20', score: 68, pages: 12 },
-  { name: 'Employment Contract.pdf', type: 'Employment', risk: 'high', date: 'May 18', score: 81, pages: 8 },
-  { name: 'Lease Renewal Notice.pdf', type: 'Legal Notice', risk: 'low', date: 'May 15', score: 24, pages: 3 },
-];
-
-const aiInsights = [
-  { icon: AlertTriangle, text: 'Your rental agreement has an unusual early termination clause. Consider negotiating.', color: '#f59e0b', action: 'Review Clause', link: '/app/upload' },
-  { icon: Lightbulb, text: 'Ethiopian labor law mandates 14 days annual leave. Your contract shows only 10.', color: '#6366f1', action: 'Learn More', link: '/app/labor-law' },
-  { icon: CheckCircle, text: 'Deposit receipt saved. You\'re protected for up to 3 months of rent under Civil Code Art. 2955.', color: '#10b981', action: 'View Rights', link: '/app/tenant-rights' },
-];
-
-const activityFeed = [
-  { icon: MessageSquare, text: 'Asked about overtime pay regulations', time: '2h ago', color: '#6366f1' },
-  { icon: FileText, text: 'Uploaded Employment Contract.pdf', time: '5h ago', color: '#8b5cf6' },
-  { icon: CheckCircle, text: 'Risk analysis completed — 3 high-risk clauses flagged', time: '5h ago', color: '#ef4444' },
-  { icon: BookOpen, text: 'Viewed Tenant Rights — Security Deposit section', time: '1d ago', color: '#10b981' },
-  { icon: MessageSquare, text: 'Asked about eviction notice requirements', time: '1d ago', color: '#6366f1' },
-  { icon: Star, text: 'Saved explanation on overtime pay', time: '2d ago', color: '#f59e0b' },
-];
-
-const RC = {
-  high: { color: '#ef4444', bg: 'rgba(239,68,68,0.1)', label: 'High Risk' },
-  medium: { color: '#f59e0b', bg: 'rgba(245,158,11,0.1)', label: 'Med Risk' },
-  low: { color: '#10b981', bg: 'rgba(16,185,129,0.1)', label: 'Low Risk' },
-};
-
-function getGreeting() {
-  const h = new Date().getHours();
-  if (h < 12) return 'Good morning';
-  if (h < 17) return 'Good afternoon';
-  return 'Good evening';
-}
-
-function AnimatedCounter({ target, duration = 1200 }: { target: number; duration?: number }) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    const start = Date.now();
-    const tick = () => {
-      const elapsed = Date.now() - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setVal(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [target, duration]);
-  return <>{val}</>;
-}
 
 export default function DashboardHome() {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [notifOpen, setNotifOpen] = useState(false);
-  const [insightIdx, setInsightIdx] = useState(0);
-  const [showAllActivity, setShowAllActivity] = useState(false);
 
-  // Cycle AI insights
-  useEffect(() => {
+  return (
+    <div style={{ 
+      height: '100%', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      padding: '40px 20px',
+      background: '#000000'
+    }}>
+      <div style={{ maxWidth: 800, width: '100%', textAlign: 'center' }}>
+        
+        {/* Logo & Title */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }}
+          style={{ marginBottom: 48 }}
+        >
+          <div style={{ 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            width: 80, 
+            height: 80, 
+            borderRadius: 20, 
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            marginBottom: 24,
+            boxShadow: '0 20px 60px rgba(99,102,241,0.3)'
+          }}>
+            <Scale size={40} color="white" />
+          </div>
+          
+          <h1 style={{ 
+            fontSize: 48, 
+            fontWeight: 800, 
+            color: '#ffffff', 
+            marginBottom: 16,
+            lineHeight: 1.2
+          }}>
+            EthioLegal <span style={{ color: '#10b981' }}>AI</span>
+          </h1>
+          
+          <p style={{ 
+            fontSize: 20, 
+            color: '#a3a3a3', 
+            marginBottom: 8,
+            lineHeight: 1.6
+          }}>
+            Your AI-powered Ethiopian legal assistant
+          </p>
+          
+          <p style={{ 
+            fontSize: 14, 
+            color: '#737373',
+            lineHeight: 1.6
+          }}>
+            Get instant answers about tenant rights, labor law, and contract analysis
+          </p>
+        </motion.div>
+
+        {/* Quick Actions */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          style={{ marginBottom: 48 }}
+        >
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+            gap: 16,
+            marginBottom: 32
+          }}>
+            {quickActions.map((action, i) => (
+              <motion.button
+                key={action.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.05 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate(action.path)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 16,
+                  padding: 20,
+                  borderRadius: 16,
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.2s'
+                }}
+                className="hover:bg-white/5"
+              >
+                <div style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: 12,
+                  background: `${action.color}15`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
+                  <action.icon size={24} color={action.color} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ 
+                    fontSize: 16, 
+                    fontWeight: 600, 
+                    color: '#ffffff', 
+                    marginBottom: 4 
+                  }}>
+                    {action.label}
+                  </div>
+                  <div style={{ 
+                    fontSize: 14, 
+                    color: '#a3a3a3',
+                    lineHeight: 1.5
+                  }}>
+                    {action.desc}
+                  </div>
+                </div>
+                <ArrowRight size={20} color="#737373" style={{ flexShrink: 0, marginTop: 4 }} />
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Example Prompts */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            gap: 8,
+            marginBottom: 20
+          }}>
+            <Sparkles size={16} color="#6366f1" />
+            <h3 style={{ 
+              fontSize: 14, 
+              fontWeight: 600, 
+              color: '#d4d4d4',
+              margin: 0
+            }}>
+              Try asking
+            </h3>
+          </div>
+          
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
+            gap: 12
+          }}>
+            {examplePrompts.map((prompt, i) => (
+              <motion.button
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 + i * 0.05 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate('/app/chat')}
+                style={{
+                  padding: '12px 16px',
+                  borderRadius: 12,
+                  background: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  fontSize: 13,
+                  color: '#d4d4d4',
+                  transition: 'all 0.2s',
+                  lineHeight: 1.5
+                }}
+                className="hover:bg-white/5 hover:border-white/15"
+              >
+                "{prompt}"
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Disclaimer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          style={{ 
+            marginTop: 48,
+            padding: 16,
+            borderRadius: 12,
+            background: 'rgba(245,158,11,0.05)',
+            border: '1px solid rgba(245,158,11,0.1)'
+          }}
+        >
+          <p style={{ 
+            fontSize: 12, 
+            color: '#a3a3a3',
+            margin: 0,
+            lineHeight: 1.6
+          }}>
+            ⚠️ Educational legal information only — not official legal advice. 
+            Consult a licensed Ethiopian attorney for legal representation.
+          </p>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
     const t = setInterval(() => setInsightIdx(i => (i + 1) % aiInsights.length), 5000);
     return () => clearInterval(t);
   }, []);
