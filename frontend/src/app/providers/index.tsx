@@ -18,7 +18,7 @@ export const AppProviders = ({ children }: AppProvidersProps) => {
   return (
     <ErrorBoundary>
       <QueryProvider>
-        <ThemeProvider defaultTheme="dark">
+        <ThemeProvider defaultTheme="light">
           <LanguageProvider defaultLanguage="en">
             <AuthProvider>
               {children}

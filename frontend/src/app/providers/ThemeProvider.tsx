@@ -18,7 +18,7 @@ interface ThemeProviderProps {
 
 export const ThemeProvider = ({
   children,
-  defaultTheme = 'dark',
+  defaultTheme = 'light',
 }: ThemeProviderProps) => {
   const [theme, setTheme] = useLocalStorage<Theme>('ethiolegal-theme', defaultTheme);
   const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('dark');
@@ -39,6 +39,24 @@ export const ThemeProvider = ({
       setActualTheme(theme);
     }
   }, [theme]);
+
+  // Force the stored theme to the default on first mount so the app
+  // immediately uses the configured default (useful when switching
+  // the project's default theme for all users). This will overwrite
+  // any previously saved theme in localStorage.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const stored = window.localStorage.getItem('ethiolegal-theme');
+      const desired = JSON.stringify(defaultTheme);
+      if (stored !== desired) {
+        setTheme(defaultTheme);
+      }
+    } catch (e) {
+      // ignore
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Listen for system theme changes
   useEffect(() => {
