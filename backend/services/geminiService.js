@@ -15,7 +15,10 @@ const getGeminiClient = () => {
 
 const generateAnswer = async ({ message, language, context, sources }) => {
   const client = getGeminiClient();
+  
+  // Build prompts with language (will be normalized to full name in promptManager)
   const { systemInstruction, prompt } = buildChatPrompt({ message, language, context, sources });
+  
   const modelEnv = process.env.GEMINI_MODEL;
   const modelFallbacks = [
     modelEnv,
@@ -34,14 +37,24 @@ const generateAnswer = async ({ message, language, context, sources }) => {
         generationConfig: {
           temperature: 0.2,
           topP: 0.9,
+          // Note: Do NOT pass language here - Gemini API doesn't support language codes
+          // Language is handled in the prompt text itself
         },
       });
+      
       const result = await model.generateContent(prompt);
       const response = result.response;
+      
+      // Pass language to ensure proper response formatting
       return ensureStructuredResponse(response.text(), language);
     } catch (error) {
       const message = error?.message || String(error);
       lastError = error;
+      
+      // Log the error for debugging
+      console.error(`Gemini API error with model ${modelName}:`, message);
+      
+      // Only retry on 404 (model not found), throw other errors immediately
       if (!message.includes("404")) {
         throw error;
       }
