@@ -407,8 +407,8 @@ export default function AIChatPage() {
               style={{ position: 'absolute', bottom: 0, right: 0, width: 9, height: 9, borderRadius: '50%', background: '#10b981', border: '2px solid #080b18' }} />
           </div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: 14, color: '#f1f5f9', lineHeight: 1.2 }}>EthioLegal AI</div>
-            <div style={{ fontSize: 11, color: '#64748b', display: 'flex', alignItems: 'center', gap: 5 }}>
+            <div style={{ fontWeight: 700, fontSize: 14, color: '#ffffff', lineHeight: 1.2 }}>EthioLegal AI</div>
+            <div style={{ fontSize: 11, color: '#a3a3a3', display: 'flex', alignItems: 'center', gap: 5 }}>
               <Zap size={9} color="#6366f1" />
               {awaitingStream ? 'Thinking...' : streamingId ? 'Responding...' : 'Ready · Ethiopian Law'}
             </div>
@@ -417,16 +417,16 @@ export default function AIChatPage() {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           {/* Language picker */}
-          <div style={{ display: 'flex', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 9, overflow: 'hidden' }}>
+          <div style={{ display: 'flex', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 9, overflow: 'hidden' }}>
             {[['EN','🇬🇧'],['አማ','🇪🇹'],['ORM','🟢']].map(([l, flag]) => (
               <button key={l} onClick={() => setLang(l)}
-                style={{ padding: '5px 10px', fontSize: 11, fontWeight: 500, border: 'none', cursor: 'pointer', background: lang === l ? 'rgba(99,102,241,0.3)' : 'transparent', color: lang === l ? '#a5b4fc' : '#64748b', transition: 'all 0.15s', whiteSpace: 'nowrap' }}>
+                style={{ padding: '5px 10px', fontSize: 11, fontWeight: 500, border: 'none', cursor: 'pointer', background: lang === l ? 'rgba(99,102,241,0.3)' : 'transparent', color: lang === l ? '#a5b4fc' : '#d4d4d4', transition: 'all 0.15s', whiteSpace: 'nowrap' }}>
                 {flag} {l}
               </button>
             ))}
           </div>
           <button onClick={() => setMessages([WELCOME])}
-            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 9, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#64748b', cursor: 'pointer', fontSize: 12 }}
+            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#d4d4d4', cursor: 'pointer', fontSize: 12 }}
             className="hover:text-slate-300 transition-colors">
             <Plus size={13} /> New
           </button>
