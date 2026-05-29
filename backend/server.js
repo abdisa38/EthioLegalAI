@@ -12,6 +12,33 @@ const { connectDatabase } = require("./config/db");
 const apiRoutes = require("./routes");
 const { validateEnv } = require("./config/env");
 
+// Handle unhandled promise rejections (like the "language override" error)
+process.on('unhandledRejection', (reason, promise) => {
+  const errorMessage = reason?.message || String(reason);
+  
+  // Ignore known non-critical errors
+  if (errorMessage.includes("language override unsupported")) {
+    console.warn("⚠️  Unhandled rejection (ignored): language override unsupported");
+    return;
+  }
+  
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+  const errorMessage = error?.message || String(error);
+  
+  // Ignore known non-critical errors
+  if (errorMessage.includes("language override unsupported")) {
+    console.warn("⚠️  Uncaught exception (ignored): language override unsupported");
+    return;
+  }
+  
+  console.error('Uncaught Exception:', error);
+  process.exit(1);
+});
+
 const app = express();
 const port = process.env.PORT || 5000;
 const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173")

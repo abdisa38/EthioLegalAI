@@ -47,6 +47,8 @@ const normalizeLanguage = (language) => {
 
 const chat = async (req, res, next) => {
   let savedChat = null;
+  let responseData = null;
+  let responseSent = false;
   
   try {
     const { message, language } = req.body;
@@ -77,8 +79,8 @@ const chat = async (req, res, next) => {
       title: message.length > 50 ? message.substring(0, 50) + "..." : message,
     });
 
-    // Return response immediately after successful save
-    return res.json({
+    // Prepare response data
+    responseData = {
       id: savedChat._id,
       answer,
       chunks,
@@ -90,17 +92,35 @@ const chat = async (req, res, next) => {
         "What law covers this in Ethiopia?",
         "What should I do next?",
       ],
-    });
+    };
+
+    // Send response
+    res.json(responseData);
+    responseSent = true;
+    
+    console.log(`✅ Chat response sent successfully (ID: ${savedChat._id})`);
+    return;
   } catch (error) {
     const errorMessage = error?.message || String(error);
     
-    // If we have a saved chat, it means the response was generated successfully
-    // The error might be from post-processing, so return the saved response
-    if (savedChat && errorMessage.includes("language override unsupported")) {
-      console.warn("Language override warning (ignored, returning saved response):", errorMessage);
+    // If response was already sent, just log the error and return
+    if (responseSent) {
+      console.warn("⚠️  Post-response error (ignored, response already sent):", errorMessage);
+      return;
+    }
+    
+    // If we have a saved chat and response data, send it even if there's an error
+    if (savedChat && responseData) {
+      console.warn("⚠️  Error after save (ignored, sending successful response):", errorMessage);
+      res.json(responseData);
+      return;
+    }
+    
+    // If we have a saved chat but no response data, reconstruct it
+    if (savedChat) {
+      console.warn("⚠️  Error after save (reconstructing response):", errorMessage);
       
-      // Return the successfully saved chat
-      return res.json({
+      res.json({
         id: savedChat._id,
         answer: savedChat.answer,
         chunks: buildChunks(savedChat.answer),
@@ -113,6 +133,7 @@ const chat = async (req, res, next) => {
           "What should I do next?",
         ],
       });
+      return;
     }
     
     // For other errors, log and pass to error handler
