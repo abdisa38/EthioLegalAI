@@ -120,7 +120,7 @@ export default function ChatHistoryPage() {
         <ChatSkeleton />
       </div>
     );
-  }  }
+  }
 
   return (
     <div style={{ padding: '32px 28px', maxWidth: 1000, margin: '0 auto' }}>
