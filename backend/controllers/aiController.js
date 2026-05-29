@@ -66,6 +66,7 @@ const chat = async (req, res, next) => {
     // Normalize language to code for database storage (en, am, om)
     const languageCode = normalizeLanguage(language);
     
+    // Save chat to database
     const savedChat = await Chat.create({
       userId: req.user._id,
       question: message,
@@ -74,6 +75,7 @@ const chat = async (req, res, next) => {
       title: message.length > 50 ? message.substring(0, 50) + "..." : message,
     });
 
+    // Return response immediately after successful save
     return res.json({
       id: savedChat._id,
       answer,
@@ -88,6 +90,12 @@ const chat = async (req, res, next) => {
       ],
     });
   } catch (error) {
+    console.error("Chat controller error:", error?.message || error);
+    // Make sure we don't expose internal error details
+    error.statusCode = error.statusCode || 502;
+    return next(error);
+  }
+};
     console.error("Gemini chat failed:", error?.message || error);
     error.statusCode = error.statusCode || 502;
     return next(error);
