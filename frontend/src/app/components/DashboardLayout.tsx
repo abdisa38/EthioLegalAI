@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   Scale, MessageSquare, Upload, FolderOpen, Clock,
   FileSearch, Shield, TrendingUp, Settings, LogOut,
-  Menu, X, Bot, User, Plus, Edit3
+  Menu, X, User, Plus
 } from 'lucide-react';
 import { useAuth } from '@/shared/hooks';
 import { CommandDialog, CommandInput, CommandList, CommandGroup, CommandItem, CommandShortcut } from './ui/command';
@@ -30,7 +30,6 @@ const mobileNavItems = [
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
   const [commandOpen, setCommandOpen] = useState(false);
