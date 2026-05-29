@@ -116,19 +116,11 @@ export default function ChatHistoryPage() {
 
   if (isLoading) {
     return (
-      <div style={{ padding: '24px' }}>
-        {[0,1,2].map(i => (
-          <div key={i} style={{ display: 'flex', gap: 14, marginBottom: 12 }}>
-            <Skeleton style={{ width: 40, height: 40, borderRadius: 10 }} />
-            <div style={{ flex: 1 }}>
-              <Skeleton style={{ height: 16, width: '50%', marginBottom: 8 }} />
-              <Skeleton style={{ height: 12, width: '80%' }} />
-            </div>
-          </div>
-        ))}
+      <div style={{ padding: '32px 28px', maxWidth: 1100, margin: '0 auto' }}>
+        <ChatSkeleton />
       </div>
     );
-  }
+  }  }
 
   return (
     <div style={{ padding: '32px 28px', maxWidth: 1000, margin: '0 auto' }}>
