@@ -54,10 +54,20 @@ const generateAnswer = async ({ message, language, context, sources }) => {
       // Log the error for debugging
       console.error(`Gemini API error with model ${modelName}:`, message);
       
-      // Only retry on 404 (model not found), throw other errors immediately
-      if (!message.includes("404")) {
+      // Retry on these errors: 404 (model not found), 503 (service unavailable), 429 (rate limit)
+      const shouldRetry = message.includes("404") || 
+                         message.includes("503") || 
+                         message.includes("429") ||
+                         message.includes("high demand") ||
+                         message.includes("Service Unavailable");
+      
+      if (!shouldRetry) {
+        // For other errors, throw immediately
         throw error;
       }
+      
+      // Continue to next model in fallback list
+      console.log(`Retrying with next model...`);
     }
   }
 
