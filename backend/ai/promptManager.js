@@ -4,11 +4,41 @@
 
 const { SYSTEM_RULES, LANGUAGE_PROFILES, TEMPLATES } = require("./promptTemplates");
 
+/**
+ * Normalize language input to full language name for prompt templates
+ * Accepts both language codes (en, am, om) and full names
+ * @param {string} language - Language code or name
+ * @returns {string} Full language name (English, Amharic, Afaan Oromo)
+ */
 const normalizeLanguage = (language) => {
   if (!language) return "English";
-  const lower = language.toLowerCase();
-  if (lower.includes("amharic")) return "Amharic";
-  if (lower.includes("afaan") || lower.includes("oromo")) return "Afaan Oromo";
+  
+  const lower = language.toLowerCase().trim();
+  
+  // Map language codes to full names
+  const codeMap = {
+    "en": "English",
+    "am": "Amharic",
+    "om": "Afaan Oromo"
+  };
+  
+  // If it's a code, return the full name
+  if (codeMap[lower]) {
+    return codeMap[lower];
+  }
+  
+  // Check for full names or variations
+  if (lower.includes("amharic") || lower.includes("አማርኛ")) {
+    return "Amharic";
+  }
+  if (lower.includes("afaan") || lower.includes("oromo") || lower.includes("oromiffa")) {
+    return "Afaan Oromo";
+  }
+  if (lower.includes("english")) {
+    return "English";
+  }
+  
+  // Default to English
   return "English";
 };
 
