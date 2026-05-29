@@ -193,7 +193,7 @@ export default function DashboardLayout() {
       </div>
 
       {/* ── Mobile Bottom Navigation ── */}
-      <div className="lg:hidden" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(10,10,10,0.98)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(255,255,255,0.05)', padding: '8px 0', paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
+      <div className="lg:hidden" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(23,23,23,0.98)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(255,255,255,0.1)', padding: '8px 0', paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
           {mobileNavItems.map(item => {
             const active = isActive(item.path);
@@ -203,19 +203,19 @@ export default function DashboardLayout() {
                 <div style={{ position: 'relative' }}>
                   {active && (
                     <motion.div layoutId="activeTab"
-                      style={{ position: 'absolute', inset: -6, borderRadius: 10, background: 'rgba(99,102,241,0.15)' }} />
+                      style={{ position: 'absolute', inset: -6, borderRadius: 10, background: 'rgba(255,255,255,0.1)' }} />
                   )}
-                  <item.icon size={20} color={active ? '#a5b4fc' : '#71717a'} style={{ position: 'relative', zIndex: 1 }} />
+                  <item.icon size={20} color={active ? '#ffffff' : '#d4d4d4'} style={{ position: 'relative', zIndex: 1 }} />
                 </div>
-                <span style={{ fontSize: 10, color: active ? '#a5b4fc' : '#71717a', fontWeight: active ? 600 : 400 }}>{item.label}</span>
+                <span style={{ fontSize: 10, color: active ? '#ffffff' : '#d4d4d4', fontWeight: active ? 600 : 400 }}>{item.label}</span>
               </button>
             );
           })}
           {/* More button */}
           <button onClick={() => setMobileSidebarOpen(true)}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px 16px', borderRadius: 10, minWidth: 60 }}>
-            <Menu size={20} color="#71717a" />
-            <span style={{ fontSize: 10, color: '#71717a' }}>More</span>
+            <Menu size={20} color="#d4d4d4" />
+            <span style={{ fontSize: 10, color: '#d4d4d4' }}>More</span>
           </button>
         </div>
       </div>
@@ -243,23 +243,23 @@ export default function DashboardLayout() {
             display: 'flex', 
             alignItems: 'center', 
             gap: 8, 
-            background: 'rgba(10,10,10,0.9)', 
+            background: 'rgba(23,23,23,0.95)', 
             backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.05)', 
+            border: '1px solid rgba(255,255,255,0.1)', 
             borderRadius: 8, 
             padding: '8px 12px',
             fontSize: 12,
-            color: '#71717a'
+            color: '#d4d4d4'
           }}>
           <span>Press</span>
           <kbd style={{ 
-            background: 'rgba(255,255,255,0.05)', 
-            border: '1px solid rgba(255,255,255,0.08)', 
+            background: 'rgba(255,255,255,0.1)', 
+            border: '1px solid rgba(255,255,255,0.15)', 
             borderRadius: 4, 
             padding: '2px 6px',
             fontSize: 11,
             fontWeight: 600,
-            color: '#a1a1aa'
+            color: '#ffffff'
           }}>⌘K</kbd>
           <span>for commands</span>
         </motion.div>
