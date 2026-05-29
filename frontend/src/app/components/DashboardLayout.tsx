@@ -301,6 +301,38 @@ export default function DashboardLayout() {
           </CommandGroup>
         </CommandList>
       </CommandDialog>
+
+      {/* Keyboard shortcut hint */}
+      <div className="hidden lg:block" style={{ position: 'fixed', bottom: 20, left: 20, zIndex: 10 }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ delay: 1 }}
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 8, 
+            background: 'rgba(13,17,36,0.9)', 
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255,255,255,0.08)', 
+            borderRadius: 10, 
+            padding: '8px 12px',
+            fontSize: 12,
+            color: '#64748b'
+          }}>
+          <span>Press</span>
+          <kbd style={{ 
+            background: 'rgba(255,255,255,0.08)', 
+            border: '1px solid rgba(255,255,255,0.12)', 
+            borderRadius: 5, 
+            padding: '2px 6px',
+            fontSize: 11,
+            fontWeight: 600,
+            color: '#94a3b8'
+          }}>⌘K</kbd>
+          <span>for commands</span>
+        </motion.div>
+      </div>
     </div>
   );
 }
