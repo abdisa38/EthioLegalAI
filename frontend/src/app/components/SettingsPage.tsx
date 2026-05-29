@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Globe, Moon, Bell, Shield, User, Bot, Save, ChevronRight, Check } from 'lucide-react';
+import { useTheme } from '@/shared/hooks/useTheme';
 
 const sections = [
   { id: 'language', icon: Globe, label: 'Language & Region', color: '#10b981' },
@@ -14,7 +15,7 @@ const sections = [
 export default function SettingsPage() {
   const [activeSection, setActiveSection] = useState('language');
   const [lang, setLang] = useState('English');
-  const [theme, setTheme] = useState('dark');
+  const { theme, setTheme } = useTheme();
   const [aiLang, setAiLang] = useState('match');
   const [aiStyle, setAiStyle] = useState('simple');
   const [saved, setSaved] = useState(false);
