@@ -102,9 +102,21 @@ const generateSimplification = async ({ text, language }) => {
     } catch (error) {
       const message = error?.message || String(error);
       lastError = error;
-      if (!message.includes("404")) {
+      
+      console.error(`Gemini API error with model ${modelName}:`, message);
+      
+      // Retry on these errors: 404 (model not found), 503 (service unavailable), 429 (rate limit)
+      const shouldRetry = message.includes("404") || 
+                         message.includes("503") || 
+                         message.includes("429") ||
+                         message.includes("high demand") ||
+                         message.includes("Service Unavailable");
+      
+      if (!shouldRetry) {
         throw error;
       }
+      
+      console.log(`Retrying with next model...`);
     }
   }
 
