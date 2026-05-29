@@ -90,12 +90,6 @@ const chat = async (req, res, next) => {
       ],
     });
   } catch (error) {
-    console.error("Chat controller error:", error?.message || error);
-    // Make sure we don't expose internal error details
-    error.statusCode = error.statusCode || 502;
-    return next(error);
-  }
-};
     console.error("Gemini chat failed:", error?.message || error);
     error.statusCode = error.statusCode || 502;
     return next(error);
