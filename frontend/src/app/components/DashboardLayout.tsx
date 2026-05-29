@@ -166,9 +166,9 @@ export default function DashboardLayout() {
               style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 40 }} />
             <motion.div initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }} transition={{ type: 'spring', damping: 25 }}
               style={{ position: 'fixed', left: 0, top: 0, bottom: 0, width: 260, zIndex: 50 }}>
-              <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#0a0a0a' }}>
-                <div style={{ padding: '16px', display: 'flex', justifyContent: 'flex-end', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  <button onClick={() => setMobileSidebarOpen(false)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#71717a' }}>
+              <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#171717' }}>
+                <div style={{ padding: '16px', display: 'flex', justifyContent: 'flex-end', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                  <button onClick={() => setMobileSidebarOpen(false)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#d4d4d4' }}>
                     <X size={20} />
                   </button>
                 </div>
