@@ -45,24 +45,24 @@ export default function DashboardLayout() {
   const Sidebar = ({ mobile = false }: { mobile?: boolean }) => (
     <div style={{
       width: mobile ? '100%' : 260,
-      background: '#0a0a0a',
-      borderRight: '1px solid rgba(255,255,255,0.05)',
+      background: '#171717',
+      borderRight: '1px solid rgba(255,255,255,0.1)',
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
       flexShrink: 0,
     }}>
       {/* Logo */}
-      <div style={{ padding: '16px 12px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+      <div style={{ padding: '16px 12px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '8px' }} onClick={() => navigate('/app/chat')}>
           <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 8, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <Scale size={16} color="white" />
           </div>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9', lineHeight: 1.2 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff', lineHeight: 1.2 }}>
               EthioLegal <span style={{ color: '#10b981' }}>AI</span>
             </div>
-            <div style={{ fontSize: 10, color: '#52525b' }}>Ethiopian Law</div>
+            <div style={{ fontSize: 10, color: '#a3a3a3' }}>Ethiopian Law</div>
           </div>
         </div>
         
@@ -80,15 +80,15 @@ export default function DashboardLayout() {
             gap: 8, 
             padding: '10px', 
             borderRadius: 8, 
-            border: '1px solid rgba(255,255,255,0.1)', 
-            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.2)', 
+            background: 'transparent',
             cursor: 'pointer', 
-            color: '#e4e4e7',
+            color: '#ffffff',
             fontSize: 13,
             fontWeight: 500,
             transition: 'all 0.2s'
           }}
-          className="hover:bg-white/5">
+          className="hover:bg-white/10">
           <Plus size={16} />
           New Chat
         </motion.button>
@@ -114,8 +114,8 @@ export default function DashboardLayout() {
                 cursor: 'pointer', 
                 textAlign: 'left', 
                 transition: 'all 0.2s',
-                background: active ? 'rgba(99,102,241,0.1)' : 'transparent',
-                color: active ? '#a5b4fc' : '#71717a',
+                background: active ? 'rgba(255,255,255,0.1)' : 'transparent',
+                color: active ? '#ffffff' : '#d4d4d4',
                 fontSize: 14,
                 fontWeight: active ? 500 : 400,
               }}
@@ -128,25 +128,25 @@ export default function DashboardLayout() {
       </nav>
 
       {/* Bottom */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '8px' }}>
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '8px' }}>
         <button onClick={() => navigate('/app/settings')}
-          style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'transparent', color: '#71717a', fontSize: 14 }}
+          style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'transparent', color: '#d4d4d4', fontSize: 14 }}
           className="hover:bg-white/5 transition-colors">
           <Settings size={18} style={{ flexShrink: 0 }} />
           <span>Settings</span>
         </button>
         
         {/* User */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', marginTop: 4, borderRadius: 8, background: 'rgba(255,255,255,0.02)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', marginTop: 4, borderRadius: 8, background: 'rgba(255,255,255,0.05)' }}>
           <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <User size={14} color="white" />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 13, color: '#e4e4e7', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.name || 'User'}</div>
-            <div style={{ fontSize: 11, color: '#52525b' }}>Free Plan</div>
+            <div style={{ fontSize: 13, color: '#ffffff', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.name || 'User'}</div>
+            <div style={{ fontSize: 11, color: '#a3a3a3' }}>Free Plan</div>
           </div>
           <button onClick={() => { logout(); navigate('/login'); }}
-            style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#71717a', padding: 4 }}
+            style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#d4d4d4', padding: 4 }}
             className="hover:text-red-400 transition-colors">
             <LogOut size={16} />
           </button>
