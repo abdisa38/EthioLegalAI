@@ -22,9 +22,9 @@ const generateAnswer = async ({ message, language, context, sources }) => {
   const modelEnv = process.env.GEMINI_MODEL;
   const modelFallbacks = [
     modelEnv,
-    "gemini-2.5-flash",
+    "gemini-1.5-flash",  // Changed from gemini-2.5-flash to avoid quota
     "gemini-flash-latest",
-    "gemini-2.0-flash",
+    "gemini-1.5-pro",
   ].filter(Boolean);
 
   let lastError;
@@ -46,7 +46,10 @@ const generateAnswer = async ({ message, language, context, sources }) => {
       const response = result.response;
       
       // Pass language to ensure proper response formatting
-      return ensureStructuredResponse(response.text(), language);
+      const formattedResponse = ensureStructuredResponse(response.text(), language);
+      
+      console.log(`✅ Successfully generated response with model: ${modelName}`);
+      return formattedResponse;
     } catch (error) {
       const message = error?.message || String(error);
       lastError = error;
@@ -85,9 +88,9 @@ const generateSimplification = async ({ text, language }) => {
   const modelEnv = process.env.GEMINI_MODEL;
   const modelFallbacks = [
     modelEnv,
-    "gemini-2.5-flash",
+    "gemini-1.5-flash",  // Changed from gemini-2.5-flash
     "gemini-flash-latest",
-    "gemini-2.0-flash",
+    "gemini-1.5-pro",
   ].filter(Boolean);
 
   let lastError;
