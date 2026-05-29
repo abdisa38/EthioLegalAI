@@ -18,7 +18,7 @@ interface ThemeProviderProps {
 
 export const ThemeProvider = ({
   children,
-  defaultTheme = 'dark',
+  defaultTheme = 'light',
 }: ThemeProviderProps) => {
   const [theme, setTheme] = useLocalStorage<Theme>('ethiolegal-theme', defaultTheme);
   const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('dark');
