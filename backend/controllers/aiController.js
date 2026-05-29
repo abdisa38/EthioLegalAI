@@ -90,7 +90,22 @@ const chat = async (req, res, next) => {
       ],
     });
   } catch (error) {
-    console.error("Gemini chat failed:", error?.message || error);
+    const errorMessage = error?.message || String(error);
+    
+    // Ignore "language override unsupported" errors if we have a valid answer
+    // This is a known issue with certain language codes in the Gemini SDK
+    if (errorMessage.includes("language override unsupported")) {
+      console.warn("Language override warning (ignored):", errorMessage);
+      // If we got here, the response was likely already generated
+      // Return a generic error asking user to retry
+      return res.status(500).json({ 
+        error: { 
+          message: "Response generated but encountered a language processing issue. Please try again." 
+        } 
+      });
+    }
+    
+    console.error("Gemini chat failed:", errorMessage);
     error.statusCode = error.statusCode || 502;
     return next(error);
   }

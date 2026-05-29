@@ -58,6 +58,7 @@ const generateAnswer = async ({ message, language, context, sources }) => {
       const shouldRetry = message.includes("404") || 
                          message.includes("503") || 
                          message.includes("429") ||
+                         message.includes("quota") ||
                          message.includes("high demand") ||
                          message.includes("Service Unavailable");
       
@@ -66,8 +67,12 @@ const generateAnswer = async ({ message, language, context, sources }) => {
         throw error;
       }
       
-      // Continue to next model in fallback list
-      console.log(`Retrying with next model...`);
+      // For 429 errors, log helpful message
+      if (message.includes("429") || message.includes("quota")) {
+        console.log(`⚠️  API quota exceeded for ${modelName}. Trying next model...`);
+      } else {
+        console.log(`Retrying with next model...`);
+      }
     }
   }
 
