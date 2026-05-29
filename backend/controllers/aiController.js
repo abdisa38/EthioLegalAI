@@ -46,6 +46,8 @@ const normalizeLanguage = (language) => {
 };
 
 const chat = async (req, res, next) => {
+  let savedChat = null;
+  
   try {
     const { message, language } = req.body;
 
@@ -67,7 +69,7 @@ const chat = async (req, res, next) => {
     const languageCode = normalizeLanguage(language);
     
     // Save chat to database
-    const savedChat = await Chat.create({
+    savedChat = await Chat.create({
       userId: req.user._id,
       question: message,
       answer,
@@ -92,19 +94,28 @@ const chat = async (req, res, next) => {
   } catch (error) {
     const errorMessage = error?.message || String(error);
     
-    // Ignore "language override unsupported" errors if we have a valid answer
-    // This is a known issue with certain language codes in the Gemini SDK
-    if (errorMessage.includes("language override unsupported")) {
-      console.warn("Language override warning (ignored):", errorMessage);
-      // If we got here, the response was likely already generated
-      // Return a generic error asking user to retry
-      return res.status(500).json({ 
-        error: { 
-          message: "Response generated but encountered a language processing issue. Please try again." 
-        } 
+    // If we have a saved chat, it means the response was generated successfully
+    // The error might be from post-processing, so return the saved response
+    if (savedChat && errorMessage.includes("language override unsupported")) {
+      console.warn("Language override warning (ignored, returning saved response):", errorMessage);
+      
+      // Return the successfully saved chat
+      return res.json({
+        id: savedChat._id,
+        answer: savedChat.answer,
+        chunks: buildChunks(savedChat.answer),
+        contextUsed: false,
+        confidence: calculateConfidence(savedChat.answer, false),
+        sources: [],
+        suggestedPrompts: [
+          "Explain this in simple terms",
+          "What law covers this in Ethiopia?",
+          "What should I do next?",
+        ],
       });
     }
     
+    // For other errors, log and pass to error handler
     console.error("Gemini chat failed:", errorMessage);
     error.statusCode = error.statusCode || 502;
     return next(error);
