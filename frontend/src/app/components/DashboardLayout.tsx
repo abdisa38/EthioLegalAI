@@ -2,15 +2,14 @@ import { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import {
-  Scale, LayoutDashboard, MessageSquare, Upload, FolderOpen, Clock,
-  FileSearch, Shield, TrendingUp, Bookmark, Settings, LogOut,
-  Bell, Globe, ChevronDown, Menu, X, Bot, User
+  Scale, MessageSquare, Upload, FolderOpen, Clock,
+  FileSearch, Shield, TrendingUp, Settings, LogOut,
+  Menu, X, Bot, User, Plus, Edit3
 } from 'lucide-react';
 import { useAuth } from '@/shared/hooks';
 import { CommandDialog, CommandInput, CommandList, CommandGroup, CommandItem, CommandShortcut } from './ui/command';
 
 const navItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', path: '/app' },
   { icon: MessageSquare, label: 'AI Chat', path: '/app/chat' },
   { icon: Upload, label: 'Upload Document', path: '/app/upload' },
   { icon: FolderOpen, label: 'My Documents', path: '/app/documents' },
@@ -18,15 +17,14 @@ const navItems = [
   { icon: FileSearch, label: 'Contract Analysis', path: '/app/contract-analysis' },
   { icon: Shield, label: 'Tenant Rights', path: '/app/tenant-rights' },
   { icon: TrendingUp, label: 'Labor Law', path: '/app/labor-law' },
-  { icon: Bookmark, label: 'Saved Explanations', path: '/app/history' },
 ];
 
 // Bottom nav only shows the most important 4 items on mobile
 const mobileNavItems = [
-  { icon: LayoutDashboard, label: 'Home', path: '/app' },
-  { icon: MessageSquare, label: 'AI Chat', path: '/app/chat' },
+  { icon: MessageSquare, label: 'Chat', path: '/app/chat' },
   { icon: Upload, label: 'Upload', path: '/app/upload' },
   { icon: FolderOpen, label: 'Documents', path: '/app/documents' },
+  { icon: Clock, label: 'History', path: '/app/history' },
 ];
 
 export default function DashboardLayout() {
