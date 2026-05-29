@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { MessageSquare, Search, Star, Trash2, Download, ArrowRight, Clock, Filter, Shield, TrendingUp, FileText } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getChatsRequest, toggleStarChatRequest, deleteChatRequest } from '../api/ai';
-import { Skeleton } from './ui/skeleton';
+import { ChatSkeleton } from '@/shared/components';
 
 const categoryConfig: Record<string, { color: string; icon: React.ElementType }> = {
   'Tenant Rights': { color: '#10b981', icon: Shield },

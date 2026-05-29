@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { FileText, Search, Upload, Trash2, Download, Eye, Filter, Clock, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteDocumentRequest, getDocumentsRequest } from '../api/documents';
+import { DocumentSkeleton } from '@/shared/components';
 
 type RiskLevel = 'high' | 'medium' | 'low';
 
@@ -65,7 +66,11 @@ export default function DocumentLibraryPage() {
   });
 
   if (isLoading) {
-    return <div style={{ color: '#94a3b8', padding: '40px', textAlign: 'center' }}>Loading documents...</div>;
+    return (
+      <div style={{ padding: '32px 28px', maxWidth: 1100, margin: '0 auto' }}>
+        <DocumentSkeleton />
+      </div>
+    );
   }
 
   return (
