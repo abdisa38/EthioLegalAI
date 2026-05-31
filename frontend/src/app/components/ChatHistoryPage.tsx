@@ -78,7 +78,7 @@ export default function ChatHistoryPage() {
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 6 }}>
-            <div style={{ fontWeight: 600, fontSize: 14, color: '#f1f5f9', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{chat.title}</div>
+            <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{chat.title}</div>
             <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
               <button 
                 onClick={() => toggleStarMutation.mutate(chat._id)}
@@ -127,8 +127,8 @@ export default function ChatHistoryPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           <div>
-            <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>Chat History</h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>{chats?.length || 0} saved conversations · {starredChats.length} starred</p>
+            <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--foreground)', marginBottom: 6 }}>Chat History</h1>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 15 }}>{chats?.length || 0} saved conversations · {starredChats.length} starred</p>
           </div>
           <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <MessageSquare size={14} /> New Chat
@@ -139,9 +139,9 @@ export default function ChatHistoryPage() {
       {/* Search & filters */}
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} style={{ marginBottom: 28 }}>
         <div style={{ position: 'relative', marginBottom: 14 }}>
-          <Search size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
+          <Search size={16} color="var(--muted-foreground)" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search conversations..."
-            style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '11px 14px 11px 42px', color: '#f1f5f9', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+            style={{ width: '100%', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '11px 14px 11px 42px', color: 'var(--foreground)', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
             className="focus:border-blue-500/40 transition-colors" />
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -160,7 +160,7 @@ export default function ChatHistoryPage() {
         <div style={{ marginBottom: 28 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
             <Star size={14} color="#2563eb" fill="#2563eb" />
-            <h2 style={{ fontSize: 15, fontWeight: 700, color: '#94a3b8' }}>Starred</h2>
+            <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--muted-foreground)' }}>Starred</h2>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {starredChats.map(chat => <ChatCard key={chat.id} chat={chat} />)}
@@ -173,24 +173,24 @@ export default function ChatHistoryPage() {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
             <Clock size={14} color="#64748b" />
-            <h2 style={{ fontSize: 15, fontWeight: 700, color: '#94a3b8' }}>Recent</h2>
+            <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--muted-foreground)' }}>Recent</h2>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {grouped.today.length > 0 && (
               <div>
-                <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, fontWeight: 700 }}>Today</div>
+                <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginBottom: 8, fontWeight: 700 }}>Today</div>
                 {grouped.today.map((chat: any) => <ChatCard key={chat.id} chat={chat} />)}
               </div>
             )}
             {grouped.yesterday.length > 0 && (
               <div>
-                <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, fontWeight: 700 }}>Yesterday</div>
+                <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginBottom: 8, fontWeight: 700 }}>Yesterday</div>
                 {grouped.yesterday.map((chat: any) => <ChatCard key={chat.id} chat={chat} />)}
               </div>
             )}
             {grouped.older.length > 0 && (
               <div>
-                <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 8, fontWeight: 700 }}>Older</div>
+                <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginBottom: 8, fontWeight: 700 }}>Older</div>
                 {grouped.older.map((chat: any) => <ChatCard key={chat.id} chat={chat} />)}
               </div>
             )}
@@ -203,7 +203,7 @@ export default function ChatHistoryPage() {
           <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
             <MessageSquare size={32} color="#475569" />
           </div>
-          <h3 style={{ fontSize: 18, fontWeight: 600, color: '#94a3b8', marginBottom: 8 }}>No conversations found</h3>
+          <h3 style={{ fontSize: 18, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 8 }}>No conversations found</h3>
           <p style={{ color: '#475569', fontSize: 14 }}>Start a new AI chat to ask your legal question.</p>
         </motion.div>
       )}

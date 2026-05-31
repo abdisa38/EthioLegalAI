@@ -27,9 +27,9 @@ export default function ContractAnalysisPage() {
   if (!documentId) {
     return (
       <div style={{ padding: '48px 28px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
-        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9', marginBottom: 8 }}>Select a document to analyze</h1>
-        <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Choose a document from your library or upload a new contract to view its risk analysis.</p>
-        <button onClick={() => navigate('/app/documents')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--foreground)', marginBottom: 8 }}>Select a document to analyze</h1>
+        <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 24 }}>Choose a document from your library or upload a new contract to view its risk analysis.</p>
+        <button onClick={() => navigate('/app/documents')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'var(--primary-foreground)', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
           View My Documents
         </button>
       </div>
@@ -37,14 +37,14 @@ export default function ContractAnalysisPage() {
   }
 
   if (isLoading) {
-    return <div style={{ color: '#94a3b8', padding: '48px', textAlign: 'center' }}>Loading contract analysis...</div>;
+    return <div style={{ color: 'var(--muted-foreground)', padding: '48px', textAlign: 'center' }}>Loading contract analysis...</div>;
   }
 
   if (isError || !data?.analysis) {
     return (
       <div style={{ padding: '48px 28px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
-        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9', marginBottom: 8 }}>Analysis not available yet</h1>
-        <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Run a fresh analysis by uploading the document again.</p>
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--foreground)', marginBottom: 8 }}>Analysis not available yet</h1>
+        <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 24 }}>Run a fresh analysis by uploading the document again.</p>
         <button onClick={() => navigate('/app/upload')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
           Analyze New Contract
         </button>
@@ -82,8 +82,8 @@ export default function ContractAnalysisPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           <div>
-            <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>Contract Risk Analysis</h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>AI-powered analysis of {fileLabel}</p>
+            <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--foreground)', marginBottom: 6 }}>Contract Risk Analysis</h1>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 15 }}>AI-powered analysis of {fileLabel}</p>
           </div>
           <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <Upload size={14} /> Analyze New Contract
@@ -106,7 +106,7 @@ export default function ContractAnalysisPage() {
               <stat.icon size={16} color={stat.color} />
             </div>
             <div style={{ fontSize: 26, fontWeight: 800, color: stat.color, marginBottom: 2 }}>{stat.value}</div>
-            <div style={{ fontSize: 13, color: '#f1f5f9', fontWeight: 500 }}>{stat.label}</div>
+            <div style={{ fontSize: 13, color: 'var(--foreground)', fontWeight: 500 }}>{stat.label}</div>
             <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{stat.desc}</div>
           </motion.div>
         ))}
@@ -123,7 +123,7 @@ export default function ContractAnalysisPage() {
                 <PolarGrid stroke="rgba(255,255,255,0.06)" />
                 <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748b', fontSize: 12 }} />
                 <Radar name="Risk Score" dataKey="A" stroke="#2563eb" fill="rgba(37,99,235,0.18)" strokeWidth={2} />
-                <Tooltip contentStyle={{ background: '#0d1124', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: '#f1f5f9', fontSize: 13 }} />
+                <Tooltip contentStyle={{ background: '#0d1124', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: 'var(--foreground)', fontSize: 13 }} />
               </RadarChart>
             </ResponsiveContainer>
           ) : (
