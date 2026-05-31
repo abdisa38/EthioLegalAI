@@ -7,17 +7,17 @@ import { askTenantAssistantRequest } from '../api/tenantAssistant';
 
 const emergencyCards = [
   { icon: AlertTriangle, title: 'Illegal Eviction Threatened', color: '#ef4444', desc: 'If your landlord threatens immediate eviction without notice, you have the right to stay. Contact local Woreda office immediately.', action: 'Get Emergency Help' },
-  { icon: DollarSign, title: 'Deposit Not Returned', color: '#f59e0b', desc: 'Landlord must return your security deposit within 30 days of lease end. You can file a civil claim if withheld unfairly.', action: 'Know Your Options' },
-  { icon: Phone, title: 'Harassment by Landlord', color: '#8b5cf6', desc: 'Repeated unlawful entry or harassment is illegal. Document incidents and report to local police or housing authority.', action: 'Report Harassment' },
+  { icon: DollarSign, title: 'Deposit Not Returned', color: '#2563eb', desc: 'Landlord must return your security deposit within 30 days of lease end. You can file a civil claim if withheld unfairly.', action: 'Know Your Options' },
+  { icon: Phone, title: 'Harassment by Landlord', color: '#60a5fa', desc: 'Repeated unlawful entry or harassment is illegal. Document incidents and report to local police or housing authority.', action: 'Report Harassment' },
 ];
 
 const rights = [
-  { icon: Home, title: 'Right to Proper Notice', law: 'Civil Code Art. 2975', desc: 'Your landlord must give you a minimum of 30 days written notice before eviction, except for serious lease violations. Verbal notice is not legally sufficient.', color: '#6366f1' },
-  { icon: DollarSign, title: 'Security Deposit Rights', law: 'Civil Code Art. 2955', desc: 'Your security deposit must be returned within 30 days of lease termination. Deductions must be itemized in writing. You can contest unfair deductions in court.', color: '#10b981' },
-  { icon: Wrench, title: 'Repair & Maintenance Rights', law: 'Housing Proc. 35/1998', desc: 'Major structural repairs — roof, plumbing, electrical — are the landlord\'s responsibility. You cannot be evicted for requesting legally required repairs.', color: '#8b5cf6' },
-  { icon: Clock, title: 'Right Against Rent Hikes', law: 'Civil Code Art. 2950', desc: 'Rent increases during an active lease term are generally not allowed unless your contract specifically allows it. Month-to-month tenants have stronger protections.', color: '#f59e0b' },
-  { icon: Shield, title: 'Privacy Rights', law: 'Civil Code Art. 2910', desc: 'Your landlord must give at least 24 hours notice before entering your home, except in genuine emergencies. Unauthorized entry is trespass.', color: '#ec4899' },
-  { icon: FileText, title: 'Written Contract Rights', law: 'Civil Code Art. 2940', desc: 'You have the right to a written rental agreement. Verbal-only agreements give you fewer protections. Always insist on a written contract before moving in.', color: '#06b6d4' },
+  { icon: Home, title: 'Right to Proper Notice', law: 'Civil Code Art. 2975', desc: 'Your landlord must give you a minimum of 30 days written notice before eviction, except for serious lease violations. Verbal notice is not legally sufficient.', color: '#2563eb' },
+  { icon: DollarSign, title: 'Security Deposit Rights', law: 'Civil Code Art. 2955', desc: 'Your security deposit must be returned within 30 days of lease termination. Deductions must be itemized in writing. You can contest unfair deductions in court.', color: '#60a5fa' },
+  { icon: Wrench, title: 'Repair & Maintenance Rights', law: 'Housing Proc. 35/1998', desc: 'Major structural repairs — roof, plumbing, electrical — are the landlord\'s responsibility. You cannot be evicted for requesting legally required repairs.', color: '#93c5fd' },
+  { icon: Clock, title: 'Right Against Rent Hikes', law: 'Civil Code Art. 2950', desc: 'Rent increases during an active lease term are generally not allowed unless your contract specifically allows it. Month-to-month tenants have stronger protections.', color: '#2563eb' },
+  { icon: Shield, title: 'Privacy Rights', law: 'Civil Code Art. 2910', desc: 'Your landlord must give at least 24 hours notice before entering your home, except in genuine emergencies. Unauthorized entry is trespass.', color: '#60a5fa' },
+  { icon: FileText, title: 'Written Contract Rights', law: 'Civil Code Art. 2940', desc: 'You have the right to a written rental agreement. Verbal-only agreements give you fewer protections. Always insist on a written contract before moving in.', color: '#93c5fd' },
 ];
 
 const faqs = [
@@ -67,7 +67,7 @@ export default function TenantRightsPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
           <div style={{ width: 48, height: 48, borderRadius: 14, background: 'linear-gradient(135deg, rgba(16,185,129,0.2), rgba(6,182,212,0.2))', border: '1px solid rgba(16,185,129,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Shield size={24} color="#10b981" />
+            <Shield size={24} color="#2563eb" />
           </div>
           <div>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 2 }}>Tenant Rights Assistant</h1>
@@ -181,7 +181,7 @@ export default function TenantRightsPage() {
               <button
                 onClick={() => submitQuestion()}
                 disabled={tenantMutation.isPending}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', borderRadius: 10, background: 'linear-gradient(135deg, #10b981, #06b6d4)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 700, opacity: tenantMutation.isPending ? 0.7 : 1 }}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 700, opacity: tenantMutation.isPending ? 0.7 : 1 }}
               >
                 {tenantMutation.isPending ? 'Asking...' : 'Ask Tenant AI'}
               </button>
@@ -196,7 +196,7 @@ export default function TenantRightsPage() {
             )}
           </div>
         </div>
-        <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: 12, background: 'linear-gradient(135deg, #10b981, #06b6d4)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 15, fontWeight: 700, flexShrink: 0 }}>
+        <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: 12, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 15, fontWeight: 700, flexShrink: 0 }}>
           <MessageSquare size={18} /> Chat with AI
         </button>
       </motion.div>

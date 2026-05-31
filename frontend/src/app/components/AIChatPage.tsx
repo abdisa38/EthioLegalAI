@@ -82,8 +82,8 @@ function MarkdownRenderer({ text }: { text: string }) {
       while (i < lines.length && !lines[i].startsWith('```')) { code.push(lines[i]); i++; }
       const isLegal = lang === 'ethiopian-law' || lang === 'risk-analysis';
       out.push(
-        <div key={k++} style={{ background: isLegal ? 'rgba(99,102,241,0.07)' : 'rgba(0,0,0,0.35)', border: `1px solid ${isLegal ? 'rgba(99,102,241,0.22)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 12, padding: '14px 18px', margin: '12px 0', fontFamily: 'ui-monospace,monospace', fontSize: 13, lineHeight: 1.75, color: isLegal ? '#c7d2fe' : '#94a3b8', whiteSpace: 'pre', overflowX: 'auto' }}>
-          {isLegal && <div style={{ fontSize: 10, color: '#6366f1', fontWeight: 800, letterSpacing: 1.2, marginBottom: 10 }}>📚 LEGAL REFERENCE</div>}
+        <div key={k++} style={{ background: isLegal ? 'rgba(37,99,235,0.07)' : 'rgba(0,0,0,0.35)', border: `1px solid ${isLegal ? 'rgba(37,99,235,0.22)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 12, padding: '14px 18px', margin: '12px 0', fontFamily: 'ui-monospace,monospace', fontSize: 13, lineHeight: 1.75, color: isLegal ? '#dbeafe' : '#94a3b8', whiteSpace: 'pre', overflowX: 'auto' }}>
+          {isLegal && <div style={{ fontSize: 10, color: '#2563eb', fontWeight: 800, letterSpacing: 1.2, marginBottom: 10 }}>📚 LEGAL REFERENCE</div>}
           {code.join('\n')}
         </div>
       );
@@ -92,7 +92,7 @@ function MarkdownRenderer({ text }: { text: string }) {
 
     if (line.startsWith('## ')) {
       flush();
-      out.push(<h2 key={k++} style={{ fontSize: 16, fontWeight: 800, background: 'linear-gradient(135deg, #818cf8, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', margin: '18px 0 10px', lineHeight: 1.3 }}>{parseInline(line.slice(3))}</h2>);
+      out.push(<h2 key={k++} style={{ fontSize: 16, fontWeight: 800, background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', margin: '18px 0 10px', lineHeight: 1.3 }}>{parseInline(line.slice(3))}</h2>);
     } else if (line.startsWith('### ')) {
       flush();
       out.push(<h3 key={k++} style={{ fontSize: 14, fontWeight: 700, color: '#c7d2fe', margin: '14px 0 7px' }}>{parseInline(line.slice(4))}</h3>);
@@ -101,7 +101,7 @@ function MarkdownRenderer({ text }: { text: string }) {
       const inner = line.slice(2);
       const warn = inner.startsWith('⚠️') || inner.includes('Warning') || inner.includes('Legal');
       const tip = inner.startsWith('💡') || inner.startsWith('📋') || inner.startsWith('Pro');
-      const c = warn ? '#f59e0b' : tip ? '#10b981' : '#6366f1';
+      const c = warn ? '#f59e0b' : tip ? '#10b981' : '#2563eb';
       out.push(
         <div key={k++} style={{ borderLeft: `3px solid ${c}`, padding: '8px 14px', margin: '10px 0', background: `${c}0d`, borderRadius: '0 10px 10px 0' }}>
           <p style={{ margin: 0, color: '#cbd5e1', fontSize: 13.5, lineHeight: 1.65 }}>{parseInline(inner)}</p>
@@ -113,7 +113,7 @@ function MarkdownRenderer({ text }: { text: string }) {
     } else if (line.startsWith('- ') || line.startsWith('• ')) {
       li.push(
         <li key={k++} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', color: '#cbd5e1', fontSize: 14, lineHeight: 1.65 }}>
-          <span style={{ color: '#6366f1', flexShrink: 0, marginTop: 3, fontSize: 10 }}>▸</span>
+          <span style={{ color: '#2563eb', flexShrink: 0, marginTop: 3, fontSize: 10 }}>▸</span>
           <span>{parseInline(line.slice(2))}</span>
         </li>
       );
@@ -121,7 +121,7 @@ function MarkdownRenderer({ text }: { text: string }) {
       const num = line.match(/^(\d+)/)?.[1];
       li.push(
         <li key={k++} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', color: '#cbd5e1', fontSize: 14, lineHeight: 1.65 }}>
-          <span style={{ color: '#6366f1', fontWeight: 700, flexShrink: 0, fontSize: 13, marginTop: 1, minWidth: 16 }}>{num}.</span>
+          <span style={{ color: '#2563eb', fontWeight: 700, flexShrink: 0, fontSize: 13, marginTop: 1, minWidth: 16 }}>{num}.</span>
           <span>{parseInline(line.replace(/^\d+\. /, ''))}</span>
         </li>
       );
@@ -150,7 +150,7 @@ function TypingIndicator() {
         <motion.span key={i}
           animate={{ y: [-4, 4, -4], opacity: [0.4, 1, 0.4] }}
           transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.15, ease: 'easeInOut' }}
-          style={{ display: 'block', width: 7, height: 7, borderRadius: '50%', background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}
+          style={{ display: 'block', width: 7, height: 7, borderRadius: '50%', background: 'linear-gradient(135deg,#2563eb,#60a5fa)' }}
         />
       ))}
     </div>
@@ -158,7 +158,7 @@ function TypingIndicator() {
 }
 
 function ConfidenceMeter({ score }: { score: number }) {
-  const color = score >= 90 ? '#10b981' : score >= 75 ? '#6366f1' : '#f59e0b';
+  const color = score >= 90 ? '#10b981' : score >= 75 ? '#2563eb' : '#f59e0b';
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
       <Zap size={10} color={color} />
@@ -174,11 +174,11 @@ function ConfidenceMeter({ score }: { score: number }) {
 function CitationCard({ c }: { c: Citation }) {
   return (
     <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-      style={{ display: 'inline-flex', alignItems: 'flex-start', gap: 9, background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.18)', borderRadius: 10, padding: '9px 13px', marginRight: 7, marginBottom: 7, cursor: 'pointer', verticalAlign: 'top' }}
-      className="hover:border-indigo-500/35 transition-colors">
-      <BookOpen size={12} color="#6366f1" style={{ flexShrink: 0, marginTop: 1 }} />
+      style={{ display: 'inline-flex', alignItems: 'flex-start', gap: 9, background: 'rgba(37,99,235,0.07)', border: '1px solid rgba(37,99,235,0.18)', borderRadius: 10, padding: '9px 13px', marginRight: 7, marginBottom: 7, cursor: 'pointer', verticalAlign: 'top' }}
+      className="hover:border-blue-500/35 transition-colors">
+      <BookOpen size={12} color="#2563eb" style={{ flexShrink: 0, marginTop: 1 }} />
       <div>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#818cf8', marginBottom: 1 }}>{c.law} · {c.article}</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: '#60a5fa', marginBottom: 1 }}>{c.law} · {c.article}</div>
         <div style={{ fontSize: 11, color: '#475569', lineHeight: 1.4 }}>{c.relevance}</div>
       </div>
       <ExternalLink size={10} color="#334155" style={{ flexShrink: 0, marginTop: 2 }} />
@@ -205,7 +205,7 @@ function ActionBar({
     <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
       style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 10, flexWrap: 'wrap' }}>
       <button onClick={copy}
-        style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: copied ? '#10b981' : '#64748b', fontSize: 12, transition: 'all 0.2s' }}>
+            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: copied ? '#10b981' : '#64748b', fontSize: 12, transition: 'all 0.2s' }}>
         {copied ? <Check size={11} /> : <Copy size={11} />}
         {copied ? 'Copied' : 'Copy'}
       </button>
@@ -394,13 +394,13 @@ export default function AIChatPage() {
   const showQuickPrompts = messages.length <= 1;
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#171717', overflow: 'hidden' }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#f8fbff', overflow: 'hidden' }}>
 
       {/* ── Header ────────────────────────────────────────────────────────── */}
-      <div style={{ padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(23,23,23,0.97)', backdropFilter: 'blur(20px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, zIndex: 10 }}>
+      <div style={{ padding: '12px 20px', borderBottom: '1px solid rgba(37,99,235,0.08)', background: 'rgba(255,255,255,0.94)', backdropFilter: 'blur(20px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ position: 'relative' }}>
-            <div style={{ width: 38, height: 38, borderRadius: 11, background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 18px rgba(99,102,241,0.4)' }}>
+            <div style={{ width: 38, height: 38, borderRadius: 11, background: 'linear-gradient(135deg,#2563eb,#60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 18px rgba(37,99,235,0.3)' }}>
               <Scale size={18} color="white" />
             </div>
             <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 2.5, repeat: Infinity }}
@@ -409,7 +409,7 @@ export default function AIChatPage() {
           <div>
             <div style={{ fontWeight: 700, fontSize: 14, color: '#ffffff', lineHeight: 1.2 }}>EthioLegal AI</div>
             <div style={{ fontSize: 11, color: '#a3a3a3', display: 'flex', alignItems: 'center', gap: 5 }}>
-              <Zap size={9} color="#6366f1" />
+              <Zap size={9} color="#2563eb" />
               {awaitingStream ? 'Thinking...' : streamingId ? 'Responding...' : 'Ready · Ethiopian Law'}
             </div>
           </div>
@@ -420,13 +420,13 @@ export default function AIChatPage() {
           <div style={{ display: 'flex', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 9, overflow: 'hidden' }}>
             {[['EN','🇬🇧'],['አማ','🇪🇹'],['ORM','🟢']].map(([l, flag]) => (
               <button key={l} onClick={() => setLang(l)}
-                style={{ padding: '5px 10px', fontSize: 11, fontWeight: 500, border: 'none', cursor: 'pointer', background: lang === l ? 'rgba(99,102,241,0.3)' : 'transparent', color: lang === l ? '#a5b4fc' : '#d4d4d4', transition: 'all 0.15s', whiteSpace: 'nowrap' }}>
+                style={{ padding: '5px 10px', fontSize: 11, fontWeight: 500, border: 'none', cursor: 'pointer', background: lang === l ? 'rgba(37,99,235,0.18)' : 'transparent', color: lang === l ? '#2563eb' : '#64748b', transition: 'all 0.15s', whiteSpace: 'nowrap' }}>
                 {flag} {l}
               </button>
             ))}
           </div>
           <button onClick={() => setMessages([WELCOME])}
-            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#d4d4d4', cursor: 'pointer', fontSize: 12 }}
+            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748b', cursor: 'pointer', fontSize: 12 }}
             className="hover:text-slate-300 transition-colors">
             <Plus size={13} /> New
           </button>
@@ -434,9 +434,9 @@ export default function AIChatPage() {
       </div>
 
       {/* ── Disclaimer ────────────────────────────────────────────────────── */}
-      <div style={{ padding: '7px 20px', background: 'rgba(245,158,11,0.06)', borderBottom: '1px solid rgba(245,158,11,0.1)', display: 'flex', alignItems: 'center', gap: 7, flexShrink: 0 }}>
-        <AlertTriangle size={11} color="#fbbf24" />
-        <span style={{ fontSize: 11.5, color: '#fbbf24', lineHeight: 1.3 }}>Educational legal information only — not official legal advice. Consult a licensed Ethiopian attorney for representation.</span>
+      <div style={{ padding: '7px 20px', background: 'rgba(37,99,235,0.06)', borderBottom: '1px solid rgba(37,99,235,0.08)', display: 'flex', alignItems: 'center', gap: 7, flexShrink: 0 }}>
+        <AlertTriangle size={11} color="#60a5fa" />
+        <span style={{ fontSize: 11.5, color: '#60a5fa', lineHeight: 1.3 }}>Educational legal information only — not official legal advice. Consult a licensed Ethiopian attorney for representation.</span>
       </div>
 
       {/* ── Messages ──────────────────────────────────────────────────────── */}

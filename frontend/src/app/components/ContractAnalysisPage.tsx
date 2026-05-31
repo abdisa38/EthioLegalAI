@@ -29,7 +29,7 @@ export default function ContractAnalysisPage() {
       <div style={{ padding: '48px 28px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9', marginBottom: 8 }}>Select a document to analyze</h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Choose a document from your library or upload a new contract to view its risk analysis.</p>
-        <button onClick={() => navigate('/app/documents')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+        <button onClick={() => navigate('/app/documents')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
           View My Documents
         </button>
       </div>
@@ -45,7 +45,7 @@ export default function ContractAnalysisPage() {
       <div style={{ padding: '48px 28px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9', marginBottom: 8 }}>Analysis not available yet</h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>Run a fresh analysis by uploading the document again.</p>
-        <button onClick={() => navigate('/app/upload')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+        <button onClick={() => navigate('/app/upload')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
           Analyze New Contract
         </button>
       </div>
@@ -85,7 +85,7 @@ export default function ContractAnalysisPage() {
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>Contract Risk Analysis</h1>
             <p style={{ color: '#64748b', fontSize: 15 }}>AI-powered analysis of {fileLabel}</p>
           </div>
-          <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+          <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <Upload size={14} /> Analyze New Contract
           </button>
         </div>
@@ -98,7 +98,7 @@ export default function ContractAnalysisPage() {
             { label: 'High Risk Clauses', value: highCount, color: '#ef4444', icon: AlertTriangle, desc: 'Require action' },
             { label: 'Medium Risk', value: medCount, color: '#f59e0b', icon: Info, desc: 'Review needed' },
             { label: 'Safe Clauses', value: lowCount, color: '#10b981', icon: CheckCircle, desc: 'Compliant' },
-            { label: 'AI Confidence', value: aiConfidence ? `${Math.round(aiConfidence)}%` : '—', color: '#6366f1', icon: Shield, desc: 'Analysis accuracy' },
+            { label: 'AI Confidence', value: aiConfidence ? `${Math.round(aiConfidence)}%` : '—', color: '#2563eb', icon: Shield, desc: 'Analysis accuracy' },
           ].map((stat, i) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
             style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: '18px 20px' }}>
@@ -122,7 +122,7 @@ export default function ContractAnalysisPage() {
               <RadarChart data={radarData}>
                 <PolarGrid stroke="rgba(255,255,255,0.06)" />
                 <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748b', fontSize: 12 }} />
-                <Radar name="Risk Score" dataKey="A" stroke="#6366f1" fill="rgba(99,102,241,0.2)" strokeWidth={2} />
+                <Radar name="Risk Score" dataKey="A" stroke="#2563eb" fill="rgba(37,99,235,0.18)" strokeWidth={2} />
                 <Tooltip contentStyle={{ background: '#0d1124', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, color: '#f1f5f9', fontSize: 13 }} />
               </RadarChart>
             </ResponsiveContainer>
@@ -163,7 +163,7 @@ export default function ContractAnalysisPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
         style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 28 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
-          <FileSearch size={18} color="#6366f1" />
+          <FileSearch size={18} color="#2563eb" />
           <h2 style={{ fontSize: 17, fontWeight: 700 }}>Detected Clauses ({clauses.length})</h2>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
