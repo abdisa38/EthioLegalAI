@@ -164,7 +164,7 @@ export default function DashboardHome() {
                     marginBottom: 4 
                   }}>
                     {action.label}
-                      EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
+                  </div>
                   <div style={{ 
                     fontSize: 14, 
                     color: '#475569',
