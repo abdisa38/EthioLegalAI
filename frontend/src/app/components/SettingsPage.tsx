@@ -277,10 +277,10 @@ export default function SettingsPage() {
           style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 28 }}>
           <SectionContent />
 
-          <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid var(--color-border)', display: 'flex', justifyContent: 'flex-end' }}>
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
               onClick={handleSave}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 24px', borderRadius: 10, background: saved ? 'rgba(37,99,235,0.12)' : 'linear-gradient(135deg, #2563eb, #60a5fa)', border: saved ? '1px solid rgba(37,99,235,0.25)' : 'none', color: saved ? '#2563eb' : 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600, transition: 'all 0.2s' }}>
+              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 24px', borderRadius: 10, background: saved ? 'rgba(37,99,235,0.12)' : 'linear-gradient(135deg, #2563eb, #60a5fa)', border: saved ? '1px solid rgba(37,99,235,0.25)' : 'none', color: saved ? '#2563eb' : 'var(--primary-foreground)', cursor: 'pointer', fontSize: 14, fontWeight: 600, transition: 'all 0.2s' }}>
               {saved ? <><Check size={15} /> Saved!</> : <><Save size={15} /> Save Changes</>}
             </motion.button>
           </div>
