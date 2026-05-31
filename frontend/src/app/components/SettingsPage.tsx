@@ -152,8 +152,8 @@ export default function SettingsPage() {
       case 'ai':
         return (
           <div>
-            <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>AI Preferences</h2>
-            <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>Customize how the AI responds to your questions.</p>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--foreground)', marginBottom: 6 }}>AI Preferences</h2>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>Customize how the AI responds to your questions.</p>
 
             <div style={{ marginBottom: 28 }}>
               <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>AI Response Language</label>
@@ -164,10 +164,10 @@ export default function SettingsPage() {
                   { value: 'amharic', label: 'Always Amharic', desc: 'AI always responds in Amharic (አማርኛ)' },
                 ].map(option => (
                   <button key={option.value} onClick={() => setAiLang(option.value)}
-                    style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 10, border: `1px solid ${aiLang === option.value ? 'rgba(37,99,235,0.35)' : 'rgba(255,255,255,0.07)'}`, background: aiLang === option.value ? 'rgba(37,99,235,0.08)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
+                    style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 10, border: `1px solid ${aiLang === option.value ? 'rgba(37,99,235,0.35)' : 'var(--color-border)'}`, background: aiLang === option.value ? 'rgba(37,99,235,0.08)' : 'var(--muted)', cursor: 'pointer', textAlign: 'left' }}>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 500, fontSize: 14, color: '#e2e8f0' }}>{option.label}</div>
-                      <div style={{ fontSize: 12, color: '#64748b' }}>{option.desc}</div>
+                      <div style={{ fontWeight: 500, fontSize: 14, color: 'var(--foreground)' }}>{option.label}</div>
+                      <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>{option.desc}</div>
                     </div>
                     {aiLang === option.value && <Check size={15} color="#2563eb" />}
                   </button>
@@ -183,9 +183,9 @@ export default function SettingsPage() {
                   { value: 'detailed', label: 'Detailed', desc: 'Thorough with legal citations' },
                 ].map(option => (
                   <button key={option.value} onClick={() => setAiStyle(option.value)}
-                    style={{ padding: '14px', borderRadius: 10, border: `1px solid ${aiStyle === option.value ? 'rgba(37,99,235,0.35)' : 'rgba(255,255,255,0.07)'}`, background: aiStyle === option.value ? 'rgba(37,99,235,0.08)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
-                    <div style={{ fontWeight: 600, fontSize: 14, color: '#e2e8f0', marginBottom: 4 }}>{option.label}</div>
-                    <div style={{ fontSize: 12, color: '#64748b' }}>{option.desc}</div>
+                    style={{ padding: '14px', borderRadius: 10, border: `1px solid ${aiStyle === option.value ? 'rgba(37,99,235,0.35)' : 'var(--color-border)'}`, background: aiStyle === option.value ? 'rgba(37,99,235,0.08)' : 'var(--muted)', cursor: 'pointer', textAlign: 'left' }}>
+                      <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--foreground)', marginBottom: 4 }}>{option.label}</div>
+                      <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>{option.desc}</div>
                   </button>
                 ))}
               </div>
