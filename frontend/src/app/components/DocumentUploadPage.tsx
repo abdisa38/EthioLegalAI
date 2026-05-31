@@ -279,7 +279,7 @@ function ProcessingScreen({ step, progress, fileName }: { step: number; progress
             ) : (
               <div style={{ width: 14, height: 14, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }} />
             )}
-            <span style={{ fontSize: 13, color: i <= step ? '#94a3b8' : '#475569' }}>{s.label}</span>
+            <span style={{ fontSize: 13, color: i <= step ? 'var(--muted-foreground)' : 'var(--muted-foreground)' }}>{s.label}</span>
           </motion.div>
         ))}
       </div>
@@ -520,9 +520,9 @@ export default function DocumentUploadPage() {
                 {dragging ? 'Release to upload' : 'Drag & Drop or Click to Upload'}
               </h3>
               <p style={{ color: '#64748b', fontSize: 14, marginBottom: 18 }}>Supports PDF, DOCX, JPG, PNG — up to 25 MB</p>
-              <div style={{ display: 'flex', gap: 7, justifyContent: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: 7, justifyContent: 'center', flexWrap: 'wrap' }}>
                 {ACCEPTED_EXT.map(ext => (
-                  <span key={ext} style={{ padding: '3px 11px', borderRadius: 100, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', fontSize: 11, color: '#64748b' }}>{ext.toUpperCase()}</span>
+                  <span key={ext} style={{ padding: '3px 11px', borderRadius: 100, background: 'var(--muted)', border: '1px solid var(--color-border)', fontSize: 11, color: 'var(--muted-foreground)' }}>{ext.toUpperCase()}</span>
                 ))}
               </div>
 
