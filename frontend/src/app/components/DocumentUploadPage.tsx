@@ -251,9 +251,9 @@ function ProcessingScreen({ step, progress, fileName }: { step: number; progress
         </div>
       </div>
 
-      <h3 style={{ fontSize: 20, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>AI Analyzing Document</h3>
-      <p style={{ color: '#64748b', marginBottom: 4, fontSize: 14 }}>{fileName}</p>
-      <p style={{ color: '#475569', marginBottom: 28, fontSize: 12 }}>Checking against Ethiopian legal database...</p>
+      <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--foreground)', marginBottom: 6 }}>AI Analyzing Document</h3>
+      <p style={{ color: 'var(--muted-foreground)', marginBottom: 4, fontSize: 14 }}>{fileName}</p>
+      <p style={{ color: 'var(--muted-foreground)', marginBottom: 28, fontSize: 12 }}>Checking against Ethiopian legal database...</p>
 
       {/* Progress bar */}
       <div style={{ width: '100%', maxWidth: 340, marginBottom: 28 }}>
