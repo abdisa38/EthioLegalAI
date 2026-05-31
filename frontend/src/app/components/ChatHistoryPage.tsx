@@ -7,10 +7,10 @@ import { getChatsRequest, toggleStarChatRequest, deleteChatRequest } from '../ap
 import { ChatSkeleton } from '@/shared/components';
 
 const categoryConfig: Record<string, { color: string; icon: React.ElementType }> = {
-  'Tenant Rights': { color: '#10b981', icon: Shield },
-  'Labor Law': { color: '#f59e0b', icon: TrendingUp },
-  'Contract': { color: '#6366f1', icon: FileText },
-  'General': { color: '#8b5cf6', icon: MessageSquare }
+  'Tenant Rights': { color: '#2563eb', icon: Shield },
+  'Labor Law': { color: '#3b82f6', icon: TrendingUp },
+  'Contract': { color: '#60a5fa', icon: FileText },
+  'General': { color: '#93c5fd', icon: MessageSquare }
 };
 
 export default function ChatHistoryPage() {
@@ -72,7 +72,7 @@ export default function ChatHistoryPage() {
     return (
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
         style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: '18px 20px', display: 'flex', alignItems: 'flex-start', gap: 14 }}
-        className="hover:border-white/10 transition-colors">
+        className="hover:border-blue-200 transition-colors">
         <div style={{ width: 40, height: 40, borderRadius: 10, background: `${cat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <CatIcon size={18} color={cat.color} />
         </div>
@@ -130,7 +130,7 @@ export default function ChatHistoryPage() {
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>Chat History</h1>
             <p style={{ color: '#64748b', fontSize: 15 }}>{chats?.length || 0} saved conversations · {starredChats.length} starred</p>
           </div>
-          <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+          <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <MessageSquare size={14} /> New Chat
           </button>
         </div>
@@ -142,13 +142,13 @@ export default function ChatHistoryPage() {
           <Search size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search conversations..."
             style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '11px 14px 11px 42px', color: '#f1f5f9', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
-            className="focus:border-indigo-500/40 transition-colors" />
+            className="focus:border-blue-500/40 transition-colors" />
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           <Filter size={13} color="#475569" />
           {categories.map(cat => (
             <button key={cat} onClick={() => setFilterCat(cat)}
-              style={{ padding: '5px 14px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterCat === cat ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.04)', color: filterCat === cat ? '#818cf8' : '#64748b' }}>
+              style={{ padding: '5px 14px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterCat === cat ? 'rgba(37,99,235,0.14)' : 'rgba(255,255,255,0.04)', color: filterCat === cat ? '#2563eb' : '#64748b' }}>
               {cat}
             </button>
           ))}

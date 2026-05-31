@@ -32,7 +32,7 @@ const riskConfig = {
 };
 
 const typeColors: Record<string, string> = {
-  Rental: '#6366f1', Employment: '#8b5cf6', 'Legal Notice': '#f59e0b', Business: '#06b6d4', Government: '#10b981',
+  Rental: '#2563eb', Employment: '#3b82f6', 'Legal Notice': '#60a5fa', Business: '#93c5fd', Government: '#1d4ed8',
 };
 
 export default function DocumentLibraryPage() {
@@ -83,7 +83,7 @@ export default function DocumentLibraryPage() {
               {documents?.length || 0} documents · {filtered.filter(doc => riskFromScore(doc.riskScore) === 'high').length} high-risk alerts
             </p>
           </div>
-          <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+          <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <Upload size={14} /> Upload Document
           </button>
         </div>
@@ -96,7 +96,7 @@ export default function DocumentLibraryPage() {
           <Search size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search documents..."
             style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '11px 14px 11px 42px', color: '#f1f5f9', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
-            className="focus:border-indigo-500/40 transition-colors" />
+            className="focus:border-blue-500/40 transition-colors" />
         </div>
 
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -105,7 +105,7 @@ export default function DocumentLibraryPage() {
             <Filter size={14} color="#475569" style={{ alignSelf: 'center' }} />
             {(['all', 'high', 'medium', 'low'] as const).map(r => (
               <button key={r} onClick={() => setFilterRisk(r)}
-                style={{ padding: '5px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterRisk === r ? (r === 'all' ? 'rgba(99,102,241,0.2)' : riskConfig[r]?.bg) : 'rgba(255,255,255,0.05)', color: filterRisk === r ? (r === 'all' ? '#818cf8' : riskConfig[r]?.color) : '#64748b' }}>
+                style={{ padding: '5px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterRisk === r ? (r === 'all' ? 'rgba(37,99,235,0.14)' : riskConfig[r]?.bg) : 'rgba(255,255,255,0.05)', color: filterRisk === r ? (r === 'all' ? '#2563eb' : riskConfig[r]?.color) : '#64748b' }}>
                 {r === 'all' ? 'All Risk' : riskConfig[r].label}
               </button>
             ))}
@@ -117,7 +117,7 @@ export default function DocumentLibraryPage() {
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {docTypes.map(type => (
               <button key={type} onClick={() => setFilterType(type)}
-                style={{ padding: '5px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterType === type ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.04)', color: filterType === type ? '#818cf8' : '#64748b' }}>
+                style={{ padding: '5px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterType === type ? 'rgba(37,99,235,0.14)' : 'rgba(255,255,255,0.04)', color: filterType === type ? '#2563eb' : '#64748b' }}>
                 {type}
               </button>
             ))}
@@ -146,7 +146,7 @@ export default function DocumentLibraryPage() {
             return (
               <motion.div key={doc._id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
                 style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: '18px 22px', display: 'flex', alignItems: 'flex-start', gap: 16 }}
-                className="hover:border-white/10 transition-colors">
+                className="hover:border-blue-200 transition-colors">
                 {/* File icon */}
                 <div style={{ width: 44, height: 44, borderRadius: 10, background: 'rgba(239,68,68,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <FileText size={22} color="#ef4444" />
@@ -201,7 +201,7 @@ export default function DocumentLibraryPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
         onClick={() => navigate('/app/upload')}
         style={{ marginTop: 20, border: '2px dashed rgba(255,255,255,0.08)', borderRadius: 14, padding: '32px', textAlign: 'center', cursor: 'pointer', background: 'rgba(255,255,255,0.01)' }}
-        className="hover:border-indigo-500/30 hover:bg-indigo-500/3 transition-all">
+        className="hover:border-blue-500/30 hover:bg-blue-500/3 transition-all">
         <Upload size={28} color="#475569" style={{ margin: '0 auto 12px' }} />
         <div style={{ fontSize: 14, color: '#64748b', fontWeight: 500 }}>Drop a legal document here or click to upload</div>
         <div style={{ fontSize: 12, color: '#334155', marginTop: 4 }}>PDF, DOCX, JPG · Up to 25MB</div>
