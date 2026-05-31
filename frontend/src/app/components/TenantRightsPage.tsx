@@ -142,7 +142,7 @@ export default function TenantRightsPage() {
               </button>
               {openFaq === i && (
                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}>
-                  <div style={{ padding: '0 20px 16px', color: '#94a3b8', fontSize: 13, lineHeight: 1.7 }}>{faq.a}</div>
+                  <div style={{ padding: '0 20px 16px', color: 'var(--muted-foreground)', fontSize: 13, lineHeight: 1.7 }}>{faq.a}</div>
                 </motion.div>
               )}
             </div>
