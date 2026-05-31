@@ -55,7 +55,7 @@ export default function LandingPage() {
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
             {['Features', 'About', 'Pricing'].map(item => (
-              <span key={item} style={{ color: '#94a3b8', cursor: 'pointer', fontSize: 15, fontWeight: 500 }}
+              <span key={item} style={{ color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 15, fontWeight: 500 }}
                 className="hover:text-white transition-colors">{item}</span>
             ))}
           </div>
@@ -109,7 +109,7 @@ export default function LandingPage() {
               with AI
             </h1>
 
-            <p style={{ fontSize: 18, color: '#94a3b8', lineHeight: 1.7, marginBottom: 36, maxWidth: 520 }}>
+            <p style={{ fontSize: 18, color: 'var(--muted-foreground)', lineHeight: 1.7, marginBottom: 36, maxWidth: 520 }}>
               Upload contracts, ask legal questions in Amharic, Oromo, or English — and get instant AI-powered explanations of your rights under Ethiopian law.
             </p>
 
@@ -121,7 +121,7 @@ export default function LandingPage() {
               </motion.button>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => navigate('/app/upload')}
-                style={{ background: 'rgba(255,255,255,0.06)', color: '#f1f5f9', padding: '14px 28px', borderRadius: 12, border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8 }}>
+                style={{ background: 'var(--muted)', color: 'var(--foreground)', padding: '14px 28px', borderRadius: 12, border: '1px solid var(--color-border)', cursor: 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Upload size={18} /> Upload Legal Document
               </motion.button>
             </div>
