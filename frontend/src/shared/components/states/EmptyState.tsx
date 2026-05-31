@@ -51,7 +51,7 @@ export const EmptyState = ({
         style={{
           fontSize: '20px',
           fontWeight: '700',
-          color: '#f1f5f9',
+          color: '#0f172a',
           marginBottom: '8px',
         }}
       >
@@ -60,7 +60,7 @@ export const EmptyState = ({
 
       <p
         style={{
-          color: '#64748b',
+          color: '#475569',
           fontSize: '15px',
           lineHeight: '1.6',
           maxWidth: '400px',
@@ -77,15 +77,14 @@ export const EmptyState = ({
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            background: 'linear-gradient(135deg, #2563eb, #60a5fa)',
-            color: 'white',
+            background: 'rgba(37,99,235,0.1)',
+            color: '#2563eb',
+            border: '1px solid rgba(37,99,235,0.2)',
             padding: '12px 24px',
             borderRadius: '10px',
-            border: 'none',
             cursor: 'pointer',
             fontSize: '15px',
             fontWeight: '600',
-            boxShadow: '0 0 20px rgba(37,99,235,0.25)',
           }}
         >
           {action.icon && <action.icon size={18} />}

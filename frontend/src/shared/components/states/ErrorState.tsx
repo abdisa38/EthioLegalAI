@@ -44,7 +44,7 @@ export const ErrorState = ({
         style={{
           fontSize: '20px',
           fontWeight: '700',
-          color: '#f1f5f9',
+          color: '#0f172a',
           marginBottom: '8px',
         }}
       >
@@ -53,7 +53,7 @@ export const ErrorState = ({
 
       <p
         style={{
-          color: '#64748b',
+          color: '#475569',
           fontSize: '15px',
           lineHeight: '1.6',
           maxWidth: '400px',
@@ -70,9 +70,9 @@ export const ErrorState = ({
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            color: '#94a3b8',
+            background: 'rgba(37,99,235,0.1)',
+            border: '1px solid rgba(37,99,235,0.2)',
+            color: '#2563eb',
             padding: '12px 24px',
             borderRadius: '10px',
             cursor: 'pointer',
