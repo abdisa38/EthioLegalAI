@@ -100,9 +100,9 @@ export default function SettingsPage() {
                   { value: 'system', label: 'System', preview: 'linear-gradient(135deg, #080b18, #f8fafc)', text: '#94a3b8' },
                 ].map(option => (
                   <button key={option.value} onClick={() => setTheme(option.value)}
-                    style={{ borderRadius: 12, border: `2px solid ${theme === option.value ? '#6366f1' : 'rgba(255,255,255,0.08)'}`, overflow: 'hidden', cursor: 'pointer', background: 'transparent', padding: 0 }}>
+                    style={{ borderRadius: 12, border: `2px solid ${theme === option.value ? '#2563eb' : 'rgba(255,255,255,0.08)'}`, overflow: 'hidden', cursor: 'pointer', background: 'transparent', padding: 0 }}>
                     <div style={{ height: 60, background: option.preview }} />
-                    <div style={{ padding: '8px', background: theme === option.value ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.02)', textAlign: 'center' }}>
+                    <div style={{ padding: '8px', background: theme === option.value ? 'rgba(37,99,235,0.12)' : 'rgba(255,255,255,0.02)', textAlign: 'center' }}>
                       <div style={{ fontSize: 13, fontWeight: 500, color: '#e2e8f0' }}>{option.label}</div>
                     </div>
                   </button>
@@ -119,7 +119,7 @@ export default function SettingsPage() {
             <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>Manage your profile and account information.</p>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 28, padding: '20px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14 }}>
-              <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 700, color: 'white' }}>T</div>
+              <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 700, color: 'white' }}>T</div>
               <div>
                 <div style={{ fontWeight: 700, fontSize: 18, color: '#f1f5f9', marginBottom: 3 }}>Tigist Bekele</div>
                 <div style={{ color: '#64748b', fontSize: 14 }}>tigist.bekele@example.com</div>
@@ -137,7 +137,7 @@ export default function SettingsPage() {
                   <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>{field.label}</label>
                   <input defaultValue={field.value}
                     style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '11px 14px', color: '#f1f5f9', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
-                    className="focus:border-indigo-500/40 transition-colors" />
+                    className="focus:border-blue-500/40 transition-colors" />
                 </div>
               ))}
             </div>
@@ -164,12 +164,12 @@ export default function SettingsPage() {
                   { value: 'amharic', label: 'Always Amharic', desc: 'AI always responds in Amharic (አማርኛ)' },
                 ].map(option => (
                   <button key={option.value} onClick={() => setAiLang(option.value)}
-                    style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 10, border: `1px solid ${aiLang === option.value ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.07)'}`, background: aiLang === option.value ? 'rgba(99,102,241,0.1)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
+                    style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 16px', borderRadius: 10, border: `1px solid ${aiLang === option.value ? 'rgba(37,99,235,0.35)' : 'rgba(255,255,255,0.07)'}`, background: aiLang === option.value ? 'rgba(37,99,235,0.08)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontWeight: 500, fontSize: 14, color: '#e2e8f0' }}>{option.label}</div>
                       <div style={{ fontSize: 12, color: '#64748b' }}>{option.desc}</div>
                     </div>
-                    {aiLang === option.value && <Check size={15} color="#6366f1" />}
+                    {aiLang === option.value && <Check size={15} color="#2563eb" />}
                   </button>
                 ))}
               </div>
@@ -183,7 +183,7 @@ export default function SettingsPage() {
                   { value: 'detailed', label: 'Detailed', desc: 'Thorough with legal citations' },
                 ].map(option => (
                   <button key={option.value} onClick={() => setAiStyle(option.value)}
-                    style={{ padding: '14px', borderRadius: 10, border: `1px solid ${aiStyle === option.value ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.07)'}`, background: aiStyle === option.value ? 'rgba(99,102,241,0.1)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
+                    style={{ padding: '14px', borderRadius: 10, border: `1px solid ${aiStyle === option.value ? 'rgba(37,99,235,0.35)' : 'rgba(255,255,255,0.07)'}`, background: aiStyle === option.value ? 'rgba(37,99,235,0.08)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
                     <div style={{ fontWeight: 600, fontSize: 14, color: '#e2e8f0', marginBottom: 4 }}>{option.label}</div>
                     <div style={{ fontSize: 12, color: '#64748b' }}>{option.desc}</div>
                   </button>
@@ -262,10 +262,10 @@ export default function SettingsPage() {
           style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {sections.map(section => (
             <button key={section.id} onClick={() => setActiveSection(section.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: 'none', cursor: 'pointer', textAlign: 'left', background: activeSection === section.id ? 'rgba(99,102,241,0.12)' : 'transparent', color: activeSection === section.id ? '#818cf8' : '#64748b', transition: 'all 0.2s' }}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: 'none', cursor: 'pointer', textAlign: 'left', background: activeSection === section.id ? 'rgba(37,99,235,0.12)' : 'transparent', color: activeSection === section.id ? '#2563eb' : '#64748b', transition: 'all 0.2s' }}
               className={activeSection !== section.id ? 'hover:bg-white/5 hover:text-slate-300' : ''}>
               <div style={{ width: 30, height: 30, borderRadius: 8, background: `${section.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <section.icon size={15} color={activeSection === section.id ? '#818cf8' : section.color} />
+                <section.icon size={15} color={activeSection === section.id ? '#2563eb' : section.color} />
               </div>
               <span style={{ fontSize: 14, fontWeight: 500 }}>{section.label}</span>
             </button>
@@ -280,7 +280,7 @@ export default function SettingsPage() {
           <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'flex-end' }}>
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
               onClick={handleSave}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 24px', borderRadius: 10, background: saved ? 'rgba(16,185,129,0.2)' : 'linear-gradient(135deg, #6366f1, #8b5cf6)', border: saved ? '1px solid rgba(16,185,129,0.4)' : 'none', color: saved ? '#10b981' : 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600, transition: 'all 0.2s' }}>
+              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '11px 24px', borderRadius: 10, background: saved ? 'rgba(37,99,235,0.12)' : 'linear-gradient(135deg, #2563eb, #60a5fa)', border: saved ? '1px solid rgba(37,99,235,0.25)' : 'none', color: saved ? '#2563eb' : 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600, transition: 'all 0.2s' }}>
               {saved ? <><Check size={15} /> Saved!</> : <><Save size={15} /> Save Changes</>}
             </motion.button>
           </div>
