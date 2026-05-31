@@ -220,18 +220,18 @@ export default function SettingsPage() {
       case 'privacy':
         return (
           <div>
-            <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>Privacy & Security</h2>
-            <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>Control how your data is handled.</p>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--foreground)', marginBottom: 6 }}>Privacy & Security</h2>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>Control how your data is handled.</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 28 }}>
               {[
                 { key: 'saveHistory', label: 'Save Chat History', desc: 'Store your AI conversations for later review' },
                 { key: 'analytics', label: 'Usage Analytics', desc: 'Share anonymous usage data to improve EthioLegal AI' },
                 { key: 'dataSharing', label: 'Data Sharing', desc: 'Allow anonymized data to improve AI training' },
               ].map(item => (
-                <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 18px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, gap: 16 }}>
+                <div key={item.key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 18px', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 12, gap: 16 }}>
                   <div>
-                    <div style={{ fontWeight: 600, fontSize: 14, color: '#e2e8f0', marginBottom: 3 }}>{item.label}</div>
-                    <div style={{ fontSize: 12, color: '#64748b' }}>{item.desc}</div>
+                    <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--foreground)', marginBottom: 3 }}>{item.label}</div>
+                    <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>{item.desc}</div>
                   </div>
                   <Toggle value={privacy[item.key as keyof typeof privacy]} onChange={v => setPrivacy(prev => ({ ...prev, [item.key]: v }))} />
                 </div>
