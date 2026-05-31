@@ -170,7 +170,7 @@ export default function AuthPage() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                       <label style={{ color: '#94a3b8', fontSize: 13, fontWeight: 500 }}>Password</label>
-                      {!isRegister && <span onClick={() => navigate('/forgot-password')} style={{ color: '#818cf8', fontSize: 13, cursor: 'pointer' }}>Forgot password?</span>}
+                      {!isRegister && <span onClick={() => navigate('/forgot-password')} style={{ color: '#2563eb', fontSize: 13, cursor: 'pointer' }}>Forgot password?</span>}
                     </div>
                     <div style={{ position: 'relative' }}>
                       <Lock size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
@@ -186,9 +186,9 @@ export default function AuthPage() {
 
                 {isRegister && (
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <input type="checkbox" id="terms" style={{ marginTop: 3, accentColor: '#6366f1' }} />
+                    <input type="checkbox" id="terms" style={{ marginTop: 3, accentColor: '#2563eb' }} />
                     <label htmlFor="terms" style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
-                      I agree to the <span style={{ color: '#818cf8', cursor: 'pointer' }}>Terms of Service</span> and understand this is educational information, not legal advice.
+                      I agree to the <span style={{ color: '#2563eb', cursor: 'pointer' }}>Terms of Service</span> and understand this is educational information, not legal advice.
                     </label>
                   </div>
                 )}
@@ -201,7 +201,7 @@ export default function AuthPage() {
 
                 <motion.button type="submit" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
                   disabled={isSubmitting}
-                  style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '14px', borderRadius: 10, border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 0 20px rgba(99,102,241,0.35)', marginTop: 4, opacity: isSubmitting ? 0.8 : 1 }}>
+                  style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '14px', borderRadius: 10, border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 0 20px rgba(37,99,235,0.35)', marginTop: 4, opacity: isSubmitting ? 0.8 : 1 }}>
                   {isForgot ? 'Send Reset Link' : isRegister ? 'Create Account' : 'Sign In'}
                   <ArrowRight size={16} />
                 </motion.button>
@@ -209,13 +209,13 @@ export default function AuthPage() {
 
               <div style={{ textAlign: 'center', marginTop: 24, color: '#64748b', fontSize: 14 }}>
                 {isRegister ? (
-                  <>Already have an account? <span onClick={() => navigate('/login')} style={{ color: '#818cf8', cursor: 'pointer' }}>Sign in</span></>
+                  <>Already have an account? <span onClick={() => navigate('/login')} style={{ color: '#2563eb', cursor: 'pointer' }}>Sign in</span></>
                 ) : isForgot ? (
-                  <span onClick={() => navigate('/login')} style={{ color: '#818cf8', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  <span onClick={() => navigate('/login')} style={{ color: '#2563eb', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
                     <ArrowLeft size={14} /> Back to Sign In
                   </span>
                 ) : (
-                  <>Don't have an account? <span onClick={() => navigate('/register')} style={{ color: '#818cf8', cursor: 'pointer' }}>Sign up free</span></>
+                  <>Don't have an account? <span onClick={() => navigate('/register')} style={{ color: '#2563eb', cursor: 'pointer' }}>Sign up free</span></>
                 )}
               </div>
             </>
@@ -223,11 +223,11 @@ export default function AuthPage() {
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
               style={{ textAlign: 'center', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 16, padding: 40 }}>
               <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(16,185,129,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-                <Mail size={28} color="#10b981" />
+                <Mail size={28} color="#2563eb" />
               </div>
               <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: '#f1f5f9' }}>Check Your Email</h3>
               <p style={{ color: '#64748b', fontSize: 15, marginBottom: 24 }}>We've sent reset instructions to <strong style={{ color: '#94a3b8' }}>{email}</strong></p>
-              <button onClick={() => navigate('/login')} style={{ color: '#818cf8', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6, margin: '0 auto' }}>
+              <button onClick={() => navigate('/login')} style={{ color: '#2563eb', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6, margin: '0 auto' }}>
                 <ArrowLeft size={14} /> Back to Sign In
               </button>
             </motion.div>

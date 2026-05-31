@@ -623,11 +623,11 @@ export default function DocumentUploadPage() {
             {/* Quick stats */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 12, marginBottom: 22 }}>
                 {[
-                  { label: 'Risk Score', value: `${result.riskScore}/100`, color: '#f59e0b', icon: TrendingDown },
+                  { label: 'Risk Score', value: `${result.riskScore}/100`, color: '#2563eb', icon: TrendingDown },
                   { label: 'High Risk', value: String(high), color: '#ef4444', icon: AlertTriangle },
-                  { label: 'Medium Risk', value: String(med), color: '#f59e0b', icon: Info },
-                  { label: 'Compliant', value: String(low), color: '#10b981', icon: CheckCircle },
-                  { label: 'AI Accuracy', value: result.aiConfidence ? `${Math.round(result.aiConfidence)}%` : '—', color: '#6366f1', icon: Zap },
+                  { label: 'Medium Risk', value: String(med), color: '#60a5fa', icon: Info },
+                  { label: 'Compliant', value: String(low), color: '#2563eb', icon: CheckCircle },
+                  { label: 'AI Accuracy', value: result.aiConfidence ? `${Math.round(result.aiConfidence)}%` : '—', color: '#93c5fd', icon: Zap },
                 ].map(s => (
                 <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                   style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '14px 16px' }}>
