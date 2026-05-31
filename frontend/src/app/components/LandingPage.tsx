@@ -270,7 +270,7 @@ export default function LandingPage() {
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 16 }}>How EthioLegal AI Works</h2>
-            <p style={{ color: '#64748b', fontSize: 17 }}>Three simple steps to understanding your legal rights</p>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 17 }}>Three simple steps to understanding your legal rights</p>
           </motion.div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 32 }}>
             {[
@@ -285,7 +285,7 @@ export default function LandingPage() {
                   <div style={{ position: 'absolute', top: -8, right: -8, background: item.color, borderRadius: '50%', width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: 'white' }}>{item.step.slice(1)}</div>
                 </div>
                 <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>{item.title}</h3>
-                <p style={{ color: '#64748b', lineHeight: 1.6 }}>{item.desc}</p>
+                <p style={{ color: 'var(--muted-foreground)', lineHeight: 1.6 }}>{item.desc}</p>
               </motion.div>
             ))}
           </div>
