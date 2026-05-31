@@ -37,7 +37,7 @@ export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div style={{ background: '#080b18', minHeight: '100vh', color: '#f1f5f9' }}>
+    <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--foreground)' }}>
       {/* Navbar */}
       <nav style={{ background: 'rgba(8,11,24,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)', position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
@@ -67,7 +67,7 @@ export default function LandingPage() {
               className="hover:opacity-90 transition-opacity">Get Started</button>
           </div>
 
-          <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#f1f5f9' }}>
+          <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--foreground)' }}>
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
