@@ -88,8 +88,8 @@ export default function SettingsPage() {
       case 'appearance':
         return (
           <div>
-            <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>Appearance</h2>
-            <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>Customize how EthioLegal AI looks.</p>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--foreground)', marginBottom: 6 }}>Appearance</h2>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>Customize how EthioLegal AI looks.</p>
 
             <div style={{ marginBottom: 28 }}>
               <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>Theme</label>
@@ -99,11 +99,11 @@ export default function SettingsPage() {
                   { value: 'light', label: 'Light', preview: '#f8fafc', text: '#0f172a' },
                   { value: 'system', label: 'System', preview: 'linear-gradient(135deg, #080b18, #f8fafc)', text: '#94a3b8' },
                 ].map(option => (
-                  <button key={option.value} onClick={() => setTheme(option.value)}
-                    style={{ borderRadius: 12, border: `2px solid ${theme === option.value ? '#2563eb' : 'rgba(255,255,255,0.08)'}`, overflow: 'hidden', cursor: 'pointer', background: 'transparent', padding: 0 }}>
+                    <button key={option.value} onClick={() => setTheme(option.value)}
+                    style={{ borderRadius: 12, border: `2px solid ${theme === option.value ? '#2563eb' : 'var(--color-border)'}`, overflow: 'hidden', cursor: 'pointer', background: 'transparent', padding: 0 }}>
                     <div style={{ height: 60, background: option.preview }} />
-                    <div style={{ padding: '8px', background: theme === option.value ? 'rgba(37,99,235,0.12)' : 'rgba(255,255,255,0.02)', textAlign: 'center' }}>
-                      <div style={{ fontSize: 13, fontWeight: 500, color: '#e2e8f0' }}>{option.label}</div>
+                    <div style={{ padding: '8px', background: theme === option.value ? 'rgba(37,99,235,0.08)' : 'var(--muted)', textAlign: 'center' }}>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--foreground)' }}>{option.label}</div>
                     </div>
                   </button>
                 ))}
