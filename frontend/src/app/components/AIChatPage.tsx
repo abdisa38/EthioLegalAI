@@ -204,8 +204,8 @@ function ActionBar({
   return (
     <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
       style={{ display: 'flex', alignItems: 'center', gap: 5, marginTop: 10, flexWrap: 'wrap' }}>
-      <button onClick={copy}
-            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: copied ? '#10b981' : '#64748b', fontSize: 12, transition: 'all 0.2s' }}>
+          <button onClick={copy}
+                style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: copied ? '#10b981' : 'var(--muted-foreground)', fontSize: 12, transition: 'all 0.2s' }}>
         {copied ? <Check size={11} /> : <Copy size={11} />}
         {copied ? 'Copied' : 'Copy'}
       </button>
@@ -219,13 +219,13 @@ function ActionBar({
       </button>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginLeft: 'auto' }}>
-        <span style={{ fontSize: 11, color: '#334155' }}>Helpful?</span>
-        <button onClick={() => onFeedback(msg.feedback === 'up' ? null : 'up')}
-          style={{ padding: '5px 8px', borderRadius: 7, background: msg.feedback === 'up' ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.04)', border: `1px solid ${msg.feedback === 'up' ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.07)'}`, cursor: 'pointer', color: msg.feedback === 'up' ? '#10b981' : '#64748b', display: 'flex', alignItems: 'center', transition: 'all 0.2s' }}>
+        <span style={{ fontSize: 11, color: 'var(--muted-foreground)' }}>Helpful?</span>
+            <button onClick={() => onFeedback(msg.feedback === 'up' ? null : 'up')}
+              style={{ padding: '5px 8px', borderRadius: 7, background: msg.feedback === 'up' ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.04)', border: `1px solid ${msg.feedback === 'up' ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.07)'}`, cursor: 'pointer', color: msg.feedback === 'up' ? '#10b981' : 'var(--muted-foreground)', display: 'flex', alignItems: 'center', transition: 'all 0.2s' }}>
           <ThumbsUp size={11} />
         </button>
-        <button onClick={() => onFeedback(msg.feedback === 'down' ? null : 'down')}
-          style={{ padding: '5px 8px', borderRadius: 7, background: msg.feedback === 'down' ? 'rgba(239,68,68,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${msg.feedback === 'down' ? 'rgba(239,68,68,0.25)' : 'rgba(255,255,255,0.07)'}`, cursor: 'pointer', color: msg.feedback === 'down' ? '#ef4444' : '#64748b', display: 'flex', alignItems: 'center', transition: 'all 0.2s' }}>
+            <button onClick={() => onFeedback(msg.feedback === 'down' ? null : 'down')}
+          style={{ padding: '5px 8px', borderRadius: 7, background: msg.feedback === 'down' ? 'rgba(239,68,68,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${msg.feedback === 'down' ? 'rgba(239,68,68,0.25)' : 'rgba(255,255,255,0.07)'}`, cursor: 'pointer', color: msg.feedback === 'down' ? '#ef4444' : 'var(--muted-foreground)', display: 'flex', alignItems: 'center', transition: 'all 0.2s' }}>
           <ThumbsDown size={11} />
         </button>
       </div>
