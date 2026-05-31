@@ -138,22 +138,22 @@ const RESULT = {
 
 const RC: Record<Risk, { color: string; bg: string; border: string; label: string; icon: React.ElementType }> = {
   high:   { color: '#ef4444', bg: 'rgba(239,68,68,0.07)',  border: 'rgba(239,68,68,0.2)',  label: 'High Risk',   icon: AlertTriangle },
-  medium: { color: '#f59e0b', bg: 'rgba(245,158,11,0.07)', border: 'rgba(245,158,11,0.2)', label: 'Medium Risk', icon: Info },
-  low:    { color: '#10b981', bg: 'rgba(16,185,129,0.07)', border: 'rgba(16,185,129,0.2)', label: 'Low Risk',    icon: CheckCircle },
+  medium: { color: '#2563eb', bg: 'rgba(37,99,235,0.07)', border: 'rgba(37,99,235,0.2)', label: 'Medium Risk', icon: Info },
+  low:    { color: '#60a5fa', bg: 'rgba(96,165,250,0.07)', border: 'rgba(96,165,250,0.2)', label: 'Low Risk',    icon: CheckCircle },
 };
 
 const TL_ICONS: Record<string, { color: string; icon: React.ElementType }> = {
-  start:     { color: '#10b981', icon: CheckCircle },
-  payment:   { color: '#6366f1', icon: Clock },
-  milestone: { color: '#8b5cf6', icon: Zap },
-  deadline:  { color: '#f59e0b', icon: AlertTriangle },
+  start:     { color: '#60a5fa', icon: CheckCircle },
+  payment:   { color: '#2563eb', icon: Clock },
+  milestone: { color: '#93c5fd', icon: Zap },
+  deadline:  { color: '#2563eb', icon: AlertTriangle },
   end:       { color: '#ef4444', icon: X },
 };
 
 // ─── Small sub-components ─────────────────────────────────────────────────────
 
 function RiskGauge({ score }: { score: number }) {
-  const color = score >= 70 ? '#ef4444' : score >= 40 ? '#f59e0b' : '#10b981';
+  const color = score >= 70 ? '#ef4444' : score >= 40 ? '#2563eb' : '#60a5fa';
   const label = score >= 70 ? 'High Risk' : score >= 40 ? 'Medium Risk' : 'Low Risk';
   const r = 42, circ = 2 * Math.PI * r;
   const dash = (score / 100) * circ;
@@ -214,14 +214,14 @@ function ExpandableClause({ risk }: { risk: typeof RESULT.risks[0] }) {
               <div style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.7, marginBottom: 12 }}>{risk.explanation}</div>
               {risk.safer && (
                 <div style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10, padding: '12px 16px' }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: '#10b981', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: '#2563eb', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 5 }}>
                     <CheckCircle size={11} /> SAFER ALTERNATIVE
                   </div>
                   <p style={{ fontSize: 13, color: '#6ee7b7', lineHeight: 1.6, margin: 0, fontStyle: 'italic' }}>"{risk.safer}"</p>
                 </div>
               )}
               {!risk.safer && (
-                <div style={{ fontSize: 12, color: '#10b981', background: 'rgba(16,185,129,0.08)', padding: '8px 12px', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <div style={{ fontSize: 12, color: '#2563eb', background: 'rgba(37,99,235,0.08)', padding: '8px 12px', borderRadius: 8, display: 'flex', alignItems: 'center', gap: 6 }}>
                   <CheckCircle size={12} /> This clause is compliant with Ethiopian law.
                 </div>
               )}
@@ -241,12 +241,12 @@ function ProcessingScreen({ step, progress, fileName }: { step: number; progress
       {/* Animated scanner */}
       <div style={{ position: 'relative', width: 120, height: 120, marginBottom: 32 }}>
         <motion.div animate={{ rotate: 360 }} transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
-          style={{ width: 120, height: 120, borderRadius: '50%', border: '3px solid rgba(99,102,241,0.15)', borderTopColor: '#6366f1', position: 'absolute' }} />
+          style={{ width: 120, height: 120, borderRadius: '50%', border: '3px solid rgba(37,99,235,0.15)', borderTopColor: '#2563eb', position: 'absolute' }} />
         <motion.div animate={{ rotate: -360 }} transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-          style={{ width: 90, height: 90, borderRadius: '50%', border: '2px solid rgba(139,92,246,0.1)', borderTopColor: '#8b5cf6', position: 'absolute', top: 15, left: 15 }} />
+          style={{ width: 90, height: 90, borderRadius: '50%', border: '2px solid rgba(96,165,250,0.1)', borderTopColor: '#60a5fa', position: 'absolute', top: 15, left: 15 }} />
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <motion.div animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>
-            <Zap size={32} color="#6366f1" />
+            <Zap size={32} color="#2563eb" />
           </motion.div>
         </div>
       </div>
@@ -258,7 +258,7 @@ function ProcessingScreen({ step, progress, fileName }: { step: number; progress
       {/* Progress bar */}
       <div style={{ width: '100%', maxWidth: 340, marginBottom: 28 }}>
         <div style={{ height: 6, background: 'rgba(255,255,255,0.06)', borderRadius: 100, overflow: 'hidden', marginBottom: 8 }}>
-          <motion.div animate={{ width: `${progress}%` }} style={{ height: '100%', background: 'linear-gradient(90deg,#6366f1,#8b5cf6)', borderRadius: 100 }} transition={{ duration: 0.4 }} />
+          <motion.div animate={{ width: `${progress}%` }} style={{ height: '100%', background: 'linear-gradient(90deg,#2563eb,#60a5fa)', borderRadius: 100 }} transition={{ duration: 0.4 }} />
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#475569' }}>
           <span>Processing...</span><span>{Math.round(progress)}%</span>
@@ -271,10 +271,10 @@ function ProcessingScreen({ step, progress, fileName }: { step: number; progress
           <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: i <= step ? 1 : 0.3 }}
             style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 12px', borderRadius: 9, background: i === step ? 'rgba(99,102,241,0.08)' : 'transparent', border: i === step ? '1px solid rgba(99,102,241,0.18)' : '1px solid transparent' }}>
             {i < step ? (
-              <CheckCircle size={14} color="#10b981" style={{ flexShrink: 0 }} />
+              <CheckCircle size={14} color="#60a5fa" style={{ flexShrink: 0 }} />
             ) : i === step ? (
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}>
-                <Zap size={14} color="#6366f1" style={{ flexShrink: 0 }} />
+                <Zap size={14} color="#2563eb" style={{ flexShrink: 0 }} />
               </motion.div>
             ) : (
               <div style={{ width: 14, height: 14, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }} />
@@ -495,10 +495,10 @@ export default function DocumentUploadPage() {
             {/* Doc type chips */}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
               {[
-                { label: '🏠 Rental Agreement', color: '#6366f1' },
-                { label: '💼 Employment Contract', color: '#8b5cf6' },
-                { label: '📋 Legal Notice', color: '#f59e0b' },
-                { label: '🏛️ Government Form', color: '#10b981' },
+                { label: '🏠 Rental Agreement', color: '#2563eb' },
+                { label: '💼 Employment Contract', color: '#60a5fa' },
+                { label: '📋 Legal Notice', color: '#93c5fd' },
+                { label: '🏛️ Government Form', color: '#2563eb' },
               ].map(t => (
                 <span key={t.label} style={{ padding: '5px 13px', borderRadius: 100, fontSize: 12, background: `${t.color}12`, border: `1px solid ${t.color}25`, color: t.color, cursor: 'pointer' }}>{t.label}</span>
               ))}
@@ -514,7 +514,7 @@ export default function DocumentUploadPage() {
               onClick={() => fileRef.current?.click()}>
               <motion.div animate={dragging ? { scale: 1.12 } : { scale: 1, y: [0, -6, 0] }} transition={dragging ? {} : { duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 22px' }}>
-                <Upload size={34} color="#6366f1" />
+                <Upload size={34} color="#2563eb" />
               </motion.div>
               <h3 style={{ fontSize: 18, fontWeight: 700, color: '#e2e8f0', marginBottom: 8 }}>
                 {dragging ? 'Release to upload' : 'Drag & Drop or Click to Upload'}
@@ -528,7 +528,7 @@ export default function DocumentUploadPage() {
 
               {/* Demo button */}
               <div onClick={e => { e.stopPropagation(); startAnalysis('rental_agreement_bole.pdf'); }}
-                style={{ marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 18px', borderRadius: 10, background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.25)', color: '#818cf8', fontSize: 13, cursor: 'pointer' }}>
+                style={{ marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '8px 18px', borderRadius: 10, background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.25)', color: '#2563eb', fontSize: 13, cursor: 'pointer' }}>
                 <Eye size={14} /> Try with demo document
               </div>
             </motion.div>
@@ -545,7 +545,7 @@ export default function DocumentUploadPage() {
 
             {/* Security note */}
             <div style={{ marginTop: 20, display: 'flex', gap: 8, padding: '14px 16px', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.12)', borderRadius: 12 }}>
-              <Shield size={15} color="#10b981" style={{ flexShrink: 0, marginTop: 1 }} />
+              <Shield size={15} color="#2563eb" style={{ flexShrink: 0, marginTop: 1 }} />
               <p style={{ fontSize: 12.5, color: '#6ee7b7', lineHeight: 1.55, margin: 0 }}>Your documents are encrypted with AES-256, never shared with third parties, and can be deleted at any time. Analysis runs securely in isolated AI sandboxes.</p>
             </div>
           </motion.div>
@@ -557,14 +557,14 @@ export default function DocumentUploadPage() {
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '80px 32px', textAlign: 'center' }}>
             <div style={{ width: 80, height: 80, borderRadius: 18, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
               <motion.div animate={{ y: [-4, 4, -4] }} transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}>
-                <Upload size={32} color="#6366f1" />
+                <Upload size={32} color="#2563eb" />
               </motion.div>
             </div>
             <h3 style={{ fontSize: 20, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>Uploading Document</h3>
             <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>{fileName}</p>
             <div style={{ width: '100%', maxWidth: 320 }}>
               <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 100, overflow: 'hidden', marginBottom: 8 }}>
-                <motion.div animate={{ width: `${progress}%` }} style={{ height: '100%', background: 'linear-gradient(90deg,#6366f1,#8b5cf6)', borderRadius: 100 }} transition={{ duration: 0.3 }} />
+                <motion.div animate={{ width: `${progress}%` }} style={{ height: '100%', background: 'linear-gradient(90deg,#2563eb,#60a5fa)', borderRadius: 100 }} transition={{ duration: 0.3 }} />
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#475569' }}>
                 <span>Uploading securely...</span><span>{Math.round(progress)}%</span>
@@ -572,7 +572,7 @@ export default function DocumentUploadPage() {
             </div>
             <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 2, repeat: Infinity }}
               style={{ marginTop: 20, fontSize: 12, color: '#334155', display: 'flex', alignItems: 'center', gap: 6 }}>
-              <Shield size={11} color="#10b981" /> End-to-end encrypted
+              <Shield size={11} color="#2563eb" /> End-to-end encrypted
             </motion.div>
           </motion.div>
         )}
@@ -605,7 +605,7 @@ export default function DocumentUploadPage() {
                 <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', color: '#94a3b8', cursor: 'pointer', fontSize: 13 }}>
                   <Download size={13} /> Export Report
                 </button>
-                <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.25)', color: '#818cf8', cursor: 'pointer', fontSize: 13 }}>
+                <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.25)', color: '#2563eb', cursor: 'pointer', fontSize: 13 }}>
                   <MessageSquare size={13} /> Ask AI
                 </button>
                 <button onClick={reset} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'transparent', border: '1px solid rgba(255,255,255,0.09)', color: '#64748b', cursor: 'pointer', fontSize: 13 }}>
@@ -678,12 +678,12 @@ export default function DocumentUploadPage() {
                     </div>
                     <div style={{ background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: 16, padding: 24, gridColumn: 'span 2' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-                        <CheckCircle size={16} color="#10b981" />
+                        <CheckCircle size={16} color="#2563eb" />
                         <h3 style={{ fontSize: 15, fontWeight: 700 }}>Recommended Actions</h3>
                       </div>
                       {result.suggestedActions.map((a, i) => (
                         <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 9 }}>
-                          <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#10b981', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{i + 1}</div>
+                          <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.2)', border: '1px solid rgba(37,99,235,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#2563eb', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{i + 1}</div>
                           <span style={{ color: '#94a3b8', fontSize: 13, lineHeight: 1.55 }}>{a}</span>
                         </div>
                       ))}
@@ -727,7 +727,7 @@ export default function DocumentUploadPage() {
                 {tab === 'timeline' && (
                   <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 28 }}>
                     <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <Calendar size={16} color="#6366f1" /> Legal Deadline Timeline
+                      <Calendar size={16} color="#2563eb" /> Legal Deadline Timeline
                     </h3>
                     <div style={{ position: 'relative' }}>
                       <div style={{ position: 'absolute', left: 19, top: 0, bottom: 0, width: 2, background: 'linear-gradient(to bottom,rgba(99,102,241,0.4),rgba(99,102,241,0.05))', borderRadius: 100 }} />
@@ -745,7 +745,7 @@ export default function DocumentUploadPage() {
                               <div style={{ paddingTop: 8, flex: 1 }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 3, flexWrap: 'wrap' }}>
                                   <span style={{ fontSize: 14, fontWeight: 600, color: '#e2e8f0' }}>{ev.label}</span>
-                                  {ev.urgent && <span style={{ fontSize: 11, color: '#f59e0b', background: 'rgba(245,158,11,0.1)', padding: '1px 8px', borderRadius: 100, fontWeight: 600 }}>⚡ Action Required</span>}
+                                  {ev.urgent && <span style={{ fontSize: 11, color: '#2563eb', background: 'rgba(37,99,235,0.1)', padding: '1px 8px', borderRadius: 100, fontWeight: 600 }}>⚡ Action Required</span>}
                                 </div>
                                 <span style={{ fontSize: 12, color: '#64748b' }}>{ev.date}</span>
                               </div>
@@ -765,7 +765,7 @@ export default function DocumentUploadPage() {
                         <FileText size={13} /> Original Legal Text
                       </div>
                       <div style={{ padding: '12px 18px', fontSize: 13, fontWeight: 700, color: '#64748b', display: 'flex', alignItems: 'center', gap: 7 }}>
-                        <Zap size={13} color="#6366f1" /> AI Plain-Language Explanation
+                        <Zap size={13} color="#2563eb" /> AI Plain-Language Explanation
                       </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -781,8 +781,8 @@ export default function DocumentUploadPage() {
                               <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.65, fontStyle: 'italic', margin: 0 }}>"{item.original}"</p>
                             </div>
                             <div style={{ padding: '16px 18px', background: c.bg }}>
-                              <div style={{ fontSize: 11, fontWeight: 700, color: '#6366f1', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 5 }}>
-                                <Zap size={11} color="#6366f1" /> AI Explanation
+                              <div style={{ fontSize: 11, fontWeight: 700, color: '#2563eb', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 5 }}>
+                                <Zap size={11} color="#2563eb" /> AI Explanation
                               </div>
                               <p style={{ fontSize: 13, color: '#e2e8f0', lineHeight: 1.65, margin: 0 }}>{item.simplified}</p>
                             </div>

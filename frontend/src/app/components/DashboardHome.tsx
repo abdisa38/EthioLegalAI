@@ -24,14 +24,14 @@ const quickActions = [
     icon: Shield, 
     label: 'Tenant Rights', 
     desc: 'Understand your rights as a renter', 
-    color: '#10b981', 
+    color: '#2563eb', 
     path: '/app/tenant-rights' 
   },
   { 
     icon: TrendingUp, 
     label: 'Labor Law', 
     desc: 'Learn about worker protections', 
-    color: '#06b6d4', 
+    color: '#60a5fa', 
     path: '/app/labor-law' 
   },
 ];
@@ -87,7 +87,7 @@ export default function DashboardHome() {
             marginBottom: 16,
             lineHeight: 1.2
           }}>
-            EthioLegal <span style={{ color: '#10b981' }}>AI</span>
+            EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
           </h1>
           
           <p style={{ 

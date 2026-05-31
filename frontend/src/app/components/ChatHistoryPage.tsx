@@ -83,8 +83,8 @@ export default function ChatHistoryPage() {
               <button 
                 onClick={() => toggleStarMutation.mutate(chat._id)}
                 disabled={toggleStarMutation.isPending}
-                style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: chat.starred ? '#f59e0b' : '#475569' }}>
-                <Star size={15} fill={chat.starred ? '#f59e0b' : 'none'} />
+                style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: chat.starred ? '#2563eb' : '#475569' }}>
+                <Star size={15} fill={chat.starred ? '#2563eb' : 'none'} />
               </button>
               <button 
                 onClick={() => {
@@ -107,7 +107,7 @@ export default function ChatHistoryPage() {
           </div>
         </div>
         <button onClick={() => navigate('/app/chat')}
-          style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 8, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#818cf8', cursor: 'pointer', fontSize: 12, flexShrink: 0, alignSelf: 'flex-start' }}>
+          style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 8, background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)', color: '#2563eb', cursor: 'pointer', fontSize: 12, flexShrink: 0, alignSelf: 'flex-start' }}>
           New <ArrowRight size={12} />
         </button>
       </motion.div>
@@ -159,7 +159,7 @@ export default function ChatHistoryPage() {
       {starredChats.length > 0 && (
         <div style={{ marginBottom: 28 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-            <Star size={14} color="#f59e0b" fill="#f59e0b" />
+            <Star size={14} color="#2563eb" fill="#2563eb" />
             <h2 style={{ fontSize: 15, fontWeight: 700, color: '#94a3b8' }}>Starred</h2>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>

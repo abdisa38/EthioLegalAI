@@ -151,7 +151,7 @@ export default function AuthPage() {
                       <User size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                       <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Tigist Bekele"
                         style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 14px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
-                        className="focus:border-indigo-500/50 transition-colors" />
+                        className="focus:border-blue-500/50 transition-colors" />
                     </div>
                   </div>
                 )}
@@ -162,7 +162,7 @@ export default function AuthPage() {
                     <Mail size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                     <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
                       style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 14px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
-                      className="focus:border-indigo-500/50 transition-colors" />
+                      className="focus:border-blue-500/50 transition-colors" />
                   </div>
                 </div>
 
@@ -176,7 +176,7 @@ export default function AuthPage() {
                       <Lock size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                       <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••"
                         style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 42px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
-                        className="focus:border-indigo-500/50 transition-colors" />
+                        className="focus:border-blue-500/50 transition-colors" />
                       <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', background: 'transparent', border: 'none', cursor: 'pointer', color: '#475569' }}>
                         {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                       </button>

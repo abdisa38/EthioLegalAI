@@ -27,8 +27,8 @@ const typeFromName = (name: string) => {
 
 const riskConfig = {
   high: { color: '#ef4444', bg: 'rgba(239,68,68,0.1)', label: 'High Risk', icon: AlertTriangle },
-  medium: { color: '#f59e0b', bg: 'rgba(245,158,11,0.1)', label: 'Medium Risk', icon: Info },
-  low: { color: '#10b981', bg: 'rgba(16,185,129,0.1)', label: 'Low Risk', icon: CheckCircle },
+  medium: { color: '#2563eb', bg: 'rgba(37,99,235,0.1)', label: 'Medium Risk', icon: Info },
+  low: { color: '#60a5fa', bg: 'rgba(96,165,250,0.1)', label: 'Low Risk', icon: CheckCircle },
 };
 
 const typeColors: Record<string, string> = {
@@ -169,7 +169,7 @@ export default function DocumentLibraryPage() {
 
                     {/* Actions */}
                     <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                      <button onClick={() => navigate(`/app/contract-analysis?documentId=${doc._id}`)} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: '#818cf8', cursor: 'pointer', fontSize: 12 }}>
+                      <button onClick={() => navigate(`/app/contract-analysis?documentId=${doc._id}`)} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)', color: '#2563eb', cursor: 'pointer', fontSize: 12 }}>
                         <Eye size={12} /> View
                       </button>
                       <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#64748b', cursor: 'pointer', fontSize: 12 }}>

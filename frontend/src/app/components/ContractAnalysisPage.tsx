@@ -9,8 +9,8 @@ import type { ContractAnalysis, RiskLevel } from '../api/contracts';
 
 const riskConfig = {
   high: { color: '#ef4444', bg: 'rgba(239,68,68,0.08)', border: 'rgba(239,68,68,0.2)', label: 'High Risk', icon: AlertTriangle },
-  medium: { color: '#f59e0b', bg: 'rgba(245,158,11,0.08)', border: 'rgba(245,158,11,0.2)', label: 'Medium Risk', icon: Info },
-  low: { color: '#10b981', bg: 'rgba(16,185,129,0.08)', border: 'rgba(16,185,129,0.2)', label: 'Low Risk', icon: CheckCircle },
+  medium: { color: '#2563eb', bg: 'rgba(37,99,235,0.08)', border: 'rgba(37,99,235,0.2)', label: 'Medium Risk', icon: Info },
+  low: { color: '#60a5fa', bg: 'rgba(96,165,250,0.08)', border: 'rgba(96,165,250,0.2)', label: 'Low Risk', icon: CheckCircle },
 };
 
 export default function ContractAnalysisPage() {
@@ -94,10 +94,10 @@ export default function ContractAnalysisPage() {
       {/* Summary cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 16, marginBottom: 28 }}>
           {[
-            { label: 'Overall Risk', value: `${riskScore}/100`, color: '#f59e0b', icon: TrendingDown, desc: riskLabel },
+            { label: 'Overall Risk', value: `${riskScore}/100`, color: '#2563eb', icon: TrendingDown, desc: riskLabel },
             { label: 'High Risk Clauses', value: highCount, color: '#ef4444', icon: AlertTriangle, desc: 'Require action' },
-            { label: 'Medium Risk', value: medCount, color: '#f59e0b', icon: Info, desc: 'Review needed' },
-            { label: 'Safe Clauses', value: lowCount, color: '#10b981', icon: CheckCircle, desc: 'Compliant' },
+            { label: 'Medium Risk', value: medCount, color: '#60a5fa', icon: Info, desc: 'Review needed' },
+            { label: 'Safe Clauses', value: lowCount, color: '#2563eb', icon: CheckCircle, desc: 'Compliant' },
             { label: 'AI Confidence', value: aiConfidence ? `${Math.round(aiConfidence)}%` : '—', color: '#2563eb', icon: Shield, desc: 'Analysis accuracy' },
           ].map((stat, i) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
@@ -138,7 +138,7 @@ export default function ContractAnalysisPage() {
         <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}
           style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 24 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-            <DollarSign size={16} color="#f59e0b" />
+            <DollarSign size={16} color="#2563eb" />
             <h3 style={{ fontSize: 15, fontWeight: 700 }}>Financial Risk Exposure</h3>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -187,7 +187,7 @@ export default function ContractAnalysisPage() {
                       <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.6, marginBottom: clause.safer ? 10 : 0 }}>{clause.explanation}</p>
                       {clause.safer && (
                         <div style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: 8, padding: '10px 14px' }}>
-                          <div style={{ fontSize: 11, fontWeight: 600, color: '#10b981', marginBottom: 4 }}>✏️ SAFER ALTERNATIVE</div>
+                          <div style={{ fontSize: 11, fontWeight: 600, color: '#2563eb', marginBottom: 4 }}>✏️ SAFER ALTERNATIVE</div>
                           <p style={{ fontSize: 13, color: '#6ee7b7', lineHeight: 1.6, margin: 0 }}>"{clause.safer}"</p>
                         </div>
                       )}
