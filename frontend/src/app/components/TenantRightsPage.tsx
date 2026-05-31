@@ -154,8 +154,8 @@ export default function TenantRightsPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
         style={{ background: 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(99,102,241,0.08))', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 16, padding: 28, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
         <div>
-          <h3 style={{ fontSize: 17, fontWeight: 700, color: '#f1f5f9', marginBottom: 8 }}>Have a Specific Tenant Question?</h3>
-          <p style={{ color: '#64748b', fontSize: 14 }}>Ask our AI about your exact situation. Get answers in English, Amharic, or Afaan Oromo.</p>
+          <h3 style={{ fontSize: 17, fontWeight: 700, color: 'var(--foreground)', marginBottom: 8 }}>Have a Specific Tenant Question?</h3>
+          <p style={{ color: 'var(--muted-foreground)', fontSize: 14 }}>Ask our AI about your exact situation. Get answers in English, Amharic, or Afaan Oromo.</p>
           <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
             {suggestedPrompts.map(tag => (
               <button
@@ -164,7 +164,7 @@ export default function TenantRightsPage() {
                   setQuestion(tag);
                   submitQuestion(tag);
                 }}
-                style={{ padding: '4px 12px', borderRadius: 100, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', fontSize: 12, color: '#34d399', cursor: 'pointer' }}
+                style={{ padding: '4px 12px', borderRadius: 100, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.12)', fontSize: 12, color: '#059669', cursor: 'pointer' }}
               >
                 {tag}
               </button>
@@ -176,7 +176,7 @@ export default function TenantRightsPage() {
                 value={question}
                 onChange={event => setQuestion(event.target.value)}
                 placeholder="Describe your tenant issue..."
-                style={{ flex: 1, minWidth: 240, background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, padding: '10px 12px', color: '#e2e8f0', fontSize: 13, outline: 'none' }}
+                style={{ flex: 1, minWidth: 240, background: 'var(--input-background)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '10px 12px', color: 'var(--foreground)', fontSize: 13, outline: 'none' }}
               />
               <button
                 onClick={() => submitQuestion()}
@@ -190,7 +190,7 @@ export default function TenantRightsPage() {
               <div style={{ marginTop: 10, color: '#fca5a5', fontSize: 12 }}>{assistantError}</div>
             )}
             {answer && (
-              <div style={{ marginTop: 12, background: 'rgba(15,23,42,0.5)', border: '1px solid rgba(148,163,184,0.15)', borderRadius: 12, padding: '12px 14px', color: '#cbd5e1', fontSize: 13, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+              <div style={{ marginTop: 12, background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '12px 14px', color: 'var(--foreground)', fontSize: 13, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
                 {answer}
               </div>
             )}
