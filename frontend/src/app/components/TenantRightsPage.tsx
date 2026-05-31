@@ -70,8 +70,8 @@ export default function TenantRightsPage() {
             <Shield size={24} color="#2563eb" />
           </div>
           <div>
-            <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 2 }}>Tenant Rights Assistant</h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>Know your rights as a renter under Ethiopian housing law.</p>
+            <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--foreground)', marginBottom: 2 }}>Tenant Rights Assistant</h1>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 15 }}>Know your rights as a renter under Ethiopian housing law.</p>
           </div>
         </div>
 
@@ -92,8 +92,8 @@ export default function TenantRightsPage() {
             <div style={{ width: 40, height: 40, borderRadius: 10, background: `${card.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 14 }}>
               <card.icon size={20} color={card.color} />
             </div>
-            <h3 style={{ fontSize: 15, fontWeight: 700, color: '#f1f5f9', marginBottom: 8 }}>{card.title}</h3>
-            <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.6, marginBottom: 14 }}>{card.desc}</p>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--foreground)', marginBottom: 8 }}>{card.title}</h3>
+            <p style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.6, marginBottom: 14 }}>{card.desc}</p>
             <button onClick={() => navigate('/app/chat')}
               style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: card.color, background: 'transparent', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
               {card.action} <ChevronRight size={14} />
