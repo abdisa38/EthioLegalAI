@@ -104,12 +104,12 @@ export default function TenantRightsPage() {
 
       {/* Your rights */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} style={{ marginBottom: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 800, color: '#f1f5f9', marginBottom: 20 }}>Your Rights Under Ethiopian Law</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--foreground)', marginBottom: 20 }}>Your Rights Under Ethiopian Law</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
           {rights.map((right, i) => (
             <motion.div key={right.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 + i * 0.08 }}
-              style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: 22 }}
-              className="hover:border-white/10 transition-colors">
+              style={{ background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 14, padding: 22 }}
+              className="transition-colors">
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
                 <div style={{ width: 40, height: 40, borderRadius: 10, background: `${right.color}15`, border: `1px solid ${right.color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <right.icon size={18} color={right.color} />
