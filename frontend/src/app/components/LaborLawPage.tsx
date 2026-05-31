@@ -122,27 +122,27 @@ export default function LaborLawPage() {
 
       {/* Severance calculator */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 28, marginBottom: 36 }}>
+        style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 28, marginBottom: 36 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
           <DollarSign size={18} color="#2563eb" />
           <h2 style={{ fontSize: 17, fontWeight: 700 }}>Severance Pay Guide</h2>
-          <span style={{ marginLeft: 'auto', fontSize: 12, color: '#64748b' }}>Labor Proc. 1156/2019 Art. 44</span>
+          <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--muted-foreground)' }}>Labor Proc. 1156/2019 Art. 44</span>
         </div>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr>
-                <th style={{ textAlign: 'left', padding: '10px 16px', color: '#64748b', fontSize: 13, fontWeight: 600, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>Years of Service</th>
-                <th style={{ textAlign: 'left', padding: '10px 16px', color: '#64748b', fontSize: 13, fontWeight: 600, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>Severance Entitlement</th>
-                <th style={{ textAlign: 'left', padding: '10px 16px', color: '#64748b', fontSize: 13, fontWeight: 600, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>Status</th>
+                <th style={{ textAlign: 'left', padding: '10px 16px', color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 600, borderBottom: '1px solid var(--color-border)' }}>Years of Service</th>
+                <th style={{ textAlign: 'left', padding: '10px 16px', color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 600, borderBottom: '1px solid var(--color-border)' }}>Severance Entitlement</th>
+                <th style={{ textAlign: 'left', padding: '10px 16px', color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 600, borderBottom: '1px solid var(--color-border)' }}>Status</th>
               </tr>
             </thead>
             <tbody>
               {severanceCalc.map((row, i) => (
                 <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)' }}>
-                  <td style={{ padding: '12px 16px', color: '#e2e8f0', fontSize: 14, fontWeight: 500, borderBottom: '1px solid rgba(255,255,255,0.04)' }}>{row.years}</td>
-                  <td style={{ padding: '12px 16px', color: '#2563eb', fontSize: 14, fontWeight: 700, borderBottom: '1px solid rgba(255,255,255,0.04)' }}>{row.amount}</td>
-                  <td style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                  <td style={{ padding: '12px 16px', color: 'var(--foreground)', fontSize: 14, fontWeight: 500, borderBottom: '1px solid var(--color-border)' }}>{row.years}</td>
+                  <td style={{ padding: '12px 16px', color: '#2563eb', fontSize: 14, fontWeight: 700, borderBottom: '1px solid var(--color-border)' }}>{row.amount}</td>
+                  <td style={{ padding: '12px 16px', borderBottom: '1px solid var(--color-border)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><CheckCircle size={13} color="#2563eb" /><span style={{ fontSize: 12, color: '#2563eb' }}>Legally guaranteed</span></div>
                   </td>
                 </tr>
@@ -157,19 +157,19 @@ export default function LaborLawPage() {
 
       {/* FAQ */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} style={{ marginBottom: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 800, color: '#f1f5f9', marginBottom: 20 }}>Common Worker Questions</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--foreground)', marginBottom: 20 }}>Common Worker Questions</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {faqs.map((faq, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, overflow: 'hidden' }}>
+            <div key={i} style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 12, overflow: 'hidden' }}>
               <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                style={{ width: '100%', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: '#e2e8f0', textAlign: 'left', fontSize: 14, fontWeight: 600, gap: 12 }}>
+                style={{ width: '100%', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--foreground)', textAlign: 'left', fontSize: 14, fontWeight: 600, gap: 12 }}>
                 <span>{faq.q}</span>
                 <motion.div animate={{ rotate: openFaq === i ? 90 : 0 }} style={{ flexShrink: 0 }}>
-                  <ChevronRight size={16} color="#64748b" />
+                  <ChevronRight size={16} color={'var(--muted-foreground)'} />
                 </motion.div>
               </button>
               {openFaq === i && (
-                <div style={{ padding: '0 20px 16px', color: '#94a3b8', fontSize: 13, lineHeight: 1.7 }}>{faq.a}</div>
+                <div style={{ padding: '0 20px 16px', color: 'var(--muted-foreground)', fontSize: 13, lineHeight: 1.7 }}>{faq.a}</div>
               )}
             </div>
           ))}
