@@ -4,12 +4,12 @@ import { Globe, Moon, Bell, Shield, User, Bot, Save, ChevronRight, Check } from 
 import { useTheme } from '@/shared/hooks/useTheme';
 
 const sections = [
-  { id: 'language', icon: Globe, label: 'Language & Region', color: '#10b981' },
-  { id: 'appearance', icon: Moon, label: 'Appearance', color: '#6366f1' },
-  { id: 'account', icon: User, label: 'Account', color: '#8b5cf6' },
-  { id: 'ai', icon: Bot, label: 'AI Preferences', color: '#f59e0b' },
-  { id: 'notifications', icon: Bell, label: 'Notifications', color: '#06b6d4' },
-  { id: 'privacy', icon: Shield, label: 'Privacy & Security', color: '#ec4899' },
+  { id: 'language', icon: Globe, label: 'Language & Region', color: '#2563eb' },
+  { id: 'appearance', icon: Moon, label: 'Appearance', color: '#3b82f6' },
+  { id: 'account', icon: User, label: 'Account', color: '#60a5fa' },
+  { id: 'ai', icon: Bot, label: 'AI Preferences', color: '#93c5fd' },
+  { id: 'notifications', icon: Bell, label: 'Notifications', color: '#1d4ed8' },
+  { id: 'privacy', icon: Shield, label: 'Privacy & Security', color: '#2563eb' },
 ];
 
 export default function SettingsPage() {
@@ -38,7 +38,7 @@ export default function SettingsPage() {
 
   const Toggle = ({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) => (
     <button onClick={() => onChange(!value)}
-      style={{ width: 44, height: 24, borderRadius: 12, background: value ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', position: 'relative', transition: 'all 0.2s', flexShrink: 0 }}>
+      style={{ width: 44, height: 24, borderRadius: 12, background: value ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', position: 'relative', transition: 'all 0.2s', flexShrink: 0 }}>
       <motion.div animate={{ x: value ? 22 : 2 }} style={{ width: 20, height: 20, borderRadius: '50%', background: 'white', position: 'absolute', top: 2, boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }} />
     </button>
   );
@@ -60,13 +60,13 @@ export default function SettingsPage() {
                   { value: 'Oromo', label: 'Afaan Oromo', native: 'Afaan Oromo', flag: '🟢' },
                 ].map(option => (
                   <button key={option.value} onClick={() => setLang(option.value)}
-                    style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', borderRadius: 12, border: `1px solid ${lang === option.value ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.07)'}`, background: lang === option.value ? 'rgba(99,102,241,0.1)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
+                    style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', borderRadius: 12, border: `1px solid ${lang === option.value ? 'rgba(37,99,235,0.35)' : 'rgba(255,255,255,0.07)'}`, background: lang === option.value ? 'rgba(37,99,235,0.08)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
                     <span style={{ fontSize: 22 }}>{option.flag}</span>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontWeight: 600, fontSize: 14, color: '#e2e8f0' }}>{option.label}</div>
                       <div style={{ fontSize: 12, color: '#64748b' }}>{option.native}</div>
                     </div>
-                    {lang === option.value && <Check size={16} color="#6366f1" />}
+                    {lang === option.value && <Check size={16} color="#2563eb" />}
                   </button>
                 ))}
               </div>

@@ -136,13 +136,13 @@ export default function DashboardHome() {
                   gap: 16,
                   padding: 20,
                   borderRadius: 16,
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  background: 'rgba(255,255,255,0.78)',
+                  border: '1px solid rgba(37,99,235,0.12)',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.2s'
                 }}
-                className="hover:bg-white/5"
+                className="hover:bg-blue-50"
               >
                 <div style={{
                   width: 48,
@@ -160,14 +160,14 @@ export default function DashboardHome() {
                   <div style={{ 
                     fontSize: 16, 
                     fontWeight: 600, 
-                    color: '#ffffff', 
+                    color: '#0f172a', 
                     marginBottom: 4 
                   }}>
                     {action.label}
                       EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
                   <div style={{ 
                     fontSize: 14, 
-                    color: '#a3a3a3',
+                    color: '#475569',
                     lineHeight: 1.5
                   }}>
                     {action.desc}
@@ -192,11 +192,11 @@ export default function DashboardHome() {
             gap: 8,
             marginBottom: 20
           }}>
-            <Sparkles size={16} color="#6366f1" />
+            <Sparkles size={16} color="#2563eb" />
             <h3 style={{ 
               fontSize: 14, 
               fontWeight: 600, 
-              color: '#d4d4d4',
+              color: '#0f172a',
               margin: 0
             }}>
               Try asking
@@ -220,16 +220,16 @@ export default function DashboardHome() {
                 style={{
                   padding: '12px 16px',
                   borderRadius: 12,
-                  background: 'rgba(255,255,255,0.02)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  background: 'rgba(255,255,255,0.8)',
+                  border: '1px solid rgba(37,99,235,0.1)',
                   cursor: 'pointer',
                   textAlign: 'left',
                   fontSize: 13,
-                  color: '#d4d4d4',
+                  color: '#334155',
                   transition: 'all 0.2s',
                   lineHeight: 1.5
                 }}
-                className="hover:bg-white/5 hover:border-white/15"
+                className="hover:bg-blue-50 hover:border-blue-200"
               >
                 "{prompt}"
               </motion.button>
