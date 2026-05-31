@@ -74,12 +74,12 @@ export default function SettingsPage() {
 
             <div>
               <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>Region</label>
-              <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                  <div style={{ fontWeight: 500, color: '#e2e8f0', fontSize: 14 }}>Ethiopia (ETH)</div>
-                  <div style={{ fontSize: 12, color: '#64748b' }}>Time Zone: EAT (UTC+3)</div>
+                  <div style={{ fontWeight: 500, color: 'var(--foreground)', fontSize: 14 }}>Ethiopia (ETH)</div>
+                  <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>Time Zone: EAT (UTC+3)</div>
                 </div>
-                <ChevronRight size={16} color="#475569" />
+                <ChevronRight size={16} color={getComputedStyle(document.documentElement).getPropertyValue('--color-muted-foreground') || '#64748b'} />
               </div>
             </div>
           </div>
