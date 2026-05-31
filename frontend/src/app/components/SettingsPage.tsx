@@ -92,7 +92,7 @@ export default function SettingsPage() {
             <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>Customize how EthioLegal AI looks.</p>
 
             <div style={{ marginBottom: 28 }}>
-              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>Theme</label>
+              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 12 }}>Theme</label>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
                 {[
                   { value: 'dark', label: 'Dark', preview: '#080b18', text: '#f1f5f9' },
