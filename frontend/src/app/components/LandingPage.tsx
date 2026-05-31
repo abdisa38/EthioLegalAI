@@ -61,7 +61,7 @@ export default function LandingPage() {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <button onClick={() => navigate('/login')} style={{ color: '#94a3b8', padding: '8px 20px', borderRadius: 10, fontSize: 15, fontWeight: 500, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', cursor: 'pointer' }}
+            <button onClick={() => navigate('/login')} style={{ color: 'var(--muted-foreground)', padding: '8px 20px', borderRadius: 10, fontSize: 15, fontWeight: 500, border: '1px solid var(--color-border)', background: 'transparent', cursor: 'pointer' }}
               className="hover:border-white/20 hover:text-white transition-all">Log in</button>
             <button onClick={() => navigate('/register')} style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '8px 20px', borderRadius: 10, fontSize: 15, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 0 20px rgba(37,99,235,0.4)' }}
               className="hover:opacity-90 transition-opacity">Get Started</button>
@@ -134,7 +134,7 @@ export default function LandingPage() {
               ].map(({ icon: Icon, text }) => (
                 <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <Icon size={16} color="#2563eb" />
-                  <span style={{ fontSize: 14, color: '#64748b' }}>{text}</span>
+                  <span style={{ fontSize: 14, color: 'var(--muted-foreground)' }}>{text}</span>
                 </div>
               ))}
             </div>
@@ -164,9 +164,9 @@ export default function LandingPage() {
                 </div>
                 <div>
                   <div style={{ fontWeight: 600, fontSize: 15 }}>EthioLegal AI</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                     <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#2563eb' }} />
-                    <span style={{ fontSize: 12, color: '#64748b' }}>Active</span>
+                    <span style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>Active</span>
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@ export default function LandingPage() {
                   <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: '50%', width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Bot size={12} color="white" />
                   </div>
-                  <div style={{ display: 'flex', gap: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 10, padding: '8px 14px' }}>
+                  <div style={{ display: 'flex', gap: 4, background: 'var(--muted)', borderRadius: 10, padding: '8px 14px' }}>
                     {[0, 1, 2].map(i => (
                       <motion.div key={i} animate={{ y: [-3, 3, -3] }} transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }}
                         style={{ width: 6, height: 6, borderRadius: '50%', background: '#2563eb' }} />
@@ -197,10 +197,10 @@ export default function LandingPage() {
               </div>
 
               {/* Input */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.05)', borderRadius: 12, padding: '10px 14px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <Paperclip size={16} color="#64748b" />
-                <span style={{ flex: 1, fontSize: 14, color: '#64748b' }}>Ask a legal question in any language...</span>
-                <Mic size={16} color="#64748b" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--muted)', borderRadius: 12, padding: '10px 14px', border: '1px solid var(--color-border)' }}>
+                <Paperclip size={16} color={'var(--muted-foreground)'} />
+                <span style={{ flex: 1, fontSize: 14, color: 'var(--muted-foreground)' }}>Ask a legal question in any language...</span>
+                <Mic size={16} color={'var(--muted-foreground)'} />
                 <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 8, width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                   <Send size={13} color="white" />
                 </div>
