@@ -36,15 +36,15 @@ export const EmptyState = ({
           width: '80px',
           height: '80px',
           borderRadius: '50%',
-          background: 'rgba(99,102,241,0.1)',
-          border: '2px solid rgba(99,102,241,0.2)',
+          background: 'rgba(37,99,235,0.1)',
+          border: '2px solid rgba(37,99,235,0.2)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '24px',
         }}
       >
-        <Icon size={36} color="#6366f1" />
+        <Icon size={36} color="#2563eb" />
       </div>
 
       <h3
@@ -77,7 +77,7 @@ export const EmptyState = ({
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            background: 'linear-gradient(135deg, #2563eb, #60a5fa)',
             color: 'white',
             padding: '12px 24px',
             borderRadius: '10px',
@@ -85,7 +85,7 @@ export const EmptyState = ({
             cursor: 'pointer',
             fontSize: '15px',
             fontWeight: '600',
-            boxShadow: '0 0 20px rgba(99,102,241,0.3)',
+            boxShadow: '0 0 20px rgba(37,99,235,0.25)',
           }}
         >
           {action.icon && <action.icon size={18} />}

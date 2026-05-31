@@ -37,12 +37,12 @@ export const PageLoader = ({ text = 'Loading...' }: PageLoaderProps) => {
             width: '64px',
             height: '64px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            background: 'linear-gradient(135deg, #2563eb, #60a5fa)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 20px',
-            boxShadow: '0 0 30px rgba(99,102,241,0.4)',
+            boxShadow: '0 0 30px rgba(37,99,235,0.35)',
           }}
         >
           <Scale size={32} color="white" />
@@ -56,7 +56,7 @@ export const PageLoader = ({ text = 'Loading...' }: PageLoaderProps) => {
             marginBottom: '8px',
           }}
         >
-          EthioLegal <span style={{ color: '#10b981' }}>AI</span>
+          EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
         </h2>
 
         <motion.p

@@ -179,7 +179,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  background: 'linear-gradient(135deg, #2563eb, #60a5fa)',
                   color: 'white',
                   padding: '12px 24px',
                   borderRadius: '10px',
@@ -187,7 +187,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   cursor: 'pointer',
                   fontSize: '15px',
                   fontWeight: '600',
-                  boxShadow: '0 0 20px rgba(99,102,241,0.3)',
+                  boxShadow: '0 0 20px rgba(37,99,235,0.25)',
                 }}
               >
                 <RefreshCw size={18} />

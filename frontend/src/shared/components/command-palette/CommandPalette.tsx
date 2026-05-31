@@ -220,21 +220,21 @@ export const CommandPalette = ({ isOpen, onClose }: CommandPaletteProps) => {
                         whileHover={{ scale: 1.01 }}
                         className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
                           isSelected
-                            ? 'bg-indigo-500/20 border border-indigo-500/30'
+                            ? 'bg-blue-500/20 border border-blue-500/30'
                             : 'hover:bg-white/5'
                         }`}
                       >
                         <div
                           className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                             isSelected
-                              ? 'bg-indigo-500/20'
+                              ? 'bg-blue-500/20'
                               : 'bg-white/5'
                           }`}
                         >
                           <cmd.icon
                             size={18}
                             className={
-                              isSelected ? 'text-indigo-400' : 'text-slate-400'
+                              isSelected ? 'text-blue-400' : 'text-slate-400'
                             }
                           />
                         </div>
@@ -249,7 +249,7 @@ export const CommandPalette = ({ isOpen, onClose }: CommandPaletteProps) => {
                           )}
                         </div>
                         {isSelected && (
-                          <ArrowRight size={16} className="text-indigo-400" />
+                          <ArrowRight size={16} className="text-blue-400" />
                         )}
                       </motion.button>
                     );

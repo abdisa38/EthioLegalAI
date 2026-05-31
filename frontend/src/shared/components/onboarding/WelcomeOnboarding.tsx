@@ -33,7 +33,7 @@ export const WelcomeOnboarding = ({
       description:
         'Your AI-powered legal assistant for Ethiopian law. Let me show you around.',
       icon: Scale,
-      gradient: 'from-indigo-500 to-purple-500',
+      gradient: 'from-blue-500 to-sky-500',
     },
     {
       title: 'Chat with AI Legal Assistant',
@@ -47,7 +47,7 @@ export const WelcomeOnboarding = ({
       description:
         'Upload contracts and legal documents. Our AI will analyze them and highlight risky clauses.',
       icon: Upload,
-      gradient: 'from-purple-500 to-pink-500',
+      gradient: 'from-sky-500 to-blue-300',
     },
     {
       title: 'Know Your Rights',
@@ -159,7 +159,7 @@ export const WelcomeOnboarding = ({
                   width: index === currentStep ? 32 : 8,
                   backgroundColor:
                     index === currentStep
-                      ? 'rgb(99, 102, 241)'
+                      ? 'rgb(37, 99, 235)'
                       : index < currentStep
                       ? 'rgb(34, 197, 94)'
                       : 'rgba(255, 255, 255, 0.1)',
@@ -182,7 +182,7 @@ export const WelcomeOnboarding = ({
               onClick={handleNext}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/30 transition-all"
+              className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-blue-500 to-sky-500 hover:from-blue-600 hover:to-sky-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 transition-all"
             >
               {isLastStep ? (
                 <>

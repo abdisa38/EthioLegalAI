@@ -45,7 +45,7 @@ export const TypingAnimation = ({
         <motion.span
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.5, repeat: Infinity }}
-          className="inline-block w-0.5 h-4 bg-indigo-500 ml-0.5"
+          className="inline-block w-0.5 h-4 bg-blue-500 ml-0.5"
         />
       )}
     </motion.span>

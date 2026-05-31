@@ -17,7 +17,7 @@ export const LoadingSpinner = ({
     >
       <Loader2
         size={size}
-        className="animate-spin text-indigo-500"
+        className="animate-spin text-blue-500"
         style={{ animation: 'spin 1s linear infinite' }}
       />
       {text && (

@@ -96,14 +96,14 @@ export const SuggestedPrompts = ({
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onSelectPrompt(prompt.prompt)}
-            className="group relative p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-indigo-500/30 rounded-xl text-left transition-all"
+            className="group relative p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/30 rounded-xl text-left transition-all"
           >
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0 group-hover:from-indigo-500/30 group-hover:to-purple-500/30 transition-colors">
-                <prompt.icon size={18} className="text-indigo-400" />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-sky-500/20 flex items-center justify-center flex-shrink-0 group-hover:from-blue-500/30 group-hover:to-sky-500/30 transition-colors">
+                <prompt.icon size={18} className="text-blue-400" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-slate-100 mb-1 group-hover:text-indigo-300 transition-colors">
+                <h4 className="text-sm font-semibold text-slate-100 mb-1 group-hover:text-blue-300 transition-colors">
                   {prompt.title}
                 </h4>
                 <p className="text-xs text-slate-500 line-clamp-2">
@@ -113,7 +113,7 @@ export const SuggestedPrompts = ({
             </div>
 
             {/* Hover effect */}
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500/0 via-indigo-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-sky-500/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
           </motion.button>
         ))}
       </div>

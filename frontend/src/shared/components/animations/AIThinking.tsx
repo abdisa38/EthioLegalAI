@@ -34,7 +34,7 @@ export const AIThinking = ({
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center"
+          className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-sky-500 flex items-center justify-center"
         >
           <Bot size={18} className="text-white" />
         </motion.div>
@@ -49,7 +49,7 @@ export const AIThinking = ({
                   repeat: Infinity,
                   delay: i * 0.15,
                 }}
-                className="w-2 h-2 rounded-full bg-indigo-400"
+                className="w-2 h-2 rounded-full bg-blue-400"
               />
             ))}
           </div>
@@ -76,7 +76,7 @@ export const AIThinking = ({
         }}
         className="relative"
       >
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/50">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 via-sky-500 to-blue-300 flex items-center justify-center shadow-lg shadow-blue-500/40">
           <Bot size={32} className="text-white" />
         </div>
         <motion.div
@@ -106,7 +106,7 @@ export const AIThinking = ({
                 repeat: Infinity,
                 delay: i * 0.2,
               }}
-              className="w-2 h-2 rounded-full bg-indigo-400"
+              className="w-2 h-2 rounded-full bg-blue-400"
             />
           ))}
         </div>
