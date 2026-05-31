@@ -82,13 +82,10 @@ function MarkdownRenderer({ text }: { text: string }) {
       while (i < lines.length && !lines[i].startsWith('```')) { code.push(lines[i]); i++; }
       const isLegal = lang === 'ethiopian-law' || lang === 'risk-analysis';
       out.push(
-        <div key={k++} style={{ background: isLegal ? 'rgba(37,99,235,0.07)' : 'rgba(0,0,0,0.35)', border: `1px solid ${isLegal ? 'rgba(37,99,235,0.22)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 12, padding: '14px 18px', margin: '12px 0', fontFamily: 'ui-monospace,monospace', fontSize: 13, lineHeight: 1.75, color: isLegal ? '#dbeafe' : '#94a3b8', whiteSpace: 'pre', overflowX: 'auto' }}>
+        <div key={k++} style={{ background: isLegal ? 'rgba(37,99,235,0.07)' : 'rgba(0,0,0,0.35)', border: `1px solid ${isLegal ? 'rgba(37,99,235,0.22)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 12, padding: '14px 18px', margin: '12px 0', fontFamily: 'ui-monospace,monospace', fontSize: 13, lineHeight: 1.75, color: isLegal ? '#dbeafe' : 'var(--muted-foreground)', whiteSpace: 'pre', overflowX: 'auto' }}>
           {isLegal && <div style={{ fontSize: 10, color: '#2563eb', fontWeight: 800, letterSpacing: 1.2, marginBottom: 10 }}>📚 LEGAL REFERENCE</div>}
           {code.join('\n')}
         </div>
-          <p key={k++} style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 10, fontStyle: 'italic' }}>{parseInline(line.replace(/^\*/, '').replace(/\*$/, ''))}</p>
-        }
-        out.push(<p key={k++} style={{ color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7, margin: '3px 0' }}>{parseInline(line)}</p>);
       );
       i++; continue;
     }
