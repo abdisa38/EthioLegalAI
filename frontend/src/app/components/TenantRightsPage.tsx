@@ -129,12 +129,12 @@ export default function TenantRightsPage() {
 
       {/* FAQ */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} style={{ marginBottom: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 800, color: '#f1f5f9', marginBottom: 20 }}>Common Tenant Questions</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--foreground)', marginBottom: 20 }}>Common Tenant Questions</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {faqs.map((faq, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, overflow: 'hidden' }}>
+            <div key={i} style={{ background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 12, overflow: 'hidden' }}>
               <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                style={{ width: '100%', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: '#e2e8f0', textAlign: 'left', fontSize: 14, fontWeight: 600 }}>
+                style={{ width: '100%', padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--muted-foreground)', textAlign: 'left', fontSize: 14, fontWeight: 600 }}>
                 {faq.q}
                 <motion.div animate={{ rotate: openFaq === i ? 90 : 0 }} style={{ flexShrink: 0 }}>
                   <ChevronRight size={16} color="#64748b" />
