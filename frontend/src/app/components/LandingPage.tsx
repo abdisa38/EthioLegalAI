@@ -243,7 +243,7 @@ export default function LandingPage() {
               Everything You Need to{' '}
               <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Know Your Rights</span>
             </h2>
-            <p style={{ color: '#64748b', fontSize: 18, maxWidth: 560, margin: '0 auto' }}>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 18, maxWidth: 560, margin: '0 auto' }}>
               EthioLegal AI gives every Ethiopian citizen access to powerful legal knowledge — in their own language.
             </p>
           </motion.div>
@@ -252,13 +252,13 @@ export default function LandingPage() {
             {features.map((feature, i) => (
               <motion.div key={feature.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -4 }}
-                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: 28, cursor: 'pointer', transition: 'border-color 0.3s' }}
+                style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 28, cursor: 'pointer', transition: 'border-color 0.3s' }}
                 className="hover:border-blue-500/30">
                 <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, background: `${feature.color}20`, border: `1px solid ${feature.color}30` }}>
                   <feature.icon size={22} color={feature.color} />
                 </div>
                 <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>{feature.title}</h3>
-                <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.6 }}>{feature.desc}</p>
+                <p style={{ fontSize: 14, color: 'var(--muted-foreground)', lineHeight: 1.6 }}>{feature.desc}</p>
               </motion.div>
             ))}
           </div>
