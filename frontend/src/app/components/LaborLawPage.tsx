@@ -72,22 +72,22 @@ export default function LaborLawPage() {
             <TrendingUp size={24} color="#2563eb" />
           </div>
           <div>
-            <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 2 }}>Labor Law Assistant</h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>Understand your worker rights under Ethiopian Labour Proclamation 1156/2019.</p>
+            <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--foreground)', marginBottom: 2 }}>Labor Law Assistant</h1>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 15 }}>Understand your worker rights under Ethiopian Labour Proclamation 1156/2019.</p>
           </div>
         </div>
 
         {/* Stats bar */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12 }}>
-          {[
+            {[
             { label: 'Min. Notice Period', value: '30 Days', color: '#2563eb' },
             { label: 'Annual Leave', value: '16 Days', color: '#60a5fa' },
             { label: 'Overtime Rate', value: '125%+', color: '#93c5fd' },
             { label: 'Maternity Leave', value: '90 Days', color: '#2563eb' },
           ].map(stat => (
-            <div key={stat.label} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '14px 16px' }}>
+            <div key={stat.label} style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '14px 16px' }}>
               <div style={{ fontSize: 22, fontWeight: 800, color: stat.color, marginBottom: 3 }}>{stat.value}</div>
-              <div style={{ fontSize: 12, color: '#64748b' }}>{stat.label}</div>
+              <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>{stat.label}</div>
             </div>
           ))}
         </div>
@@ -95,21 +95,21 @@ export default function LaborLawPage() {
 
       {/* Rights grid */}
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} style={{ marginBottom: 36 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 800, color: '#f1f5f9', marginBottom: 20 }}>Your Worker Rights</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 800, color: 'var(--foreground)', marginBottom: 20 }}>Your Worker Rights</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
           {rights.map((right, i) => (
             <motion.div key={right.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.07 }}
-              style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 22 }}>
+              style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 22 }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 14 }}>
                 <div style={{ width: 40, height: 40, borderRadius: 10, background: `${right.color}15`, border: `1px solid ${right.color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <right.icon size={18} color={right.color} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: 14, fontWeight: 700, color: '#f1f5f9', marginBottom: 4 }}>{right.title}</h3>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--foreground)', marginBottom: 4 }}>{right.title}</h3>
                   <span style={{ fontSize: 11, color: right.color, background: `${right.color}10`, padding: '2px 8px', borderRadius: 100 }}>{right.law}</span>
                 </div>
               </div>
-              <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.6, marginBottom: 12 }}>{right.desc}</p>
+              <p style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.6, marginBottom: 12 }}>{right.desc}</p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {right.highlight.map(h => (
                   <span key={h} style={{ padding: '3px 10px', borderRadius: 100, background: `${right.color}10`, border: `1px solid ${right.color}20`, fontSize: 11, color: right.color, fontWeight: 600 }}>{h}</span>
