@@ -462,7 +462,7 @@ export default function LandingPage() {
                 </div>
                 <span style={{ fontWeight: 700, fontSize: 17 }}>EthioLegal <span style={{ color: '#2563eb' }}>AI</span></span>
               </div>
-              <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.7 }}>AI-powered Ethiopian legal assistant for citizens, students, workers, and small businesses.</p>
+              <p style={{ color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>AI-powered Ethiopian legal assistant for citizens, students, workers, and small businesses.</p>
             </div>
             {[
               { title: 'Product', links: ['Features', 'Pricing', 'AI Chat', 'Document Upload', 'Contract Analysis'] },
@@ -472,14 +472,14 @@ export default function LandingPage() {
               <div key={col.title}>
                 <h4 style={{ fontWeight: 600, marginBottom: 16, fontSize: 15 }}>{col.title}</h4>
                 <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  {col.links.map(link => <li key={link} style={{ color: '#64748b', fontSize: 14, cursor: 'pointer' }} className="hover:text-slate-300 transition-colors">{link}</li>)}
+                  {col.links.map(link => <li key={link} style={{ color: 'var(--muted-foreground)', fontSize: 14, cursor: 'pointer' }} className="hover:text-slate-300 transition-colors">{link}</li>)}
                 </ul>
               </div>
             ))}
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-            <p style={{ color: '#475569', fontSize: 13 }}>© 2026 EthioLegal AI. All rights reserved.</p>
-            <p style={{ color: '#475569', fontSize: 12, maxWidth: 500, textAlign: 'right' }}>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 13 }}>© 2026 EthioLegal AI. All rights reserved.</p>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 12, maxWidth: 500, textAlign: 'right' }}>
               This platform provides educational legal information and not official legal advice. Always consult a licensed Ethiopian attorney for legal matters.
             </p>
           </div>
