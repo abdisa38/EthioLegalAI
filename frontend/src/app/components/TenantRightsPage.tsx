@@ -116,10 +116,10 @@ export default function TenantRightsPage() {
                 </div>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, flexWrap: 'wrap' }}>
-                    <h3 style={{ fontSize: 15, fontWeight: 700, color: '#f1f5f9' }}>{right.title}</h3>
+                    <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--foreground)' }}>{right.title}</h3>
                     <span style={{ fontSize: 11, color: right.color, background: `${right.color}10`, padding: '2px 8px', borderRadius: 100, border: `1px solid ${right.color}20` }}>{right.law}</span>
                   </div>
-                  <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.6 }}>{right.desc}</p>
+                  <p style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.6 }}>{right.desc}</p>
                 </div>
               </div>
             </motion.div>
