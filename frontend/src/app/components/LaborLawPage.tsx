@@ -180,8 +180,8 @@ export default function LaborLawPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}
         style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.1), rgba(99,102,241,0.08))', border: '1px solid rgba(245,158,11,0.2)', borderRadius: 16, padding: 28, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
         <div>
-          <h3 style={{ fontSize: 17, fontWeight: 700, color: '#f1f5f9', marginBottom: 8 }}>Have a Workplace Dispute?</h3>
-          <p style={{ color: '#64748b', fontSize: 14 }}>Describe your situation and get personalized guidance from our AI legal assistant.</p>
+          <h3 style={{ fontSize: 17, fontWeight: 700, color: 'var(--foreground)', marginBottom: 8 }}>Have a Workplace Dispute?</h3>
+          <p style={{ color: 'var(--muted-foreground)', fontSize: 14 }}>Describe your situation and get personalized guidance from our AI legal assistant.</p>
           <div style={{ display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
             {suggestedPrompts.map(tag => (
               <button
@@ -202,12 +202,12 @@ export default function LaborLawPage() {
                 value={question}
                 onChange={event => setQuestion(event.target.value)}
                 placeholder="Describe your labor issue..."
-                style={{ flex: 1, minWidth: 240, background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 10, padding: '10px 12px', color: '#e2e8f0', fontSize: 13, outline: 'none' }}
+                style={{ flex: 1, minWidth: 240, background: 'var(--input-background)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '10px 12px', color: 'var(--foreground)', fontSize: 13, outline: 'none' }}
               />
               <button
                 onClick={() => submitQuestion()}
                 disabled={laborMutation.isPending}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 700, opacity: laborMutation.isPending ? 0.7 : 1 }}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'var(--primary-foreground)', cursor: 'pointer', fontSize: 13, fontWeight: 700, opacity: laborMutation.isPending ? 0.7 : 1 }}
               >
                 {laborMutation.isPending ? 'Asking...' : 'Ask Labor AI'}
               </button>
@@ -216,13 +216,13 @@ export default function LaborLawPage() {
               <div style={{ marginTop: 10, color: '#fca5a5', fontSize: 12 }}>{assistantError}</div>
             )}
             {answer && (
-              <div style={{ marginTop: 12, background: 'rgba(15,23,42,0.5)', border: '1px solid rgba(148,163,184,0.15)', borderRadius: 12, padding: '12px 14px', color: '#cbd5e1', fontSize: 13, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+              <div style={{ marginTop: 12, background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '12px 14px', color: 'var(--muted-foreground)', fontSize: 13, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
                 {answer}
               </div>
             )}
           </div>
         </div>
-        <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: 12, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 15, fontWeight: 700, flexShrink: 0 }}>
+        <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: 12, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'var(--primary-foreground)', cursor: 'pointer', fontSize: 15, fontWeight: 700, flexShrink: 0 }}>
           <MessageSquare size={18} /> Ask Labor AI
         </button>
       </motion.div>
