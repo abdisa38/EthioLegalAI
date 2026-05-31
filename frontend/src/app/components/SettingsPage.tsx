@@ -123,7 +123,7 @@ export default function SettingsPage() {
               <div>
                 <div style={{ fontWeight: 700, fontSize: 18, color: '#f1f5f9', marginBottom: 3 }}>Tigist Bekele</div>
                 <div style={{ color: '#64748b', fontSize: 14 }}>tigist.bekele@example.com</div>
-                <div style={{ fontSize: 12, color: '#10b981', marginTop: 4 }}>Free Plan · 3/5 monthly queries used</div>
+                <div style={{ fontSize: 12, color: '#2563eb', marginTop: 4 }}>Free Plan · 3/5 monthly queries used</div>
               </div>
             </div>
 

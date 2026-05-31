@@ -80,7 +80,7 @@ export default function LandingPage() {
                 <span key={item} style={{ color: '#94a3b8', fontSize: 16, padding: '8px 0', cursor: 'pointer' }}>{item}</span>
               ))}
               <button onClick={() => navigate('/login')} style={{ color: '#94a3b8', padding: '10px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', cursor: 'pointer' }}>Log in</button>
-              <button onClick={() => navigate('/register')} style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '10px', borderRadius: 10, border: 'none', cursor: 'pointer' }}>Get Started Free</button>
+              <button onClick={() => navigate('/register')} style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '10px', borderRadius: 10, border: 'none', cursor: 'pointer' }}>Get Started Free</button>
             </motion.div>
           )}
         </AnimatePresence>
@@ -253,7 +253,7 @@ export default function LandingPage() {
               <motion.div key={feature.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -4 }}
                 style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: 28, cursor: 'pointer', transition: 'border-color 0.3s' }}
-                className="hover:border-indigo-500/30">
+                className="hover:border-blue-500/30">
                 <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, background: `${feature.color}20`, border: `1px solid ${feature.color}30` }}>
                   <feature.icon size={22} color={feature.color} />
                 </div>

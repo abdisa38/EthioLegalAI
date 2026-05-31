@@ -468,7 +468,7 @@ export default function AIChatPage() {
             return (
               <motion.div key={msg.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                 style={{ display: 'flex', gap: 11, alignItems: 'flex-start' }}>
-                <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2, boxShadow: '0 0 14px rgba(99,102,241,0.35)' }}>
+                <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'linear-gradient(135deg,#2563eb,#60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2, boxShadow: '0 0 14px rgba(37,99,235,0.35)' }}>
                   <Scale size={13} color="white" />
                 </div>
 
@@ -476,7 +476,7 @@ export default function AIChatPage() {
                   {/* Category + confidence */}
                   {msg.category && !isStreaming && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 7, flexWrap: 'wrap' }}>
-                      <span style={{ fontSize: 11, color: '#6366f1', background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', padding: '2px 9px', borderRadius: 100, fontWeight: 600 }}>{msg.category}</span>
+                      <span style={{ fontSize: 11, color: '#2563eb', background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)', padding: '2px 9px', borderRadius: 100, fontWeight: 600 }}>{msg.category}</span>
                       {msg.confidence && <ConfidenceMeter score={msg.confidence} />}
                     </div>
                   )}
@@ -492,7 +492,7 @@ export default function AIChatPage() {
                         {/* Streaming cursor */}
                         {isStreaming && (
                           <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 0.9, repeat: Infinity }}
-                            style={{ display: 'inline-block', width: 2, height: 15, background: '#6366f1', marginLeft: 2, verticalAlign: 'text-bottom', borderRadius: 1 }} />
+                            style={{ display: 'inline-block', width: 2, height: 15, background: '#2563eb', marginLeft: 2, verticalAlign: 'text-bottom', borderRadius: 1 }} />
                         )}
                       </>
                     )}
@@ -541,7 +541,7 @@ export default function AIChatPage() {
                         {msg.followups.map(f => (
                           <motion.button key={f} whileHover={{ y: -2 }} onClick={() => send(f)}
                             style={{ padding: '5px 12px', borderRadius: 20, fontSize: 12, background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.17)', color: '#a5b4fc', cursor: 'pointer' }}
-                            className="hover:bg-indigo-500/15 transition-colors">
+                            className="hover:bg-blue-500/15 transition-colors">
                             {f}
                           </motion.button>
                         ))}
@@ -594,7 +594,7 @@ export default function AIChatPage() {
       {/* ── Input area ────────────────────────────────────────────────────── */}
       <div style={{ padding: '12px 16px 16px', borderTop: '1px solid rgba(255,255,255,0.06)', background: 'rgba(8,11,24,0.97)', backdropFilter: 'blur(20px)', flexShrink: 0 }}>
         <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 16, padding: '10px 12px', display: 'flex', alignItems: 'flex-end', gap: 8, transition: 'border-color 0.2s' }}
-          className="focus-within:border-indigo-500/40">
+          className="focus-within:border-blue-500/40">
           {/* Attach */}
           <button style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#334155', padding: '4px', flexShrink: 0 }}
             className="hover:text-slate-500 transition-colors">
@@ -630,7 +630,7 @@ export default function AIChatPage() {
               whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.92 }}
               onClick={() => send(input)}
               disabled={!input.trim() || !isIdle}
-              style={{ background: input.trim() && isIdle ? 'linear-gradient(135deg,#6366f1,#8b5cf6)' : 'rgba(255,255,255,0.05)', border: 'none', borderRadius: 10, width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: input.trim() && isIdle ? 'pointer' : 'not-allowed', boxShadow: input.trim() && isIdle ? '0 0 18px rgba(99,102,241,0.45)' : 'none', transition: 'all 0.2s' }}>
+              style={{ background: input.trim() && isIdle ? 'linear-gradient(135deg,#2563eb,#60a5fa)' : 'rgba(255,255,255,0.05)', border: 'none', borderRadius: 10, width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: input.trim() && isIdle ? 'pointer' : 'not-allowed', boxShadow: input.trim() && isIdle ? '0 0 18px rgba(37,99,235,0.45)' : 'none', transition: 'all 0.2s' }}>
               <Send size={14} color={input.trim() && isIdle ? 'white' : '#334155'} />
             </motion.button>
           </div>
