@@ -115,14 +115,14 @@ export default function SettingsPage() {
       case 'account':
         return (
           <div>
-            <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>Account Settings</h2>
-            <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>Manage your profile and account information.</p>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--foreground)', marginBottom: 6 }}>Account Settings</h2>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>Manage your profile and account information.</p>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 28, padding: '20px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 28, padding: '20px', background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 14 }}>
               <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 700, color: 'white' }}>T</div>
               <div>
-                <div style={{ fontWeight: 700, fontSize: 18, color: '#f1f5f9', marginBottom: 3 }}>Tigist Bekele</div>
-                <div style={{ color: '#64748b', fontSize: 14 }}>tigist.bekele@example.com</div>
+                <div style={{ fontWeight: 700, fontSize: 18, color: 'var(--foreground)', marginBottom: 3 }}>Tigist Bekele</div>
+                <div style={{ color: 'var(--muted-foreground)', fontSize: 14 }}>tigist.bekele@example.com</div>
                 <div style={{ fontSize: 12, color: '#2563eb', marginTop: 4 }}>Free Plan · 3/5 monthly queries used</div>
               </div>
             </div>
@@ -134,9 +134,9 @@ export default function SettingsPage() {
                 { label: 'Phone', value: '+251 91 234 5678' },
               ].map(field => (
                 <div key={field.label}>
-                  <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#64748b', marginBottom: 8 }}>{field.label}</label>
+                  <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 8 }}>{field.label}</label>
                   <input defaultValue={field.value}
-                    style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '11px 14px', color: '#f1f5f9', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+                    style={{ width: '100%', background: 'var(--input-background)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '11px 14px', color: 'var(--foreground)', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
                     className="focus:border-blue-500/40 transition-colors" />
                 </div>
               ))}
