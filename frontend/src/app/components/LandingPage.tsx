@@ -378,18 +378,18 @@ export default function LandingPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
             {testimonials.map((t, i) => (
               <motion.div key={t.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: 28 }}>
+                style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 28 }}>
                 <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
                   {Array.from({ length: t.stars }).map((_, j) => <Star key={j} size={14} fill="#2563eb" color="#2563eb" />)}
                 </div>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 20, fontSize: 15 }}>"{t.text}"</p>
+                <p style={{ color: 'var(--muted-foreground)', lineHeight: 1.7, marginBottom: 20, fontSize: 15 }}>"{t.text}"</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'white' }}>
                     {t.name[0]}
                   </div>
                   <div>
                     <div style={{ fontWeight: 600, fontSize: 14 }}>{t.name}</div>
-                    <div style={{ color: '#64748b', fontSize: 13 }}>{t.role}</div>
+                    <div style={{ color: 'var(--muted-foreground)', fontSize: 13 }}>{t.role}</div>
                   </div>
                 </div>
               </motion.div>
