@@ -47,11 +47,11 @@ function parseInline(text: string): React.ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|==[^=]+==[^\s]*)/g);
   return parts.filter(p => p !== undefined && p !== '').map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**') && part.length > 4)
-      return <strong key={i} style={{ color: '#e2e8f0', fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
+      return <strong key={i} style={{ color: 'var(--foreground)', fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
     if (part.startsWith('*') && part.endsWith('*') && part.length > 2 && !part.startsWith('**'))
-      return <em key={i} style={{ color: '#cbd5e1' }}>{part.slice(1, -1)}</em>;
+      return <em key={i} style={{ color: 'var(--muted-foreground)' }}>{part.slice(1, -1)}</em>;
     if (part.startsWith('`') && part.endsWith('`'))
-      return <code key={i} style={{ background: 'rgba(99,102,241,0.18)', color: '#a5b4fc', padding: '1px 7px', borderRadius: 5, fontSize: '0.87em', fontFamily: 'ui-monospace,monospace' }}>{part.slice(1, -1)}</code>;
+      return <code key={i} style={{ background: 'rgba(99,102,241,0.12)', color: 'var(--primary-foreground)', padding: '1px 7px', borderRadius: 5, fontSize: '0.87em', fontFamily: 'ui-monospace,monospace' }}>{part.slice(1, -1)}</code>;
     if (part.startsWith('==') && part.endsWith('=='))
       return <mark key={i} style={{ background: 'rgba(245,158,11,0.25)', color: '#fbbf24', padding: '0 4px', borderRadius: 3, fontWeight: 600 }}>{part.slice(2, -2)}</mark>;
     return part;
@@ -104,7 +104,7 @@ function MarkdownRenderer({ text }: { text: string }) {
       const c = warn ? '#f59e0b' : tip ? '#10b981' : '#2563eb';
       out.push(
         <div key={k++} style={{ borderLeft: `3px solid ${c}`, padding: '8px 14px', margin: '10px 0', background: `${c}0d`, borderRadius: '0 10px 10px 0' }}>
-          <p style={{ margin: 0, color: '#cbd5e1', fontSize: 13.5, lineHeight: 1.65 }}>{parseInline(inner)}</p>
+          <p style={{ margin: 0, color: 'var(--muted-foreground)', fontSize: 13.5, lineHeight: 1.65 }}>{parseInline(inner)}</p>
         </div>
       );
     } else if (line === '---') {
