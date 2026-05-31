@@ -200,7 +200,7 @@ function ExpandableClause({ risk }: { risk: typeof RESULT.risks[0] }) {
             <span style={{ fontSize: 11, color: '#475569' }}>📚 {risk.article}</span>
             <span style={{ fontSize: 11, color: '#334155', marginLeft: 'auto' }}>AI confidence: {risk.confidence}%</span>
           </div>
-          <div style={{ fontSize: 13, color: '#94a3b8', fontStyle: 'italic', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: open ? 'normal' : 'nowrap' }}>"{risk.clause}"</div>
+          <div style={{ fontSize: 13, color: 'var(--muted-foreground)', fontStyle: 'italic', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: open ? 'normal' : 'nowrap' }}>&quot;{risk.clause}&quot;</div>
         </div>
         <motion.div animate={{ rotate: open ? 90 : 0 }} style={{ flexShrink: 0 }}>
           <ChevronRight size={16} color="#64748b" />
@@ -211,7 +211,7 @@ function ExpandableClause({ risk }: { risk: typeof RESULT.risks[0] }) {
         {open && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
             <div style={{ padding: '0 20px 20px 62px' }}>
-              <div style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.7, marginBottom: 12 }}>{risk.explanation}</div>
+              <div style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.7, marginBottom: 12 }}>{risk.explanation}</div>
               {risk.safer && (
                 <div style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.18)', borderRadius: 10, padding: '12px 16px' }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: '#2563eb', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 5 }}>
@@ -599,10 +599,10 @@ export default function DocumentUploadPage() {
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', color: '#94a3b8', cursor: 'pointer', fontSize: 13 }}>
+                <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'var(--muted)', border: '1px solid var(--color-border)', color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 13 }}>
                   <Printer size={13} /> Print
                 </button>
-                <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', color: '#94a3b8', cursor: 'pointer', fontSize: 13 }}>
+                <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'var(--muted)', border: '1px solid var(--color-border)', color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 13 }}>
                   <Download size={13} /> Export Report
                 </button>
                 <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.25)', color: '#2563eb', cursor: 'pointer', fontSize: 13 }}>
@@ -663,7 +663,7 @@ export default function DocumentUploadPage() {
                     </div>
                     <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 24 }}>
                       <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14 }}>AI Document Summary</h3>
-                      <p style={{ color: '#94a3b8', fontSize: 13.5, lineHeight: 1.75 }}>{result.summary}</p>
+                      <p style={{ color: 'var(--muted-foreground)', fontSize: 13.5, lineHeight: 1.75 }}>{result.summary}</p>
                     </div>
                     <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 24, gridColumn: 'span 2' }}>
                       <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 14 }}>Key Contract Facts</h3>
@@ -684,7 +684,7 @@ export default function DocumentUploadPage() {
                       {result.suggestedActions.map((a, i) => (
                         <div key={i} style={{ display: 'flex', gap: 10, marginBottom: 9 }}>
                           <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.2)', border: '1px solid rgba(37,99,235,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: '#2563eb', fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{i + 1}</div>
-                          <span style={{ color: '#94a3b8', fontSize: 13, lineHeight: 1.55 }}>{a}</span>
+                          <span style={{ color: 'var(--muted-foreground)', fontSize: 13, lineHeight: 1.55 }}>{a}</span>
                         </div>
                       ))}
                     </div>
@@ -778,7 +778,7 @@ export default function DocumentUploadPage() {
                               <div style={{ fontSize: 11, fontWeight: 700, color: c.color, marginBottom: 8, display: 'flex', alignItems: 'center', gap: 5 }}>
                                 <c.icon size={11} /> {c.label}
                               </div>
-                              <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.65, fontStyle: 'italic', margin: 0 }}>"{item.original}"</p>
+                              <p style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.65, fontStyle: 'italic', margin: 0 }}>&quot;{item.original}&quot;</p>
                             </div>
                             <div style={{ padding: '16px 18px', background: c.bg }}>
                               <div style={{ fontSize: 11, fontWeight: 700, color: '#2563eb', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 5 }}>
