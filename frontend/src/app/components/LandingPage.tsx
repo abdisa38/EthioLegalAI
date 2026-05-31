@@ -407,18 +407,18 @@ export default function LandingPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {faqs.map((faq, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
-                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, overflow: 'hidden' }}>
+                style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 12, overflow: 'hidden' }}>
                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: '100%', padding: '18px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: '#f1f5f9', textAlign: 'left', fontSize: 15, fontWeight: 600 }}>
+                  style={{ width: '100%', padding: '18px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--foreground)', textAlign: 'left', fontSize: 15, fontWeight: 600 }}>
                   {faq.q}
                   <motion.div animate={{ rotate: openFaq === i ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                    <ChevronDown size={18} color="#64748b" />
+                    <ChevronDown size={18} color={'var(--muted-foreground)'} />
                   </motion.div>
                 </button>
                 <AnimatePresence>
                   {openFaq === i && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
-                      <div style={{ padding: '0 20px 18px', color: '#64748b', fontSize: 14, lineHeight: 1.7 }}>{faq.a}</div>
+                      <div style={{ padding: '0 20px 18px', color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>{faq.a}</div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -437,13 +437,13 @@ export default function LandingPage() {
               Know Your Rights.<br />
               <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Start Free Today.</span>
             </h2>
-            <p style={{ color: '#64748b', fontSize: 18, marginBottom: 36, maxWidth: 480, margin: '0 auto 36px' }}>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 18, marginBottom: 36, maxWidth: 480, margin: '0 auto 36px' }}>
               Join thousands of Ethiopian citizens who use EthioLegal AI to understand their legal rights and protect themselves.
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => navigate('/register')}
-                style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '16px 36px', borderRadius: 12, border: 'none', cursor: 'pointer', fontSize: 17, fontWeight: 700, boxShadow: '0 0 40px rgba(37,99,235,0.5)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'var(--primary-foreground)', padding: '16px 36px', borderRadius: 12, border: 'none', cursor: 'pointer', fontSize: 17, fontWeight: 700, boxShadow: '0 0 40px rgba(37,99,235,0.5)', display: 'flex', alignItems: 'center', gap: 8 }}>
                 Get Started Free <ArrowRight size={18} />
               </motion.button>
             </div>
