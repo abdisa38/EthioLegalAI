@@ -310,10 +310,10 @@ export default function LandingPage() {
                 { lang: 'Amharic', example: '"እንደ ተከራይ ምን መብቶች አሉኝ?"', flag: '🇪🇹' },
                 { lang: 'Afaan Oromo', example: '"Mirga ijaarraa koo maal?"', flag: '🟢' },
               ].map(item => (
-                <div key={item.lang} style={{ display: 'flex', alignItems: 'center', gap: 16, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '12px 16px' }}>
+                <div key={item.lang} style={{ display: 'flex', alignItems: 'center', gap: 16, background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '12px 16px' }}>
                   <span style={{ fontSize: 24 }}>{item.flag}</span>
                   <div>
-                    <div style={{ fontSize: 13, color: '#64748b', marginBottom: 2 }}>{item.lang}</div>
+                    <div style={{ fontSize: 13, color: 'var(--muted-foreground)', marginBottom: 2 }}>{item.lang}</div>
                     <div style={{ fontSize: 15, color: 'var(--foreground)' }}>{item.example}</div>
                   </div>
                 </div>
@@ -347,12 +347,12 @@ export default function LandingPage() {
             { title: 'Labor Law Assistant', desc: 'Understand your workplace rights including salary disputes, wrongful termination, overtime pay, and employee protections under Ethiopian labor law.', icon: TrendingUp, color: '#60a5fa', items: ['Overtime rights', 'Termination guidelines', 'Salary dispute help', 'Worker protections'], path: '/app/labor-law' },
           ].map(section => (
             <motion.div key={section.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 20, padding: 32 }}>
+              style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 20, padding: 32 }}>
               <div style={{ width: 52, height: 52, borderRadius: 14, background: `${section.color}15`, border: `1px solid ${section.color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
                 <section.icon size={26} color={section.color} />
               </div>
               <h3 style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>{section.title}</h3>
-              <p style={{ color: '#64748b', lineHeight: 1.7, marginBottom: 20 }}>{section.desc}</p>
+              <p style={{ color: 'var(--muted-foreground)', lineHeight: 1.7, marginBottom: 20 }}>{section.desc}</p>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {section.items.map(item => (
                   <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--muted-foreground)' }}>
