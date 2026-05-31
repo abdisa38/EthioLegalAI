@@ -560,8 +560,8 @@ export default function DocumentUploadPage() {
                 <Upload size={32} color="#2563eb" />
               </motion.div>
             </div>
-            <h3 style={{ fontSize: 20, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>Uploading Document</h3>
-            <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>{fileName}</p>
+            <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--foreground)', marginBottom: 6 }}>Uploading Document</h3>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>{fileName}</p>
             <div style={{ width: '100%', maxWidth: 320 }}>
               <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 100, overflow: 'hidden', marginBottom: 8 }}>
                 <motion.div animate={{ width: `${progress}%` }} style={{ height: '100%', background: 'linear-gradient(90deg,#2563eb,#60a5fa)', borderRadius: 100 }} transition={{ duration: 0.3 }} />
@@ -594,7 +594,7 @@ export default function DocumentUploadPage() {
                   <FileText size={20} color="#ef4444" />
                 </div>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: 15, color: '#f1f5f9', marginBottom: 2 }}>{result.fileName || 'rental_agreement_bole.pdf'}</div>
+                  <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--foreground)', marginBottom: 2 }}>{result.fileName || 'rental_agreement_bole.pdf'}</div>
                   <div style={{ fontSize: 12, color: '#64748b' }}>{result.docType} · Analyzed just now</div>
                 </div>
               </div>
