@@ -10,14 +10,14 @@ const quickActions = [
     icon: MessageSquare, 
     label: 'Ask Legal Question', 
     desc: 'Get instant answers about Ethiopian law', 
-    color: '#6366f1', 
+    color: '#2563eb', 
     path: '/app/chat' 
   },
   { 
     icon: Upload, 
     label: 'Analyze Document', 
     desc: 'Upload and review contracts or agreements', 
-    color: '#8b5cf6', 
+    color: '#3b82f6', 
     path: '/app/upload' 
   },
   { 
@@ -56,7 +56,7 @@ export default function DashboardHome() {
       alignItems: 'center', 
       justifyContent: 'center',
       padding: '40px 20px',
-      background: '#000000'
+      background: 'linear-gradient(180deg, #f8fbff 0%, #eaf3ff 100%)'
     }}>
       <div style={{ maxWidth: 800, width: '100%', textAlign: 'center' }}>
         
@@ -73,9 +73,9 @@ export default function DashboardHome() {
             width: 80, 
             height: 80, 
             borderRadius: 20, 
-            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            background: 'linear-gradient(135deg, #2563eb, #60a5fa)',
             marginBottom: 24,
-            boxShadow: '0 20px 60px rgba(99,102,241,0.3)'
+            boxShadow: '0 20px 60px rgba(37,99,235,0.22)'
           }}>
             <Scale size={40} color="white" />
           </div>
@@ -83,7 +83,7 @@ export default function DashboardHome() {
           <h1 style={{ 
             fontSize: 48, 
             fontWeight: 800, 
-            color: '#ffffff', 
+            color: '#0f172a', 
             marginBottom: 16,
             lineHeight: 1.2
           }}>
@@ -92,7 +92,7 @@ export default function DashboardHome() {
           
           <p style={{ 
             fontSize: 20, 
-            color: '#a3a3a3', 
+            color: '#334155', 
             marginBottom: 8,
             lineHeight: 1.6
           }}>
@@ -164,7 +164,7 @@ export default function DashboardHome() {
                     marginBottom: 4 
                   }}>
                     {action.label}
-                  </div>
+                      EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
                   <div style={{ 
                     fontSize: 14, 
                     color: '#a3a3a3',
