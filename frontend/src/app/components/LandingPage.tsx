@@ -325,7 +325,7 @@ export default function LandingPage() {
             <div style={{ background: 'rgba(13,17,36,0.9)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 20, padding: 28, boxShadow: '0 20px 60px rgba(0,0,0,0.4)' }}>
               <div style={{ display: 'flex', gap: 10, marginBottom: 20 }}>
                 {['English', 'አማርኛ', 'Oromo'].map((lang, i) => (
-                  <button key={lang} style={{ padding: '6px 16px', borderRadius: 8, fontSize: 13, fontWeight: 500, border: 'none', cursor: 'pointer', background: i === 1 ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'rgba(255,255,255,0.06)', color: i === 1 ? 'white' : '#64748b' }}>{lang}</button>
+                  <button key={lang} style={{ padding: '6px 16px', borderRadius: 8, fontSize: 13, fontWeight: 500, border: 'none', cursor: 'pointer', background: i === 1 ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'var(--muted)', color: i === 1 ? 'var(--primary-foreground)' : 'var(--muted-foreground)' }}>{lang}</button>
                 ))}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
