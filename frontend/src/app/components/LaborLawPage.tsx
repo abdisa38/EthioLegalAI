@@ -6,12 +6,12 @@ import { useMutation } from '@tanstack/react-query';
 import { askLaborAssistantRequest } from '../api/laborAssistant';
 
 const rights = [
-  { icon: Clock, title: 'Working Hours & Overtime', law: 'Labor Proc. 1156/2019 Art. 61', desc: 'Maximum 8 hours/day, 48 hours/week. Overtime must be paid at 125% of regular rate. Weekend work: 150%. Night shift (10pm–6am): 175%.', color: '#6366f1', highlight: ['8 hrs/day max', 'OT: 125%', 'Weekend: 150%'] },
-  { icon: DollarSign, title: 'Wage & Salary Rights', law: 'Labor Proc. 1156/2019 Art. 62', desc: 'Wages must be paid on time as per contract. Employers cannot make unauthorized deductions. Workers have the right to a detailed payslip showing all deductions.', color: '#10b981', highlight: ['On-time payment', 'No unauthorized cuts', 'Payslip required'] },
-  { icon: Shield, title: 'Termination Rights', law: 'Labor Proc. 1156/2019 Art. 28', desc: 'Termination requires a valid cause. Minimum 30 days notice required. Wrongful termination entitles you to severance pay and legal remedies.', color: '#f59e0b', highlight: ['Valid cause needed', '30 days notice', 'Severance pay'] },
-  { icon: Users, title: 'Maternity & Leave Rights', law: 'Labor Proc. 1156/2019 Art. 87', desc: 'Female employees get 90 days paid maternity leave. All employees get 16 days annual leave after 1 year. Sick leave: 6 months (with pay for 3 months).', color: '#ec4899', highlight: ['90 days maternity', '16 days annual leave', '6 months sick leave'] },
-  { icon: Briefcase, title: 'Workplace Safety', law: 'Labor Proc. 1156/2019 Art. 93', desc: 'Employers must provide a safe work environment. Workers can refuse dangerous work. Workplace injuries are covered by employer liability.', color: '#8b5cf6', highlight: ['Safe environment', 'Refuse danger', 'Injury coverage'] },
-  { icon: FileText, title: 'Employment Contract Rights', law: 'Labor Proc. 1156/2019 Art. 10', desc: 'All employment must be based on a written contract. Contract must include job title, salary, working hours, leave entitlement, and termination conditions.', color: '#06b6d4', highlight: ['Written contract', 'Clear terms', 'Transparent salary'] },
+  { icon: Clock, title: 'Working Hours & Overtime', law: 'Labor Proc. 1156/2019 Art. 61', desc: 'Maximum 8 hours/day, 48 hours/week. Overtime must be paid at 125% of regular rate. Weekend work: 150%. Night shift (10pm–6am): 175%.', color: '#2563eb', highlight: ['8 hrs/day max', 'OT: 125%', 'Weekend: 150%'] },
+  { icon: DollarSign, title: 'Wage & Salary Rights', law: 'Labor Proc. 1156/2019 Art. 62', desc: 'Wages must be paid on time as per contract. Employers cannot make unauthorized deductions. Workers have the right to a detailed payslip showing all deductions.', color: '#60a5fa', highlight: ['On-time payment', 'No unauthorized cuts', 'Payslip required'] },
+  { icon: Shield, title: 'Termination Rights', law: 'Labor Proc. 1156/2019 Art. 28', desc: 'Termination requires a valid cause. Minimum 30 days notice required. Wrongful termination entitles you to severance pay and legal remedies.', color: '#93c5fd', highlight: ['Valid cause needed', '30 days notice', 'Severance pay'] },
+  { icon: Users, title: 'Maternity & Leave Rights', law: 'Labor Proc. 1156/2019 Art. 87', desc: 'Female employees get 90 days paid maternity leave. All employees get 16 days annual leave after 1 year. Sick leave: 6 months (with pay for 3 months).', color: '#2563eb', highlight: ['90 days maternity', '16 days annual leave', '6 months sick leave'] },
+  { icon: Briefcase, title: 'Workplace Safety', law: 'Labor Proc. 1156/2019 Art. 93', desc: 'Employers must provide a safe work environment. Workers can refuse dangerous work. Workplace injuries are covered by employer liability.', color: '#60a5fa', highlight: ['Safe environment', 'Refuse danger', 'Injury coverage'] },
+  { icon: FileText, title: 'Employment Contract Rights', law: 'Labor Proc. 1156/2019 Art. 10', desc: 'All employment must be based on a written contract. Contract must include job title, salary, working hours, leave entitlement, and termination conditions.', color: '#93c5fd', highlight: ['Written contract', 'Clear terms', 'Transparent salary'] },
 ];
 
 const severanceCalc = [
@@ -69,7 +69,7 @@ export default function LaborLawPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
           <div style={{ width: 48, height: 48, borderRadius: 14, background: 'linear-gradient(135deg, rgba(245,158,11,0.2), rgba(249,115,22,0.15))', border: '1px solid rgba(245,158,11,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <TrendingUp size={24} color="#f59e0b" />
+            <TrendingUp size={24} color="#2563eb" />
           </div>
           <div>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 2 }}>Labor Law Assistant</h1>
@@ -80,10 +80,10 @@ export default function LaborLawPage() {
         {/* Stats bar */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12 }}>
           {[
-            { label: 'Min. Notice Period', value: '30 Days', color: '#6366f1' },
-            { label: 'Annual Leave', value: '16 Days', color: '#10b981' },
-            { label: 'Overtime Rate', value: '125%+', color: '#f59e0b' },
-            { label: 'Maternity Leave', value: '90 Days', color: '#ec4899' },
+            { label: 'Min. Notice Period', value: '30 Days', color: '#2563eb' },
+            { label: 'Annual Leave', value: '16 Days', color: '#60a5fa' },
+            { label: 'Overtime Rate', value: '125%+', color: '#93c5fd' },
+            { label: 'Maternity Leave', value: '90 Days', color: '#2563eb' },
           ].map(stat => (
             <div key={stat.label} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '14px 16px' }}>
               <div style={{ fontSize: 22, fontWeight: 800, color: stat.color, marginBottom: 3 }}>{stat.value}</div>
@@ -124,7 +124,7 @@ export default function LaborLawPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
         style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 28, marginBottom: 36 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-          <DollarSign size={18} color="#10b981" />
+          <DollarSign size={18} color="#2563eb" />
           <h2 style={{ fontSize: 17, fontWeight: 700 }}>Severance Pay Guide</h2>
           <span style={{ marginLeft: 'auto', fontSize: 12, color: '#64748b' }}>Labor Proc. 1156/2019 Art. 44</span>
         </div>
@@ -141,9 +141,9 @@ export default function LaborLawPage() {
               {severanceCalc.map((row, i) => (
                 <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)' }}>
                   <td style={{ padding: '12px 16px', color: '#e2e8f0', fontSize: 14, fontWeight: 500, borderBottom: '1px solid rgba(255,255,255,0.04)' }}>{row.years}</td>
-                  <td style={{ padding: '12px 16px', color: '#10b981', fontSize: 14, fontWeight: 700, borderBottom: '1px solid rgba(255,255,255,0.04)' }}>{row.amount}</td>
+                  <td style={{ padding: '12px 16px', color: '#2563eb', fontSize: 14, fontWeight: 700, borderBottom: '1px solid rgba(255,255,255,0.04)' }}>{row.amount}</td>
                   <td style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><CheckCircle size={13} color="#10b981" /><span style={{ fontSize: 12, color: '#10b981' }}>Legally guaranteed</span></div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><CheckCircle size={13} color="#2563eb" /><span style={{ fontSize: 12, color: '#2563eb' }}>Legally guaranteed</span></div>
                   </td>
                 </tr>
               ))}
@@ -190,7 +190,7 @@ export default function LaborLawPage() {
                   setQuestion(tag);
                   submitQuestion(tag);
                 }}
-                style={{ padding: '4px 12px', borderRadius: 100, background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.25)', fontSize: 12, color: '#f59e0b', cursor: 'pointer' }}
+                style={{ padding: '4px 12px', borderRadius: 100, background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.25)', fontSize: 12, color: '#2563eb', cursor: 'pointer' }}
               >
                 {tag}
               </button>
@@ -207,7 +207,7 @@ export default function LaborLawPage() {
               <button
                 onClick={() => submitQuestion()}
                 disabled={laborMutation.isPending}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', borderRadius: 10, background: 'linear-gradient(135deg, #f59e0b, #ef4444)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 700, opacity: laborMutation.isPending ? 0.7 : 1 }}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 13, fontWeight: 700, opacity: laborMutation.isPending ? 0.7 : 1 }}
               >
                 {laborMutation.isPending ? 'Asking...' : 'Ask Labor AI'}
               </button>
@@ -222,7 +222,7 @@ export default function LaborLawPage() {
             )}
           </div>
         </div>
-        <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: 12, background: 'linear-gradient(135deg, #f59e0b, #ef4444)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 15, fontWeight: 700, flexShrink: 0 }}>
+        <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: 12, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 15, fontWeight: 700, flexShrink: 0 }}>
           <MessageSquare size={18} /> Ask Labor AI
         </button>
       </motion.div>
