@@ -184,7 +184,7 @@ export default function ContractAnalysisPage() {
                         <span style={{ fontSize: 11, color: '#475569' }}>📚 {clause.article}</span>
                       </div>
                       <div style={{ fontSize: 14, color: '#e2e8f0', fontStyle: 'italic', marginBottom: 8 }}>"{clause.text}"</div>
-                      <p style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.6, marginBottom: clause.safer ? 10 : 0 }}>{clause.explanation}</p>
+                      <p style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.6, marginBottom: clause.safer ? 10 : 0 }}>{clause.explanation}</p>
                       {clause.safer && (
                         <div style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: 8, padding: '10px 14px' }}>
                           <div style={{ fontSize: 11, fontWeight: 600, color: '#2563eb', marginBottom: 4 }}>✏️ SAFER ALTERNATIVE</div>

@@ -86,6 +86,9 @@ function MarkdownRenderer({ text }: { text: string }) {
           {isLegal && <div style={{ fontSize: 10, color: '#2563eb', fontWeight: 800, letterSpacing: 1.2, marginBottom: 10 }}>📚 LEGAL REFERENCE</div>}
           {code.join('\n')}
         </div>
+          <p key={k++} style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 10, fontStyle: 'italic' }}>{parseInline(line.replace(/^\*/, '').replace(/\*$/, ''))}</p>
+        }
+        out.push(<p key={k++} style={{ color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7, margin: '3px 0' }}>{parseInline(line)}</p>);
       );
       i++; continue;
     }
@@ -134,6 +137,7 @@ function MarkdownRenderer({ text }: { text: string }) {
     } else {
       flush();
       out.push(<p key={k++} style={{ color: '#cbd5e1', fontSize: 14, lineHeight: 1.7, margin: '3px 0' }}>{parseInline(line)}</p>);
+        out.push(<p key={k++} style={{ color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7, margin: '3px 0' }}>{parseInline(line)}</p>);
     }
     i++;
   }

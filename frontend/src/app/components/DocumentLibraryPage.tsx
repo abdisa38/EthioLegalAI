@@ -156,7 +156,7 @@ export default function DocumentLibraryPage() {
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 6, flexWrap: 'wrap' }}>
                     <div>
-                      <div style={{ fontWeight: 600, fontSize: 15, color: '#f1f5f9', marginBottom: 4 }}>{doc.filename}</div>
+                      <div style={{ fontWeight: 600, fontSize: 15, color: 'var(--foreground)', marginBottom: 4 }}>{doc.filename}</div>
                       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
                         <span style={{ fontSize: 12, color: typeColors[docType] || '#64748b', background: `${typeColors[docType] || '#64748b'}15`, padding: '2px 8px', borderRadius: 100 }}>{docType}</span>
                         <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: rConf.color, background: rConf.bg, padding: '2px 8px', borderRadius: 100 }}>

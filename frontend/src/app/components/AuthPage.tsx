@@ -58,16 +58,16 @@ export default function AuthPage() {
         <div style={{ position: 'absolute', bottom: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(96,165,250,0.16), transparent 70%)' }} />
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 48 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 48 }}>
             <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 14, width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 30px rgba(37,99,235,0.3)' }}>
               <Scale size={24} color="white" />
             </div>
-            <span style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9' }}>
-              EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
+            <span style={{ fontSize: 26, fontWeight: 800, color: 'var(--foreground)' }}>
+              EthioLegal <span style={{ color: 'var(--primary)' }}>AI</span>
             </span>
           </div>
 
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: '#f1f5f9', lineHeight: 1.25, marginBottom: 16 }}>
+          <h2 style={{ fontSize: 36, fontWeight: 800, color: 'var(--foreground)', lineHeight: 1.25, marginBottom: 16 }}>
             Your AI-Powered<br />
             <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Legal Assistant</span>
           </h2>
@@ -82,12 +82,12 @@ export default function AuthPage() {
               { text: 'Supports Amharic and Afaan Oromo' },
               { text: 'Detect risky clauses before you sign' },
             ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
-                style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.64)', border: '1px solid rgba(37,99,235,0.08)', borderRadius: 12, padding: '12px 16px' }}>
+                <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '12px 16px' }}>
                 <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#2563eb' }} />
                 </div>
-                <span style={{ color: '#94a3b8', fontSize: 14 }}>{item.text}</span>
+                <span style={{ color: 'var(--muted-foreground)', fontSize: 14 }}>{item.text}</span>
               </motion.div>
             ))}
           </div>
@@ -109,14 +109,14 @@ export default function AuthPage() {
             <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Scale size={18} color="white" />
             </div>
-            <span style={{ fontSize: 20, fontWeight: 700, color: '#0f172a' }}>EthioLegal <span style={{ color: '#2563eb' }}>AI</span></span>
+            <span style={{ fontSize: 20, fontWeight: 700, color: 'var(--foreground)' }}>EthioLegal <span style={{ color: 'var(--primary)' }}>AI</span></span>
           </div>
 
           <div style={{ marginBottom: 32 }}>
-            <h1 style={{ fontSize: 28, fontWeight: 800, color: '#0f172a', marginBottom: 8 }}>
+            <h1 style={{ fontSize: 28, fontWeight: 800, color: 'var(--foreground)', marginBottom: 8 }}>
               {isForgot ? 'Reset Password' : isRegister ? 'Create Account' : 'Welcome Back'}
             </h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 15 }}>
               {isForgot ? "Enter your email and we'll send reset instructions." : isRegister ? 'Join thousands of Ethiopians who know their rights.' : 'Sign in to your EthioLegal AI account.'}
             </p>
           </div>
@@ -146,22 +146,22 @@ export default function AuthPage() {
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 {isRegister && (
                   <div>
-                    <label style={{ display: 'block', color: '#94a3b8', fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Full Name</label>
+                    <label style={{ display: 'block', color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Full Name</label>
                     <div style={{ position: 'relative' }}>
                       <User size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                       <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Tigist Bekele"
-                        style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 14px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
+                        style={{ width: '100%', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '12px 14px 12px 42px', color: 'var(--foreground)', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
                         className="focus:border-blue-500/50 transition-colors" />
                     </div>
                   </div>
                 )}
 
                 <div>
-                  <label style={{ display: 'block', color: '#94a3b8', fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Email</label>
+                  <label style={{ display: 'block', color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Email</label>
                   <div style={{ position: 'relative' }}>
                     <Mail size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                     <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
-                      style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 14px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
+                      style={{ width: '100%', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '12px 14px 12px 42px', color: 'var(--foreground)', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
                       className="focus:border-blue-500/50 transition-colors" />
                   </div>
                 </div>
@@ -169,15 +169,15 @@ export default function AuthPage() {
                 {!isForgot && (
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <label style={{ color: '#94a3b8', fontSize: 13, fontWeight: 500 }}>Password</label>
+                      <label style={{ color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 500 }}>Password</label>
                       {!isRegister && <span onClick={() => navigate('/forgot-password')} style={{ color: '#2563eb', fontSize: 13, cursor: 'pointer' }}>Forgot password?</span>}
                     </div>
                     <div style={{ position: 'relative' }}>
                       <Lock size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                       <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••"
-                        style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '12px 42px 12px 42px', color: '#f1f5f9', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
+                        style={{ width: '100%', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '12px 42px 12px 42px', color: 'var(--foreground)', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
                         className="focus:border-blue-500/50 transition-colors" />
-                      <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', background: 'transparent', border: 'none', cursor: 'pointer', color: '#475569' }}>
+                      <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--muted-foreground)' }}>
                         {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                       </button>
                     </div>
@@ -185,9 +185,9 @@ export default function AuthPage() {
                 )}
 
                 {isRegister && (
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <input type="checkbox" id="terms" style={{ marginTop: 3, accentColor: '#2563eb' }} />
-                    <label htmlFor="terms" style={{ color: '#64748b', fontSize: 13, lineHeight: 1.5 }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <input type="checkbox" id="terms" style={{ marginTop: 3, accentColor: 'var(--primary)' }} />
+                    <label htmlFor="terms" style={{ color: 'var(--muted-foreground)', fontSize: 13, lineHeight: 1.5 }}>
                       I agree to the <span style={{ color: '#2563eb', cursor: 'pointer' }}>Terms of Service</span> and understand this is educational information, not legal advice.
                     </label>
                   </div>
@@ -207,7 +207,7 @@ export default function AuthPage() {
                 </motion.button>
               </form>
 
-              <div style={{ textAlign: 'center', marginTop: 24, color: '#64748b', fontSize: 14 }}>
+              <div style={{ textAlign: 'center', marginTop: 24, color: 'var(--muted-foreground)', fontSize: 14 }}>
                 {isRegister ? (
                   <>Already have an account? <span onClick={() => navigate('/login')} style={{ color: '#2563eb', cursor: 'pointer' }}>Sign in</span></>
                 ) : isForgot ? (
@@ -220,13 +220,13 @@ export default function AuthPage() {
               </div>
             </>
           ) : (
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
               style={{ textAlign: 'center', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 16, padding: 40 }}>
               <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(16,185,129,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
                 <Mail size={28} color="#2563eb" />
               </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: '#f1f5f9' }}>Check Your Email</h3>
-              <p style={{ color: '#64748b', fontSize: 15, marginBottom: 24 }}>We've sent reset instructions to <strong style={{ color: '#94a3b8' }}>{email}</strong></p>
+              <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: 'var(--foreground)' }}>Check Your Email</h3>
+              <p style={{ color: 'var(--muted-foreground)', fontSize: 15, marginBottom: 24 }}>We've sent reset instructions to <strong style={{ color: 'var(--muted-foreground)' }}>{email}</strong></p>
               <button onClick={() => navigate('/login')} style={{ color: '#2563eb', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6, margin: '0 auto' }}>
                 <ArrowLeft size={14} /> Back to Sign In
               </button>
