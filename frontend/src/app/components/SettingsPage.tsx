@@ -156,7 +156,7 @@ export default function SettingsPage() {
             <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>Customize how the AI responds to your questions.</p>
 
             <div style={{ marginBottom: 28 }}>
-              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>AI Response Language</label>
+              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 12 }}>AI Response Language</label>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {[
                   { value: 'match', label: 'Match my input language', desc: 'AI responds in the same language you use' },
@@ -176,7 +176,7 @@ export default function SettingsPage() {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>Response Style</label>
+              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 12 }}>Response Style</label>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                 {[
                   { value: 'simple', label: 'Simple', desc: 'Plain language, easy to understand' },
@@ -238,7 +238,7 @@ export default function SettingsPage() {
               ))}
             </div>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              <button style={{ padding: '10px 18px', borderRadius: 10, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#94a3b8', cursor: 'pointer', fontSize: 14 }}>Download My Data</button>
+              <button style={{ padding: '10px 18px', borderRadius: 10, background: 'var(--muted)', border: '1px solid var(--color-border)', color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 14 }}>Download My Data</button>
               <button style={{ padding: '10px 18px', borderRadius: 10, background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', color: '#f87171', cursor: 'pointer', fontSize: 14 }}>Delete All Data</button>
             </div>
           </div>
@@ -252,8 +252,8 @@ export default function SettingsPage() {
   return (
     <div style={{ padding: '32px 28px', maxWidth: 1000, margin: '0 auto' }}>
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
-        <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>Settings</h1>
-        <p style={{ color: '#64748b', fontSize: 15 }}>Manage your account, preferences, and privacy.</p>
+        <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--foreground)', marginBottom: 6 }}>Settings</h1>
+      <p style={{ color: 'var(--muted-foreground)', fontSize: 15 }}>Manage your account, preferences, and privacy.</p>
       </motion.div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 24 }} className="max-sm:grid-cols-1">
@@ -261,8 +261,8 @@ export default function SettingsPage() {
         <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}
           style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {sections.map(section => (
-            <button key={section.id} onClick={() => setActiveSection(section.id)}
-              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: 'none', cursor: 'pointer', textAlign: 'left', background: activeSection === section.id ? 'rgba(37,99,235,0.12)' : 'transparent', color: activeSection === section.id ? '#2563eb' : '#64748b', transition: 'all 0.2s' }}
+              <button key={section.id} onClick={() => setActiveSection(section.id)}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 10, border: 'none', cursor: 'pointer', textAlign: 'left', background: activeSection === section.id ? 'rgba(37,99,235,0.12)' : 'transparent', color: activeSection === section.id ? '#2563eb' : 'var(--muted-foreground)', transition: 'all 0.2s' }}
               className={activeSection !== section.id ? 'hover:bg-white/5 hover:text-slate-300' : ''}>
               <div style={{ width: 30, height: 30, borderRadius: 8, background: `${section.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <section.icon size={15} color={activeSection === section.id ? '#2563eb' : section.color} />
@@ -274,7 +274,7 @@ export default function SettingsPage() {
 
         {/* Content */}
         <motion.div key={activeSection} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}
-          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16, padding: 28 }}>
+          style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 28 }}>
           <SectionContent />
 
           <div style={{ marginTop: 32, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'flex-end' }}>
