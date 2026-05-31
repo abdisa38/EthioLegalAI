@@ -77,7 +77,7 @@ export default function DashboardHome() {
             marginBottom: 24,
             boxShadow: '0 20px 60px rgba(37,99,235,0.22)'
           }}>
-            <Scale size={40} color="white" />
+            <Scale size={40} color="#ffffff" />
           </div>
           
           <h1 style={{ 
@@ -92,7 +92,7 @@ export default function DashboardHome() {
           
           <p style={{ 
             fontSize: 20, 
-            color: '#334155', 
+            color: '#0f172a', 
             marginBottom: 8,
             lineHeight: 1.6
           }}>
@@ -101,7 +101,7 @@ export default function DashboardHome() {
           
           <p style={{ 
             fontSize: 14, 
-            color: '#737373',
+            color: '#475569',
             lineHeight: 1.6
           }}>
             Get instant answers about tenant rights, labor law, and contract analysis
@@ -173,7 +173,7 @@ export default function DashboardHome() {
                     {action.desc}
                   </div>
                 </div>
-                <ArrowRight size={20} color="#737373" style={{ flexShrink: 0, marginTop: 4 }} />
+                <ArrowRight size={20} color="#334155" style={{ flexShrink: 0, marginTop: 4 }} />
               </motion.button>
             ))}
           </div>
