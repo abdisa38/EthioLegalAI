@@ -480,8 +480,8 @@ export default function DocumentUploadPage() {
     <div style={{ padding: '28px 24px', maxWidth: 1060, margin: '0 auto' }}>
       {/* Page header */}
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 28 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#f1f5f9', marginBottom: 5 }}>Document Intelligence</h1>
-        <p style={{ color: '#64748b', fontSize: 14 }}>Upload any Ethiopian legal document for instant AI-powered analysis, risk detection, and plain-language explanation.</p>
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--foreground)', marginBottom: 5 }}>Document Intelligence</h1>
+      <p style={{ color: 'var(--muted-foreground)', fontSize: 14 }}>Upload any Ethiopian legal document for instant AI-powered analysis, risk detection, and plain-language explanation.</p>
       </motion.div>
 
       {/* Hidden file input */}
