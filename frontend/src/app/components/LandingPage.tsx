@@ -77,9 +77,9 @@ export default function LandingPage() {
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
               style={{ background: '#0d1124', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
               {['Features', 'About', 'Pricing'].map(item => (
-                <span key={item} style={{ color: '#94a3b8', fontSize: 16, padding: '8px 0', cursor: 'pointer' }}>{item}</span>
+                <span key={item} style={{ color: 'var(--muted-foreground)', fontSize: 16, padding: '8px 0', cursor: 'pointer' }}>{item}</span>
               ))}
-              <button onClick={() => navigate('/login')} style={{ color: '#94a3b8', padding: '10px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', cursor: 'pointer' }}>Log in</button>
+              <button onClick={() => navigate('/login')} style={{ color: 'var(--muted-foreground)', padding: '10px', borderRadius: 10, border: '1px solid var(--color-border)', background: 'transparent', cursor: 'pointer' }}>Log in</button>
               <button onClick={() => navigate('/register')} style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '10px', borderRadius: 10, border: 'none', cursor: 'pointer' }}>Get Started Free</button>
             </motion.div>
           )}
@@ -173,13 +173,13 @@ export default function LandingPage() {
 
               {/* Messages */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
-                <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', maxWidth: '85%', fontSize: 14, lineHeight: 1.6, color: '#e2e8f0' }}>
+                <div style={{ background: 'var(--muted)', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', maxWidth: '85%', fontSize: 14, lineHeight: 1.6, color: 'var(--foreground)' }}>
                   Can my landlord evict me without notice in Ethiopia?
                 </div>
                 <div style={{ alignSelf: 'flex-end', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px 12px 4px 12px', padding: '10px 14px', maxWidth: '90%', fontSize: 14, lineHeight: 1.6, color: '#c7d2fe' }}>
                   Under Ethiopian law (Civil Code), a landlord must provide a minimum of 30 days written notice before eviction, except in cases of serious lease violations. You have the right to contest wrongful eviction in court. 🏛️
                 </div>
-                <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', maxWidth: '85%', fontSize: 14, lineHeight: 1.6, color: '#e2e8f0' }}>
+                <div style={{ background: 'var(--muted)', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', maxWidth: '85%', fontSize: 14, lineHeight: 1.6, color: 'var(--foreground)' }}>
                   ምን ማድረግ አለብኝ? (What should I do?)
                 </div>
                 {/* Typing indicator */}
@@ -314,7 +314,7 @@ export default function LandingPage() {
                   <span style={{ fontSize: 24 }}>{item.flag}</span>
                   <div>
                     <div style={{ fontSize: 13, color: '#64748b', marginBottom: 2 }}>{item.lang}</div>
-                    <div style={{ fontSize: 15, color: '#e2e8f0' }}>{item.example}</div>
+                    <div style={{ fontSize: 15, color: 'var(--foreground)' }}>{item.example}</div>
                   </div>
                 </div>
               ))}
@@ -329,7 +329,7 @@ export default function LandingPage() {
                 ))}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '12px 12px 12px 4px', padding: '12px 16px', fontSize: 14, color: '#e2e8f0' }}>ቤቴን ያለ ማስጠንቀቂያ ለቀቅ ብለው ነው?</div>
+                <div style={{ background: 'var(--muted)', borderRadius: '12px 12px 12px 4px', padding: '12px 16px', fontSize: 14, color: 'var(--foreground)' }}>ቤቴን ያለ ማስጠንቀቂያ ለቀቅ ብለው ነው?</div>
                 <div style={{ alignSelf: 'flex-end', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px 12px 4px 12px', padding: '12px 16px', fontSize: 14, color: '#c7d2fe', lineHeight: 1.6 }}>
                   በኢትዮጵያ ሕግ መሰረት, ቤት አከራይ ቢያንስ 30 ቀን የጽሑፍ ማስጠንቀቂያ ሳይሰጥ ሊያስወጣዎ አይችልም። ይህ መብትዎ ነው። 🏛️
                 </div>
@@ -355,7 +355,7 @@ export default function LandingPage() {
               <p style={{ color: '#64748b', lineHeight: 1.7, marginBottom: 20 }}>{section.desc}</p>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {section.items.map(item => (
-                  <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: '#94a3b8' }}>
+                  <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--muted-foreground)' }}>
                     <Check size={14} color={section.color} />{item}
                   </li>
                 ))}
