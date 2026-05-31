@@ -50,26 +50,26 @@ export default function AuthPage() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#080b18', display: 'flex' }}>
+    <div style={{ minHeight: '100vh', background: '#f8fbff', display: 'flex' }}>
       {/* Left panel */}
-      <div className="hidden lg:flex" style={{ width: '50%', background: 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.1) 50%, rgba(16,185,129,0.08) 100%)', position: 'relative', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: 60, overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="hidden lg:flex" style={{ width: '50%', background: 'linear-gradient(135deg, rgba(37,99,235,0.12) 0%, rgba(96,165,250,0.08) 50%, rgba(219,234,254,0.85) 100%)', position: 'relative', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: 60, overflow: 'hidden', borderRight: '1px solid rgba(37,99,235,0.08)' }}>
         {/* Background orbs */}
-        <div style={{ position: 'absolute', top: -100, left: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.2), transparent 70%)' }} />
-        <div style={{ position: 'absolute', bottom: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(16,185,129,0.15), transparent 70%)' }} />
+        <div style={{ position: 'absolute', top: -100, left: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.18), transparent 70%)' }} />
+        <div style={{ position: 'absolute', bottom: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(96,165,250,0.16), transparent 70%)' }} />
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 48 }}>
-            <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 14, width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 30px rgba(99,102,241,0.4)' }}>
+            <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 14, width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 30px rgba(37,99,235,0.3)' }}>
               <Scale size={24} color="white" />
             </div>
             <span style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9' }}>
-              EthioLegal <span style={{ color: '#10b981' }}>AI</span>
+              EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
             </span>
           </div>
 
           <h2 style={{ fontSize: 36, fontWeight: 800, color: '#f1f5f9', lineHeight: 1.25, marginBottom: 16 }}>
             Your AI-Powered<br />
-            <span style={{ background: 'linear-gradient(135deg, #818cf8, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Legal Assistant</span>
+            <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Legal Assistant</span>
           </h2>
           <p style={{ color: '#64748b', fontSize: 16, lineHeight: 1.7, maxWidth: 380 }}>
             Understand Ethiopian laws, upload contracts, and know your rights — in Amharic, Oromo, or English.
@@ -83,9 +83,9 @@ export default function AuthPage() {
               { text: 'Detect risky clauses before you sign' },
             ].map((item, i) => (
               <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
-                style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 12, padding: '12px 16px' }}>
-                <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(16,185,129,0.2)', border: '1px solid rgba(16,185,129,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} />
+                style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(255,255,255,0.64)', border: '1px solid rgba(37,99,235,0.08)', borderRadius: 12, padding: '12px 16px' }}>
+                <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#2563eb' }} />
                 </div>
                 <span style={{ color: '#94a3b8', fontSize: 14 }}>{item.text}</span>
               </motion.div>
@@ -106,14 +106,14 @@ export default function AuthPage() {
 
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2 justify-center mb-8">
-            <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Scale size={18} color="white" />
             </div>
-            <span style={{ fontSize: 20, fontWeight: 700, color: '#f1f5f9' }}>EthioLegal <span style={{ color: '#10b981' }}>AI</span></span>
+            <span style={{ fontSize: 20, fontWeight: 700, color: '#0f172a' }}>EthioLegal <span style={{ color: '#2563eb' }}>AI</span></span>
           </div>
 
           <div style={{ marginBottom: 32 }}>
-            <h1 style={{ fontSize: 28, fontWeight: 800, color: '#f1f5f9', marginBottom: 8 }}>
+            <h1 style={{ fontSize: 28, fontWeight: 800, color: '#0f172a', marginBottom: 8 }}>
               {isForgot ? 'Reset Password' : isRegister ? 'Create Account' : 'Welcome Back'}
             </h1>
             <p style={{ color: '#64748b', fontSize: 15 }}>
@@ -126,10 +126,10 @@ export default function AuthPage() {
               {/* Social buttons */}
               {!isForgot && (
                 <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
-                  <button style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '11px', color: '#94a3b8', cursor: 'pointer', fontSize: 14, fontWeight: 500 }}>
+                  <button style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'rgba(255,255,255,0.78)', border: '1px solid rgba(37,99,235,0.1)', borderRadius: 10, padding: '11px', color: '#334155', cursor: 'pointer', fontSize: 14, fontWeight: 500 }}>
                     <Chrome size={16} /> Google
                   </button>
-                  <button style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '11px', color: '#94a3b8', cursor: 'pointer', fontSize: 14, fontWeight: 500 }}>
+                  <button style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'rgba(255,255,255,0.78)', border: '1px solid rgba(37,99,235,0.1)', borderRadius: 10, padding: '11px', color: '#334155', cursor: 'pointer', fontSize: 14, fontWeight: 500 }}>
                     <Github size={16} /> GitHub
                   </button>
                 </div>
