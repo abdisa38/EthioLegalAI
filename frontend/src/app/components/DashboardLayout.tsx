@@ -54,12 +54,12 @@ export default function DashboardLayout() {
       {/* Logo */}
       <div style={{ padding: '16px 12px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', padding: '8px' }} onClick={() => navigate('/app/chat')}>
-          <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 8, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 8, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <Scale size={16} color="white" />
           </div>
           <div>
             <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff', lineHeight: 1.2 }}>
-              EthioLegal <span style={{ color: '#10b981' }}>AI</span>
+              EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
             </div>
             <div style={{ fontSize: 10, color: '#a3a3a3' }}>Ethiopian Law</div>
           </div>
@@ -87,7 +87,7 @@ export default function DashboardLayout() {
             fontWeight: 500,
             transition: 'all 0.2s'
           }}
-          className="hover:bg-white/10">
+          className="hover:bg-blue-50">
           <Plus size={16} />
           New Chat
         </motion.button>
@@ -113,12 +113,12 @@ export default function DashboardLayout() {
                 cursor: 'pointer', 
                 textAlign: 'left', 
                 transition: 'all 0.2s',
-                background: active ? 'rgba(255,255,255,0.1)' : 'transparent',
-                color: active ? '#ffffff' : '#d4d4d4',
+                background: active ? 'rgba(37,99,235,0.12)' : 'transparent',
+                color: active ? '#ffffff' : '#cbd5e1',
                 fontSize: 14,
                 fontWeight: active ? 500 : 400,
               }}
-              className={!active ? 'hover:bg-white/5' : ''}>
+              className={!active ? 'hover:bg-blue-50' : ''}>
               <item.icon size={18} style={{ flexShrink: 0 }} />
               <span>{item.label}</span>
             </motion.button>
@@ -130,14 +130,14 @@ export default function DashboardLayout() {
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '8px' }}>
         <button onClick={() => navigate('/app/settings')}
           style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', borderRadius: 8, border: 'none', cursor: 'pointer', background: 'transparent', color: '#d4d4d4', fontSize: 14 }}
-          className="hover:bg-white/5 transition-colors">
+          className="hover:bg-blue-50 transition-colors">
           <Settings size={18} style={{ flexShrink: 0 }} />
           <span>Settings</span>
         </button>
         
         {/* User */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', marginTop: 4, borderRadius: 8, background: 'rgba(255,255,255,0.05)' }}>
-          <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <User size={14} color="white" />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
@@ -155,7 +155,7 @@ export default function DashboardLayout() {
   );
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#000000', color: '#f1f5f9', overflow: 'hidden' }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#f8fbff', color: '#0f172a', overflow: 'hidden' }}>
       {/* Mobile sidebar overlay */}
       <AnimatePresence>
         {mobileSidebarOpen && (
@@ -165,7 +165,7 @@ export default function DashboardLayout() {
               style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 40 }} />
             <motion.div initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }} transition={{ type: 'spring', damping: 25 }}
               style={{ position: 'fixed', left: 0, top: 0, bottom: 0, width: 260, zIndex: 50 }}>
-              <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#171717' }}>
+              <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#ffffff' }}>
                 <div style={{ padding: '16px', display: 'flex', justifyContent: 'flex-end', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                   <button onClick={() => setMobileSidebarOpen(false)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#d4d4d4' }}>
                     <X size={20} />
@@ -186,13 +186,13 @@ export default function DashboardLayout() {
         </div>
 
         {/* Main content */}
-        <main style={{ flex: 1, overflowY: 'auto', background: '#000000' }}>
+        <main style={{ flex: 1, overflowY: 'auto', background: '#f8fbff' }}>
           <Outlet />
         </main>
       </div>
 
       {/* ── Mobile Bottom Navigation ── */}
-      <div className="lg:hidden" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(23,23,23,0.98)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(255,255,255,0.1)', padding: '8px 0', paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
+      <div className="lg:hidden" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 50, background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(20px)', borderTop: '1px solid rgba(37,99,235,0.12)', padding: '8px 0', paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
           {mobileNavItems.map(item => {
             const active = isActive(item.path);
@@ -202,19 +202,19 @@ export default function DashboardLayout() {
                 <div style={{ position: 'relative' }}>
                   {active && (
                     <motion.div layoutId="activeTab"
-                      style={{ position: 'absolute', inset: -6, borderRadius: 10, background: 'rgba(255,255,255,0.1)' }} />
+                      style={{ position: 'absolute', inset: -6, borderRadius: 10, background: 'rgba(37,99,235,0.12)' }} />
                   )}
-                  <item.icon size={20} color={active ? '#ffffff' : '#d4d4d4'} style={{ position: 'relative', zIndex: 1 }} />
+                  <item.icon size={20} color={active ? '#2563eb' : '#64748b'} style={{ position: 'relative', zIndex: 1 }} />
                 </div>
-                <span style={{ fontSize: 10, color: active ? '#ffffff' : '#d4d4d4', fontWeight: active ? 600 : 400 }}>{item.label}</span>
+                <span style={{ fontSize: 10, color: active ? '#2563eb' : '#64748b', fontWeight: active ? 600 : 400 }}>{item.label}</span>
               </button>
             );
           })}
           {/* More button */}
           <button onClick={() => setMobileSidebarOpen(true)}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px 16px', borderRadius: 10, minWidth: 60 }}>
-            <Menu size={20} color="#d4d4d4" />
-            <span style={{ fontSize: 10, color: '#d4d4d4' }}>More</span>
+            <Menu size={20} color="#64748b" />
+            <span style={{ fontSize: 10, color: '#64748b' }}>More</span>
           </button>
         </div>
       </div>
