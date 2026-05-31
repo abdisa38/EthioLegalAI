@@ -48,8 +48,8 @@ export default function SettingsPage() {
       case 'language':
         return (
           <div>
-            <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', marginBottom: 6 }}>Language & Region</h2>
-            <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>Choose the interface and AI response language.</p>
+            <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--foreground)', marginBottom: 6 }}>Language & Region</h2>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>Choose the interface and AI response language.</p>
 
             <div style={{ marginBottom: 28 }}>
               <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>Interface Language</label>
@@ -60,11 +60,11 @@ export default function SettingsPage() {
                   { value: 'Oromo', label: 'Afaan Oromo', native: 'Afaan Oromo', flag: '🟢' },
                 ].map(option => (
                   <button key={option.value} onClick={() => setLang(option.value)}
-                    style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', borderRadius: 12, border: `1px solid ${lang === option.value ? 'rgba(37,99,235,0.35)' : 'rgba(255,255,255,0.07)'}`, background: lang === option.value ? 'rgba(37,99,235,0.08)' : 'rgba(255,255,255,0.02)', cursor: 'pointer', textAlign: 'left' }}>
+                    style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px', borderRadius: 12, border: `1px solid ${lang === option.value ? 'rgba(37,99,235,0.35)' : 'var(--color-border)'}`, background: lang === option.value ? 'rgba(37,99,235,0.08)' : 'var(--muted)', cursor: 'pointer', textAlign: 'left' }}>
                     <span style={{ fontSize: 22 }}>{option.flag}</span>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 600, fontSize: 14, color: '#e2e8f0' }}>{option.label}</div>
-                      <div style={{ fontSize: 12, color: '#64748b' }}>{option.native}</div>
+                      <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--foreground)' }}>{option.label}</div>
+                      <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>{option.native}</div>
                     </div>
                     {lang === option.value && <Check size={16} color="#2563eb" />}
                   </button>
