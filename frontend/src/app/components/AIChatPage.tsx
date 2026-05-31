@@ -112,7 +112,7 @@ function MarkdownRenderer({ text }: { text: string }) {
       out.push(<hr key={k++} style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.07)', margin: '14px 0' }} />);
     } else if (line.startsWith('- ') || line.startsWith('• ')) {
       li.push(
-        <li key={k++} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', color: '#cbd5e1', fontSize: 14, lineHeight: 1.65 }}>
+        <li key={k++} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.65 }}>
           <span style={{ color: '#2563eb', flexShrink: 0, marginTop: 3, fontSize: 10 }}>▸</span>
           <span>{parseInline(line.slice(2))}</span>
         </li>
@@ -120,21 +120,20 @@ function MarkdownRenderer({ text }: { text: string }) {
     } else if (/^\d+\. /.test(line)) {
       const num = line.match(/^(\d+)/)?.[1];
       li.push(
-        <li key={k++} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', color: '#cbd5e1', fontSize: 14, lineHeight: 1.65 }}>
+        <li key={k++} style={{ display: 'flex', gap: 9, alignItems: 'flex-start', color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.65 }}>
           <span style={{ color: '#2563eb', fontWeight: 700, flexShrink: 0, fontSize: 13, marginTop: 1, minWidth: 16 }}>{num}.</span>
           <span>{parseInline(line.replace(/^\d+\. /, ''))}</span>
         </li>
       );
     } else if (line.startsWith('*Sources')) {
       flush();
-      out.push(<p key={k++} style={{ fontSize: 12, color: '#475569', marginTop: 10, fontStyle: 'italic' }}>{parseInline(line.replace(/^\*/, '').replace(/\*$/, ''))}</p>);
+      out.push(<p key={k++} style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 10, fontStyle: 'italic' }}>{parseInline(line.replace(/^\*/, '').replace(/\*$/, ''))}</p>);
     } else if (line === '') {
       flush();
       out.push(<div key={k++} style={{ height: 5 }} />);
     } else {
       flush();
-      out.push(<p key={k++} style={{ color: '#cbd5e1', fontSize: 14, lineHeight: 1.7, margin: '3px 0' }}>{parseInline(line)}</p>);
-        out.push(<p key={k++} style={{ color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7, margin: '3px 0' }}>{parseInline(line)}</p>);
+      out.push(<p key={k++} style={{ color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7, margin: '3px 0' }}>{parseInline(line)}</p>);
     }
     i++;
   }
