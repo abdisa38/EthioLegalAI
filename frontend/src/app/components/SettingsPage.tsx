@@ -38,7 +38,7 @@ export default function SettingsPage() {
 
   const Toggle = ({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) => (
     <button onClick={() => onChange(!value)}
-      style={{ width: 44, height: 24, borderRadius: 12, background: value ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', position: 'relative', transition: 'all 0.2s', flexShrink: 0 }}>
+      style={{ width: 44, height: 24, borderRadius: 12, background: value ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'var(--muted)', border: 'none', cursor: 'pointer', position: 'relative', transition: 'all 0.2s', flexShrink: 0 }}>
       <motion.div animate={{ x: value ? 22 : 2 }} style={{ width: 20, height: 20, borderRadius: '50%', background: 'white', position: 'absolute', top: 2, boxShadow: '0 1px 3px rgba(0,0,0,0.3)' }} />
     </button>
   );
