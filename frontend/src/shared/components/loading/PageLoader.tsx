@@ -10,7 +10,7 @@ export const PageLoader = ({ text = 'Loading...' }: PageLoaderProps) => {
     <div
       style={{
         minHeight: '100vh',
-        background: '#080b18',
+        background: 'var(--background)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -52,11 +52,11 @@ export const PageLoader = ({ text = 'Loading...' }: PageLoaderProps) => {
           style={{
             fontSize: '20px',
             fontWeight: '700',
-            color: '#f1f5f9',
+            color: 'var(--foreground)',
             marginBottom: '8px',
           }}
         >
-          EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
+          EthioLegal <span style={{ color: 'var(--primary)' }}>AI</span>
         </h2>
 
         <motion.p
@@ -67,7 +67,7 @@ export const PageLoader = ({ text = 'Loading...' }: PageLoaderProps) => {
             ease: 'easeInOut',
           }}
           style={{
-            color: '#64748b',
+            color: 'var(--muted-foreground)',
             fontSize: '14px',
           }}
         >
