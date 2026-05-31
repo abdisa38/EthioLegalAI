@@ -8,11 +8,11 @@ import {
 } from 'lucide-react';
 
 const features = [
-  { icon: Bot, title: 'AI Legal Explanations', desc: 'Get complex Ethiopian laws explained in plain language you can understand instantly.', color: '#6366f1' },
-  { icon: Upload, title: 'Upload PDF Contracts', desc: 'Drag and drop any legal document — rental agreements, employment contracts, and more.', color: '#8b5cf6' },
-  { icon: Globe, title: 'Amharic & Oromo Support', desc: 'Ask legal questions in English, Amharic, or Afaan Oromo. Get answers in your language.', color: '#10b981' },
-  { icon: Shield, title: 'Tenant Rights Assistant', desc: 'Know your rights as a renter. Get guidance on evictions, deposits, and disputes.', color: '#f59e0b' },
-  { icon: FileText, title: 'Labor Law Helper', desc: 'Understand worker rights, salary disputes, termination rules, and overtime laws.', color: '#ec4899' },
+  { icon: Bot, title: 'AI Legal Explanations', desc: 'Get complex Ethiopian laws explained in plain language you can understand instantly.', color: '#2563eb' },
+  { icon: Upload, title: 'Upload PDF Contracts', desc: 'Drag and drop any legal document — rental agreements, employment contracts, and more.', color: '#60a5fa' },
+  { icon: Globe, title: 'Amharic & Oromo Support', desc: 'Ask legal questions in English, Amharic, or Afaan Oromo. Get answers in your language.', color: '#93c5fd' },
+  { icon: Shield, title: 'Tenant Rights Assistant', desc: 'Know your rights as a renter. Get guidance on evictions, deposits, and disputes.', color: '#2563eb' },
+  { icon: FileText, title: 'Labor Law Helper', desc: 'Understand worker rights, salary disputes, termination rules, and overtime laws.', color: '#60a5fa' },
   { icon: AlertTriangle, title: 'Contract Risk Detection', desc: 'AI highlights dangerous clauses, financial risks, and legal red flags in seconds.', color: '#ef4444' },
 ];
 
@@ -43,12 +43,12 @@ export default function LandingPage() {
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
           {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-            <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Scale size={20} color="white" />
             </div>
             <span style={{ fontSize: 20, fontWeight: 700 }}>
-              <span style={{ background: 'linear-gradient(135deg, #818cf8, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>EthioLegal</span>
-              <span style={{ color: '#10b981', marginLeft: 2 }}>AI</span>
+              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>EthioLegal</span>
+              <span style={{ color: '#2563eb', marginLeft: 2 }}>AI</span>
             </span>
           </div>
 
@@ -63,7 +63,7 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-3">
             <button onClick={() => navigate('/login')} style={{ color: '#94a3b8', padding: '8px 20px', borderRadius: 10, fontSize: 15, fontWeight: 500, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', cursor: 'pointer' }}
               className="hover:border-white/20 hover:text-white transition-all">Log in</button>
-            <button onClick={() => navigate('/register')} style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '8px 20px', borderRadius: 10, fontSize: 15, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 0 20px rgba(99,102,241,0.4)' }}
+            <button onClick={() => navigate('/register')} style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '8px 20px', borderRadius: 10, fontSize: 15, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 0 20px rgba(37,99,235,0.4)' }}
               className="hover:opacity-90 transition-opacity">Get Started</button>
           </div>
 
@@ -97,13 +97,13 @@ export default function LandingPage() {
           {/* Left content */}
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: 100, padding: '6px 16px', marginBottom: 24 }}>
-              <Zap size={14} color="#818cf8" />
-              <span style={{ fontSize: 13, color: '#818cf8', fontWeight: 500 }}>AI-Powered Ethiopian Legal Assistant</span>
+              <Zap size={14} color="#2563eb" />
+              <span style={{ fontSize: 13, color: '#2563eb', fontWeight: 500 }}>AI-Powered Ethiopian Legal Assistant</span>
             </div>
 
             <h1 style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 800, lineHeight: 1.15, marginBottom: 20, letterSpacing: -1 }}>
               Understand{' '}
-              <span style={{ background: 'linear-gradient(135deg, #818cf8, #a78bfa, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <span style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 Ethiopian Laws
               </span>{' '}
               with AI
@@ -116,7 +116,7 @@ export default function LandingPage() {
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 48 }}>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => navigate('/register')}
-                style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '14px 28px', borderRadius: 12, border: 'none', cursor: 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 0 30px rgba(99,102,241,0.4)' }}>
+                style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '14px 28px', borderRadius: 12, border: 'none', cursor: 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 0 30px rgba(37,99,235,0.4)' }}>
                 Try Free <ArrowRight size={18} />
               </motion.button>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
@@ -133,7 +133,7 @@ export default function LandingPage() {
                 { icon: Globe, text: 'Amharic support' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <Icon size={16} color="#10b981" />
+                  <Icon size={16} color="#2563eb" />
                   <span style={{ fontSize: 14, color: '#64748b' }}>{text}</span>
                 </div>
               ))}
@@ -159,13 +159,13 @@ export default function LandingPage() {
             <div style={{ background: 'rgba(13,17,36,0.9)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20, padding: 24, boxShadow: '0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.1)' }}>
               {/* Chat header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Scale size={18} color="white" />
                 </div>
                 <div>
                   <div style={{ fontWeight: 600, fontSize: 15 }}>EthioLegal AI</div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                    <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#10b981' }} />
+                    <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#2563eb' }} />
                     <span style={{ fontSize: 12, color: '#64748b' }}>Active</span>
                   </div>
                 </div>
@@ -184,13 +184,13 @@ export default function LandingPage() {
                 </div>
                 {/* Typing indicator */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: '50%', width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: '50%', width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Bot size={12} color="white" />
                   </div>
                   <div style={{ display: 'flex', gap: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 10, padding: '8px 14px' }}>
                     {[0, 1, 2].map(i => (
                       <motion.div key={i} animate={{ y: [-3, 3, -3] }} transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }}
-                        style={{ width: 6, height: 6, borderRadius: '50%', background: '#6366f1' }} />
+                        style={{ width: 6, height: 6, borderRadius: '50%', background: '#2563eb' }} />
                     ))}
                   </div>
                 </div>
@@ -201,7 +201,7 @@ export default function LandingPage() {
                 <Paperclip size={16} color="#64748b" />
                 <span style={{ flex: 1, fontSize: 14, color: '#64748b' }}>Ask a legal question in any language...</span>
                 <Mic size={16} color="#64748b" />
-                <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 8, width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 8, width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                   <Send size={13} color="white" />
                 </div>
               </div>
@@ -224,7 +224,7 @@ export default function LandingPage() {
             { label: 'Risk Alerts Detected', value: '9,800+' },
           ].map(stat => (
             <div key={stat.label}>
-              <div style={{ fontSize: 32, fontWeight: 800, background: 'linear-gradient(135deg, #818cf8, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{stat.value}</div>
+              <div style={{ fontSize: 32, fontWeight: 800, background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{stat.value}</div>
               <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>{stat.label}</div>
             </div>
           ))}
@@ -236,12 +236,12 @@ export default function LandingPage() {
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: 100, padding: '6px 16px', marginBottom: 16 }}>
-              <Zap size={13} color="#818cf8" />
-              <span style={{ fontSize: 13, color: '#818cf8' }}>Powered by Advanced AI</span>
+              <Zap size={13} color="#2563eb" />
+              <span style={{ fontSize: 13, color: '#2563eb' }}>Powered by Advanced AI</span>
             </div>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16 }}>
               Everything You Need to{' '}
-              <span style={{ background: 'linear-gradient(135deg, #818cf8, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Know Your Rights</span>
+              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Know Your Rights</span>
             </h2>
             <p style={{ color: '#64748b', fontSize: 18, maxWidth: 560, margin: '0 auto' }}>
               EthioLegal AI gives every Ethiopian citizen access to powerful legal knowledge — in their own language.
@@ -274,9 +274,9 @@ export default function LandingPage() {
           </motion.div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 32 }}>
             {[
-              { step: '01', title: 'Ask or Upload', desc: 'Type your legal question in any language, or upload a contract/document PDF for analysis.', icon: MessageSquare, color: '#6366f1' },
-              { step: '02', title: 'AI Analyzes', desc: 'Our AI trained on Ethiopian law instantly processes your question or document and identifies key legal points.', icon: Zap, color: '#8b5cf6' },
-              { step: '03', title: 'Get Clear Answers', desc: 'Receive plain-language explanations, risk alerts, and recommended actions you can act on immediately.', icon: Check, color: '#10b981' },
+              { step: '01', title: 'Ask or Upload', desc: 'Type your legal question in any language, or upload a contract/document PDF for analysis.', icon: MessageSquare, color: '#2563eb' },
+              { step: '02', title: 'AI Analyzes', desc: 'Our AI trained on Ethiopian law instantly processes your question or document and identifies key legal points.', icon: Zap, color: '#60a5fa' },
+              { step: '03', title: 'Get Clear Answers', desc: 'Receive plain-language explanations, risk alerts, and recommended actions you can act on immediately.', icon: Check, color: '#93c5fd' },
             ].map((item, i) => (
               <motion.div key={item.step} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
                 style={{ textAlign: 'center', position: 'relative' }}>
@@ -325,7 +325,7 @@ export default function LandingPage() {
             <div style={{ background: 'rgba(13,17,36,0.9)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 20, padding: 28, boxShadow: '0 20px 60px rgba(0,0,0,0.4)' }}>
               <div style={{ display: 'flex', gap: 10, marginBottom: 20 }}>
                 {['English', 'አማርኛ', 'Oromo'].map((lang, i) => (
-                  <button key={lang} style={{ padding: '6px 16px', borderRadius: 8, fontSize: 13, fontWeight: 500, border: 'none', cursor: 'pointer', background: i === 1 ? 'linear-gradient(135deg, #6366f1, #8b5cf6)' : 'rgba(255,255,255,0.06)', color: i === 1 ? 'white' : '#64748b' }}>{lang}</button>
+                  <button key={lang} style={{ padding: '6px 16px', borderRadius: 8, fontSize: 13, fontWeight: 500, border: 'none', cursor: 'pointer', background: i === 1 ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'rgba(255,255,255,0.06)', color: i === 1 ? 'white' : '#64748b' }}>{lang}</button>
                 ))}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -343,8 +343,8 @@ export default function LandingPage() {
       <section style={{ padding: '80px 24px', background: 'rgba(13,17,36,0.5)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
           {[
-            { title: 'Tenant Rights Assistant', desc: 'Know your rights against unlawful eviction, unfair deposits, and illegal rent hikes. Get instant guidance on Ethiopian housing law.', icon: Shield, color: '#10b981', items: ['Eviction rights', 'Deposit disputes', 'Rent increase limits', 'Repair obligations'], path: '/app/tenant-rights' },
-            { title: 'Labor Law Assistant', desc: 'Understand your workplace rights including salary disputes, wrongful termination, overtime pay, and employee protections under Ethiopian labor law.', icon: TrendingUp, color: '#f59e0b', items: ['Overtime rights', 'Termination guidelines', 'Salary dispute help', 'Worker protections'], path: '/app/labor-law' },
+            { title: 'Tenant Rights Assistant', desc: 'Know your rights against unlawful eviction, unfair deposits, and illegal rent hikes. Get instant guidance on Ethiopian housing law.', icon: Shield, color: '#2563eb', items: ['Eviction rights', 'Deposit disputes', 'Rent increase limits', 'Repair obligations'], path: '/app/tenant-rights' },
+            { title: 'Labor Law Assistant', desc: 'Understand your workplace rights including salary disputes, wrongful termination, overtime pay, and employee protections under Ethiopian labor law.', icon: TrendingUp, color: '#60a5fa', items: ['Overtime rights', 'Termination guidelines', 'Salary dispute help', 'Worker protections'], path: '/app/labor-law' },
           ].map(section => (
             <motion.div key={section.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 20, padding: 32 }}>
@@ -380,11 +380,11 @@ export default function LandingPage() {
               <motion.div key={t.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, padding: 28 }}>
                 <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
-                  {Array.from({ length: t.stars }).map((_, j) => <Star key={j} size={14} fill="#f59e0b" color="#f59e0b" />)}
+                  {Array.from({ length: t.stars }).map((_, j) => <Star key={j} size={14} fill="#2563eb" color="#2563eb" />)}
                 </div>
                 <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 20, fontSize: 15 }}>"{t.text}"</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'white' }}>
+                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'white' }}>
                     {t.name[0]}
                   </div>
                   <div>
@@ -435,7 +435,7 @@ export default function LandingPage() {
             style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1))', border: '1px solid rgba(99,102,241,0.25)', borderRadius: 24, padding: '64px 40px' }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16 }}>
               Know Your Rights.<br />
-              <span style={{ background: 'linear-gradient(135deg, #818cf8, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Start Free Today.</span>
+              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Start Free Today.</span>
             </h2>
             <p style={{ color: '#64748b', fontSize: 18, marginBottom: 36, maxWidth: 480, margin: '0 auto 36px' }}>
               Join thousands of Ethiopian citizens who use EthioLegal AI to understand their legal rights and protect themselves.
@@ -443,7 +443,7 @@ export default function LandingPage() {
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => navigate('/register')}
-                style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', padding: '16px 36px', borderRadius: 12, border: 'none', cursor: 'pointer', fontSize: 17, fontWeight: 700, boxShadow: '0 0 40px rgba(99,102,241,0.5)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '16px 36px', borderRadius: 12, border: 'none', cursor: 'pointer', fontSize: 17, fontWeight: 700, boxShadow: '0 0 40px rgba(37,99,235,0.5)', display: 'flex', alignItems: 'center', gap: 8 }}>
                 Get Started Free <ArrowRight size={18} />
               </motion.button>
             </div>
@@ -457,10 +457,10 @@ export default function LandingPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40, marginBottom: 48 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-                <div style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', borderRadius: 8, width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 8, width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Scale size={16} color="white" />
                 </div>
-                <span style={{ fontWeight: 700, fontSize: 17 }}>EthioLegal <span style={{ color: '#10b981' }}>AI</span></span>
+                <span style={{ fontWeight: 700, fontSize: 17 }}>EthioLegal <span style={{ color: '#2563eb' }}>AI</span></span>
               </div>
               <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.7 }}>AI-powered Ethiopian legal assistant for citizens, students, workers, and small businesses.</p>
             </div>
