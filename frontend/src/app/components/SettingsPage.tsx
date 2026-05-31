@@ -52,7 +52,7 @@ export default function SettingsPage() {
             <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 28 }}>Choose the interface and AI response language.</p>
 
             <div style={{ marginBottom: 28 }}>
-              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>Interface Language</label>
+              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 12 }}>Interface Language</label>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {[
                   { value: 'English', label: 'English', native: 'English', flag: '🇬🇧' },
@@ -73,13 +73,13 @@ export default function SettingsPage() {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 12 }}>Region</label>
+              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 12 }}>Region</label>
               <div style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
                   <div style={{ fontWeight: 500, color: 'var(--foreground)', fontSize: 14 }}>Ethiopia (ETH)</div>
                   <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>Time Zone: EAT (UTC+3)</div>
                 </div>
-                <ChevronRight size={16} color={getComputedStyle(document.documentElement).getPropertyValue('--color-muted-foreground') || '#64748b'} />
+                <ChevronRight size={16} color={'var(--muted-foreground)'} />
               </div>
             </div>
           </div>
