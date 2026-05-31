@@ -78,12 +78,12 @@ export default function DocumentLibraryPage() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 32 }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           <div>
-            <h1 style={{ fontSize: 26, fontWeight: 800, color: '#f1f5f9', marginBottom: 6 }}>My Documents</h1>
-            <p style={{ color: '#64748b', fontSize: 15 }}>
+            <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--foreground)', marginBottom: 6 }}>My Documents</h1>
+            <p style={{ color: 'var(--muted-foreground)', fontSize: 15 }}>
               {documents?.length || 0} documents · {filtered.filter(doc => riskFromScore(doc.riskScore) === 'high').length} high-risk alerts
             </p>
           </div>
-          <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+          <button onClick={() => navigate('/app/upload')} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'var(--primary-foreground)', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
             <Upload size={14} /> Upload Document
           </button>
         </div>
@@ -93,9 +93,9 @@ export default function DocumentLibraryPage() {
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} style={{ marginBottom: 24 }}>
         {/* Search */}
         <div style={{ position: 'relative', marginBottom: 16 }}>
-          <Search size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
+          <Search size={16} color="var(--muted-foreground)" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search documents..."
-            style={{ width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '11px 14px 11px 42px', color: '#f1f5f9', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
+            style={{ width: '100%', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '11px 14px 11px 42px', color: 'var(--foreground)', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}
             className="focus:border-blue-500/40 transition-colors" />
         </div>
 
@@ -131,8 +131,8 @@ export default function DocumentLibraryPage() {
           <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
             <FileText size={32} color="#475569" />
           </div>
-          <h3 style={{ fontSize: 18, fontWeight: 600, color: '#94a3b8', marginBottom: 8 }}>No documents found</h3>
-          <p style={{ color: '#475569', fontSize: 14 }}>Try adjusting your filters or upload a new document.</p>
+          <h3 style={{ fontSize: 18, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 8 }}>No documents found</h3>
+          <p style={{ color: 'var(--muted-foreground)', fontSize: 14 }}>Try adjusting your filters or upload a new document.</p>
         </motion.div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
