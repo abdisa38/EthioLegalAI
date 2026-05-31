@@ -14,7 +14,7 @@ export const LoadingOverlay = ({
       style={{
         position: fullScreen ? 'fixed' : 'absolute',
         inset: 0,
-        background: 'rgba(8, 11, 24, 0.8)',
+        background: 'rgba(15,23,42,0.04)',
         backdropFilter: 'blur(4px)',
         display: 'flex',
         alignItems: 'center',
@@ -24,8 +24,8 @@ export const LoadingOverlay = ({
     >
       <div
         style={{
-          background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.08)',
+          background: 'var(--card)',
+          border: '1px solid var(--color-border)',
           borderRadius: '16px',
           padding: '32px 48px',
           textAlign: 'center',
