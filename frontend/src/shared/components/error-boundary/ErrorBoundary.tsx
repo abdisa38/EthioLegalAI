@@ -60,7 +60,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <div
           style={{
             minHeight: '100vh',
-            background: '#080b18',
+            background: 'var(--background)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -71,8 +71,8 @@ export class ErrorBoundary extends Component<Props, State> {
             style={{
               maxWidth: '600px',
               width: '100%',
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'var(--card)',
+              border: '1px solid var(--color-border)',
               borderRadius: '16px',
               padding: '40px',
               textAlign: 'center',
@@ -98,7 +98,7 @@ export class ErrorBoundary extends Component<Props, State> {
               style={{
                 fontSize: '28px',
                 fontWeight: '700',
-                color: '#f1f5f9',
+                color: 'var(--foreground)',
                 marginBottom: '12px',
               }}
             >
@@ -107,7 +107,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
             <p
               style={{
-                color: '#64748b',
+                color: 'var(--muted-foreground)',
                 fontSize: '16px',
                 lineHeight: '1.6',
                 marginBottom: '24px',
@@ -130,11 +130,11 @@ export class ErrorBoundary extends Component<Props, State> {
               >
                 <p
                   style={{
-                    color: '#f87171',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    marginBottom: '8px',
-                  }}
+                      color: '#f87171',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      marginBottom: '8px',
+                    }}
                 >
                   Error Details (Development Only):
                 </p>
@@ -166,12 +166,12 @@ export class ErrorBoundary extends Component<Props, State> {
             )}
 
             <div
-              style={{
-                display: 'flex',
-                gap: '12px',
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-              }}
+                style={{
+                  display: 'flex',
+                  gap: '12px',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                }}
             >
               <button
                 onClick={this.handleReset}
@@ -200,9 +200,9 @@ export class ErrorBoundary extends Component<Props, State> {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: '#94a3b8',
+                  background: 'var(--muted)',
+                  border: '1px solid var(--color-border)',
+                  color: 'var(--muted-foreground)',
                   padding: '12px 24px',
                   borderRadius: '10px',
                   cursor: 'pointer',
