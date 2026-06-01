@@ -669,24 +669,24 @@ export default function LandingPage() {
       <section style={{ padding: '100px 24px', background: '#0a0e1a' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 60 }}>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 12, color: '#1e293b' }}>Trusted by Ethiopian Citizens</h2>
-            <p style={{ color: '#475569', fontSize: 17, fontWeight: 500 }}>Real stories from people who understood their rights</p>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 12, color: '#ffffff' }}>Trusted by Ethiopian Citizens</h2>
+            <p style={{ color: '#cbd5e1', fontSize: 17, fontWeight: 500 }}>Real stories from people who understood their rights</p>
           </motion.div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
             {testimonials.map((t, i) => (
               <motion.div key={t.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 28 }}>
+                style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 16, padding: 28 }}>
                 <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
-                  {Array.from({ length: t.stars }).map((_, j) => <Star key={j} size={14} fill="#2563eb" color="#2563eb" />)}
+                  {Array.from({ length: t.stars }).map((_, j) => <Star key={j} size={14} fill="#60a5fa" color="#60a5fa" />)}
                 </div>
-                <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: 20, fontSize: 15, fontWeight: 500 }}>"{t.text}"</p>
+                <p style={{ color: '#cbd5e1', lineHeight: 1.7, marginBottom: 20, fontSize: 15, fontWeight: 500 }}>"{t.text}"</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'white' }}>
                     {t.name[0]}
                   </div>
                   <div>
-                    <div style={{ fontWeight: 600, fontSize: 14, color: '#1e293b' }}>{t.name}</div>
-                    <div style={{ color: '#64748b', fontSize: 13, fontWeight: 500 }}>{t.role}</div>
+                    <div style={{ fontWeight: 600, fontSize: 14, color: '#f1f5f9' }}>{t.name}</div>
+                    <div style={{ color: '#94a3b8', fontSize: 13, fontWeight: 500 }}>{t.role}</div>
                   </div>
                 </div>
               </motion.div>
@@ -696,7 +696,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: '80px 24px', background: 'rgba(13,17,36,0.5)' }}>
+      <section style={{ padding: '80px 24px', background: 'rgba(15,23,42,0.6)' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 48 }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 12, color: '#f1f5f9' }}>Frequently Asked Questions</h2>
