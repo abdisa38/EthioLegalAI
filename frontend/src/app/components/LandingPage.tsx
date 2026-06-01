@@ -496,11 +496,11 @@ export default function LandingPage() {
               <div style={{ width: 52, height: 52, borderRadius: 14, background: `${section.color}15`, border: `1px solid ${section.color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
                 <section.icon size={26} color={section.color} />
               </div>
-              <h3 style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>{section.title}</h3>
-              <p style={{ color: 'var(--muted-foreground)', lineHeight: 1.7, marginBottom: 20 }}>{section.desc}</p>
+              <h3 style={{ fontSize: 22, fontWeight: 700, marginBottom: 12, color: '#1e293b' }}>{section.title}</h3>
+              <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: 20, fontWeight: 500 }}>{section.desc}</p>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {section.items.map(item => (
-                  <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--muted-foreground)' }}>
+                  <li key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: '#1e293b', fontWeight: 500 }}>
                     <Check size={14} color={section.color} />{item}
                   </li>
                 ))}
