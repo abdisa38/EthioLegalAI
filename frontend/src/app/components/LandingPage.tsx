@@ -513,12 +513,164 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section id="pricing" style={{ padding: '100px 24px', background: 'rgba(37,99,235,0.02)' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#1e293b' }}>
+              Simple, Transparent{' '}
+              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Pricing</span>
+            </h2>
+            <p style={{ color: '#475569', fontSize: 18, maxWidth: 600, margin: '0 auto', fontWeight: 500, lineHeight: 1.6 }}>
+              Choose the plan that works best for you. Start free and upgrade as your legal needs grow.
+            </p>
+          </motion.div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, maxWidth: 900, margin: '0 auto' }}>
+            {[
+              {
+                name: 'Free',
+                price: '0',
+                period: 'Forever',
+                description: 'Perfect for occasional legal questions',
+                features: [
+                  '5 AI chats per month',
+                  '2 document uploads',
+                  'Basic contract analysis',
+                  'Amharic & Oromo support',
+                  'Email support'
+                ],
+                buttonText: 'Get Started Free',
+                popular: false
+              },
+              {
+                name: 'Pro',
+                price: '299',
+                period: 'per month',
+                description: 'Ideal for individuals and small businesses',
+                features: [
+                  'Unlimited AI chats',
+                  'Unlimited document uploads',
+                  'Advanced risk detection',
+                  'Priority support',
+                  'Document templates',
+                  'Legal form generator'
+                ],
+                buttonText: 'Start Pro Trial',
+                popular: true
+              },
+              {
+                name: 'Business',
+                price: '999',
+                period: 'per month',
+                description: 'For teams and growing businesses',
+                features: [
+                  'Everything in Pro',
+                  'Team collaboration',
+                  'Custom legal templates',
+                  'API access',
+                  'Dedicated support',
+                  'Training sessions'
+                ],
+                buttonText: 'Contact Sales',
+                popular: false
+              }
+            ].map((plan, i) => (
+              <motion.div key={plan.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                style={{ 
+                  background: 'white', 
+                  border: plan.popular ? '2px solid #2563eb' : '1px solid rgba(37,99,235,0.1)', 
+                  borderRadius: 20, 
+                  padding: 32, 
+                  position: 'relative',
+                  boxShadow: plan.popular ? '0 20px 60px rgba(37,99,235,0.15)' : '0 10px 40px rgba(37,99,235,0.05)'
+                }}>
+                {plan.popular && (
+                  <div style={{ 
+                    position: 'absolute', 
+                    top: -12, 
+                    left: '50%', 
+                    transform: 'translateX(-50%)', 
+                    background: 'linear-gradient(135deg, #2563eb, #60a5fa)', 
+                    color: 'white', 
+                    padding: '6px 20px', 
+                    borderRadius: 100, 
+                    fontSize: 12, 
+                    fontWeight: 600 
+                  }}>
+                    Most Popular
+                  </div>
+                )}
+                
+                <div style={{ textAlign: 'center', marginBottom: 24 }}>
+                  <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#1e293b' }}>{plan.name}</h3>
+                  <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 4, marginBottom: 8 }}>
+                    <span style={{ fontSize: 12, color: '#64748b' }}>ETB</span>
+                    <span style={{ fontSize: 40, fontWeight: 800, color: '#1e293b' }}>{plan.price}</span>
+                    <span style={{ fontSize: 14, color: '#64748b' }}>/{plan.period}</span>
+                  </div>
+                  <p style={{ color: '#64748b', fontSize: 14, fontWeight: 500 }}>{plan.description}</p>
+                </div>
+
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {plan.features.map((feature, j) => (
+                    <li key={j} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Check size={12} color="#2563eb" />
+                      </div>
+                      <span style={{ color: '#475569', fontSize: 14, fontWeight: 500 }}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <button 
+                  onClick={() => navigate(plan.name === 'Free' ? '/register' : '/contact')}
+                  style={{ 
+                    width: '100%',
+                    background: plan.popular ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'rgba(37,99,235,0.08)', 
+                    color: plan.popular ? 'white' : '#2563eb', 
+                    border: plan.popular ? 'none' : '1px solid rgba(37,99,235,0.2)', 
+                    padding: '14px 24px', 
+                    borderRadius: 12, 
+                    fontSize: 15, 
+                    fontWeight: 600, 
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  className="hover:opacity-90 hover:scale-105 transition-all"
+                >
+                  {plan.buttonText}
+                </button>
+              </motion.div>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: 48 }}>
+            <p style={{ color: '#64748b', fontSize: 14, fontWeight: 500, marginBottom: 16 }}>
+              All plans include our core AI legal assistant and multilingual support
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+              {[
+                '30-day money-back guarantee',
+                'Cancel anytime',
+                'No setup fees'
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <Check size={14} color="#2563eb" />
+                  <span style={{ color: '#64748b', fontSize: 13, fontWeight: 500 }}>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section style={{ padding: '100px 24px' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 60 }}>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 12 }}>Trusted by Ethiopian Citizens</h2>
-            <p style={{ color: '#64748b', fontSize: 17 }}>Real stories from people who understood their rights</p>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 12, color: '#1e293b' }}>Trusted by Ethiopian Citizens</h2>
+            <p style={{ color: '#475569', fontSize: 17, fontWeight: 500 }}>Real stories from people who understood their rights</p>
           </motion.div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
             {testimonials.map((t, i) => (
@@ -527,14 +679,14 @@ export default function LandingPage() {
                 <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
                   {Array.from({ length: t.stars }).map((_, j) => <Star key={j} size={14} fill="#2563eb" color="#2563eb" />)}
                 </div>
-                <p style={{ color: 'var(--muted-foreground)', lineHeight: 1.7, marginBottom: 20, fontSize: 15 }}>"{t.text}"</p>
+                <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: 20, fontSize: 15, fontWeight: 500 }}>"{t.text}"</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700, color: 'white' }}>
                     {t.name[0]}
                   </div>
                   <div>
-                    <div style={{ fontWeight: 600, fontSize: 14 }}>{t.name}</div>
-                    <div style={{ color: 'var(--muted-foreground)', fontSize: 13 }}>{t.role}</div>
+                    <div style={{ fontWeight: 600, fontSize: 14, color: '#1e293b' }}>{t.name}</div>
+                    <div style={{ color: '#64748b', fontSize: 13, fontWeight: 500 }}>{t.role}</div>
                   </div>
                 </div>
               </motion.div>
@@ -547,23 +699,23 @@ export default function LandingPage() {
       <section style={{ padding: '80px 24px', background: 'rgba(13,17,36,0.5)' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 48 }}>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 12 }}>Frequently Asked Questions</h2>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 12, color: '#f1f5f9' }}>Frequently Asked Questions</h2>
           </motion.div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {faqs.map((faq, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
                 style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 12, overflow: 'hidden' }}>
                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  style={{ width: '100%', padding: '18px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--foreground)', textAlign: 'left', fontSize: 15, fontWeight: 600 }}>
+                  style={{ width: '100%', padding: '18px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', color: '#f1f5f9', textAlign: 'left', fontSize: 15, fontWeight: 600 }}>
                   {faq.q}
                   <motion.div animate={{ rotate: openFaq === i ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                    <ChevronDown size={18} color={'var(--muted-foreground)'} />
+                    <ChevronDown size={18} color={'#cbd5e1'} />
                   </motion.div>
                 </button>
                 <AnimatePresence>
                   {openFaq === i && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}>
-                      <div style={{ padding: '0 20px 18px', color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>{faq.a}</div>
+                      <div style={{ padding: '0 20px 18px', color: '#cbd5e1', fontSize: 14, lineHeight: 1.7, fontWeight: 500 }}>{faq.a}</div>
                     </motion.div>
                   )}
                 </AnimatePresence>
