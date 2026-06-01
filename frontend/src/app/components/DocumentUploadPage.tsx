@@ -431,8 +431,8 @@ export default function DocumentUploadPage() {
     setAnalysisError('');
   };
 
-  const demoMode = !uploadedDoc && !analysis;
-  const safeRiskScore = Number(analysis?.riskScore ?? uploadedDoc?.riskScore ?? RESULT.riskScore);
+  const demoMode = !uploadedDoc && !analysis && !analysisError && !fileName;
+  const safeRiskScore = Number(analysis?.riskScore ?? uploadedDoc?.riskScore ?? (demoMode ? RESULT.riskScore : 0));
   const baseSummary = analysisError
     ? 'Analysis failed. Please try again or upload a clearer PDF.'
     : 'Analysis is processing. Check back shortly.';

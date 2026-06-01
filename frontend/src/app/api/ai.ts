@@ -41,6 +41,11 @@ export const getChatsRequest = async () => {
   return data.chats;
 };
 
+export const getChatByIdRequest = async (id: string) => {
+  const { data } = await http.get<{ chat: ChatHistory }>(`/chats/${id}`);
+  return data.chat;
+};
+
 export const toggleStarChatRequest = async (id: string) => {
   const { data } = await http.patch<{ chat: ChatHistory }>(`/chats/${id}/star`);
   return data.chat;

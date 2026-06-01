@@ -42,15 +42,21 @@ const uploadDocument = async (req, res, next) => {
     }
 
     const resourceType = req.file.mimetype.startsWith("image/") ? "image" : "raw";
-    const uploadResult = await uploadToCloudinary(req.file, resourceType);
+    let uploadResult = { secure_url: "", public_id: "" };
+
+    try {
+      uploadResult = await uploadToCloudinary(req.file, resourceType);
+    } catch (error) {
+      console.warn("Cloudinary upload failed, continuing without URL:", error?.message || error);
+    }
     const extractedText = await extractText(req.file);
     const textLength = extractedText.length;
 
     const document = await Document.create({
       userId: req.user._id,
       filename: req.file.originalname,
-      cloudinaryUrl: uploadResult.secure_url,
-      cloudinaryPublicId: uploadResult.public_id,
+      cloudinaryUrl: uploadResult.secure_url || "",
+      cloudinaryPublicId: uploadResult.public_id || "",
       cloudinaryResourceType: resourceType,
       mimeType: req.file.mimetype,
       fileSize: req.file.size,

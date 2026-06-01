@@ -9,6 +9,18 @@ const getChats = async (req, res, next) => {
   }
 };
 
+const getChatById = async (req, res, next) => {
+  try {
+    const chat = await Chat.findOne({ _id: req.params.id, userId: req.user._id });
+    if (!chat) {
+      return res.status(404).json({ error: { message: "Chat not found" } });
+    }
+    return res.json({ chat });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 const toggleStar = async (req, res, next) => {
   try {
     const chat = await Chat.findOne({ _id: req.params.id, userId: req.user._id });
@@ -37,6 +49,7 @@ const deleteChat = async (req, res, next) => {
 
 module.exports = {
   getChats,
+  getChatById,
   toggleStar,
   deleteChat,
 };

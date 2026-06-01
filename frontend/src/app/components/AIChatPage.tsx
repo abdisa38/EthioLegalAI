@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Scale, Send, Paperclip, Mic, MicOff, Copy, Bookmark,
@@ -6,7 +7,8 @@ import {
   ChevronDown, BookOpen, ExternalLink, Check, Zap, Plus,
   Hash, User, X, RotateCcw
 } from 'lucide-react';
-import { chatRequest, toggleStarChatRequest } from '../api/ai';
+import { chatRequest, getChatByIdRequest, toggleStarChatRequest } from '../api/ai';
+import { useQuery } from '@tanstack/react-query';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -272,7 +274,34 @@ What legal question can I help you with today?`,
 };
 
 export default function AIChatPage() {
+  const [params] = useSearchParams();
+  const chatId = params.get('chatId');
   const [messages, setMessages] = useState<Message[]>([WELCOME]);
+    const { data: savedChat } = useQuery({
+      queryKey: ['chat', chatId],
+      queryFn: () => getChatByIdRequest(chatId as string),
+      enabled: Boolean(chatId),
+    });
+
+    useEffect(() => {
+      if (!savedChat) return;
+      const userMsg: Message = {
+        id: `saved-user-${savedChat._id}`,
+        role: 'user',
+        text: savedChat.question,
+        time: new Date(savedChat.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      const aiMsg: Message = {
+        id: `saved-ai-${savedChat._id}`,
+        chatId: savedChat._id,
+        role: 'ai',
+        text: savedChat.answer,
+        time: new Date(savedChat.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        feedback: null,
+      };
+
+      setMessages([WELCOME, userMsg, aiMsg]);
+    }, [savedChat]);
   const [streamingId, setStreamingId] = useState<string | null>(null);
   const [streamText, setStreamText] = useState('');
   const [awaitingStream, setAwaitingStream] = useState(false);
