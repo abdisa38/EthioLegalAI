@@ -196,7 +196,7 @@ export default function LandingPage() {
               with AI
             </h1>
 
-            <p style={{ fontSize: 18, color: 'var(--muted-foreground)', lineHeight: 1.7, marginBottom: 36, maxWidth: 520 }}>
+            <p style={{ fontSize: 18, color: '#1e293b', lineHeight: 1.7, marginBottom: 36, maxWidth: 520, fontWeight: 500 }}>
               Upload contracts, ask legal questions in Amharic, Oromo, or English — and get instant AI-powered explanations of your rights under Ethiopian law.
             </p>
 
@@ -221,7 +221,7 @@ export default function LandingPage() {
               ].map(({ icon: Icon, text }) => (
                 <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <Icon size={16} color="#2563eb" />
-                  <span style={{ fontSize: 14, color: 'var(--muted-foreground)' }}>{text}</span>
+                  <span style={{ fontSize: 14, color: '#1e293b', fontWeight: 500 }}>{text}</span>
                 </div>
               ))}
             </div>
@@ -260,13 +260,13 @@ export default function LandingPage() {
 
               {/* Messages */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
-                <div style={{ background: 'var(--muted)', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', maxWidth: '85%', fontSize: 14, lineHeight: 1.6, color: 'var(--foreground)' }}>
+                <div style={{ background: '#f1f5f9', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', maxWidth: '85%', fontSize: 14, lineHeight: 1.6, color: '#1e293b', fontWeight: 500 }}>
                   Can my landlord evict me without notice in Ethiopia?
                 </div>
-                <div style={{ alignSelf: 'flex-end', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px 12px 4px 12px', padding: '10px 14px', maxWidth: '90%', fontSize: 14, lineHeight: 1.6, color: '#c7d2fe' }}>
+                <div style={{ alignSelf: 'flex-end', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px 12px 4px 12px', padding: '10px 14px', maxWidth: '90%', fontSize: 14, lineHeight: 1.6, color: '#1e3a8a', fontWeight: 500 }}>
                   Under Ethiopian law (Civil Code), a landlord must provide a minimum of 30 days written notice before eviction, except in cases of serious lease violations. You have the right to contest wrongful eviction in court. 🏛️
                 </div>
-                <div style={{ background: 'var(--muted)', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', maxWidth: '85%', fontSize: 14, lineHeight: 1.6, color: 'var(--foreground)' }}>
+                <div style={{ background: '#f1f5f9', borderRadius: '12px 12px 12px 4px', padding: '10px 14px', maxWidth: '85%', fontSize: 14, lineHeight: 1.6, color: '#1e293b', fontWeight: 500 }}>
                   ምን ማድረግ አለብኝ? (What should I do?)
                 </div>
                 {/* Typing indicator */}
@@ -284,10 +284,10 @@ export default function LandingPage() {
               </div>
 
               {/* Input */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--muted)', borderRadius: 12, padding: '10px 14px', border: '1px solid var(--color-border)' }}>
-                <Paperclip size={16} color={'var(--muted-foreground)'} />
-                <span style={{ flex: 1, fontSize: 14, color: 'var(--muted-foreground)' }}>Ask a legal question in any language...</span>
-                <Mic size={16} color={'var(--muted-foreground)'} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#f1f5f9', borderRadius: 12, padding: '10px 14px', border: '1px solid rgba(37,99,235,0.1)' }}>
+                <Paperclip size={16} color={'#64748b'} />
+                <span style={{ flex: 1, fontSize: 14, color: '#64748b', fontWeight: 500 }}>Ask a legal question in any language...</span>
+                <Mic size={16} color={'#64748b'} />
                 <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 8, width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
                   <Send size={13} color="white" />
                 </div>
@@ -312,7 +312,7 @@ export default function LandingPage() {
           ].map(stat => (
             <div key={stat.label}>
               <div style={{ fontSize: 32, fontWeight: 800, background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{stat.value}</div>
-              <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>{stat.label}</div>
+              <div style={{ fontSize: 13, color: '#1e293b', marginTop: 4, fontWeight: 600 }}>{stat.label}</div>
             </div>
           ))}
         </div>
@@ -446,7 +446,7 @@ export default function LandingPage() {
               <span style={{ fontSize: 13, color: '#34d399' }}>Multilingual AI</span>
             </div>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 16 }}>Legal Help in Your Own Language</h2>
-            <p style={{ color: '#64748b', fontSize: 17, lineHeight: 1.7, marginBottom: 32 }}>
+            <p style={{ color: '#1e293b', fontSize: 17, lineHeight: 1.7, marginBottom: 32, fontWeight: 500 }}>
               Ethiopia is a diverse nation. EthioLegal AI breaks language barriers so every citizen can access legal knowledge — whether you speak English, Amharic, or Afaan Oromo.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
