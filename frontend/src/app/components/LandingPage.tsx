@@ -183,20 +183,20 @@ export default function LandingPage() {
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 60, alignItems: 'center' }}>
           {/* Left content */}
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: 100, padding: '6px 16px', marginBottom: 24 }}>
-              <Zap size={14} color="#2563eb" />
-              <span style={{ fontSize: 13, color: '#2563eb', fontWeight: 500 }}>AI-Powered Ethiopian Legal Assistant</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(96,165,250,0.15)', border: '1px solid rgba(96,165,250,0.3)', borderRadius: 100, padding: '6px 16px', marginBottom: 24 }}>
+              <Zap size={14} color="#60a5fa" />
+              <span style={{ fontSize: 13, color: '#93c5fd', fontWeight: 600 }}>AI-Powered Ethiopian Legal Assistant</span>
             </div>
 
-            <h1 style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 800, lineHeight: 1.15, marginBottom: 20, letterSpacing: -1 }}>
+            <h1 style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 800, lineHeight: 1.15, marginBottom: 20, letterSpacing: -1, color: '#ffffff' }}>
               Understand{' '}
-              <span style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <span style={{ background: 'linear-gradient(135deg, #60a5fa, #93c5fd, #dbeafe)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 Ethiopian Laws
               </span>{' '}
               with AI
             </h1>
 
-            <p style={{ fontSize: 18, color: '#1e293b', lineHeight: 1.7, marginBottom: 36, maxWidth: 520, fontWeight: 500 }}>
+            <p style={{ fontSize: 18, color: '#cbd5e1', lineHeight: 1.7, marginBottom: 36, maxWidth: 520, fontWeight: 500 }}>
               Upload contracts, ask legal questions in Amharic, Oromo, or English — and get instant AI-powered explanations of your rights under Ethiopian law.
             </p>
 
@@ -208,7 +208,7 @@ export default function LandingPage() {
               </motion.button>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => navigate('/app/upload')}
-                style={{ background: 'var(--muted)', color: 'var(--foreground)', padding: '14px 28px', borderRadius: 12, border: '1px solid var(--color-border)', cursor: 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8 }}>
+                style={{ background: 'rgba(51,65,85,0.8)', color: '#f1f5f9', padding: '14px 28px', borderRadius: 12, border: '1px solid rgba(148,163,184,0.3)', cursor: 'pointer', fontSize: 16, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Upload size={18} /> Upload Legal Document
               </motion.button>
             </div>
