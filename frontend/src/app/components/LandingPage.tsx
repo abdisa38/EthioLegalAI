@@ -220,8 +220,8 @@ export default function LandingPage() {
                 { icon: Globe, text: 'Amharic support' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <Icon size={16} color="#2563eb" />
-                  <span style={{ fontSize: 14, color: '#1e293b', fontWeight: 500 }}>{text}</span>
+                  <Icon size={16} color="#60a5fa" />
+                  <span style={{ fontSize: 14, color: '#94a3b8', fontWeight: 500 }}>{text}</span>
                 </div>
               ))}
             </div>
