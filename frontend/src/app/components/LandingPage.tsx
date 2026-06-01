@@ -734,7 +734,7 @@ export default function LandingPage() {
               Know Your Rights.<br />
               <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Start Free Today.</span>
             </h2>
-            <p style={{ color: 'var(--muted-foreground)', fontSize: 18, marginBottom: 36, maxWidth: 480, margin: '0 auto 36px' }}>
+            <p style={{ color: '#1e293b', fontSize: 18, marginBottom: 36, maxWidth: 480, margin: '0 auto 36px', fontWeight: 500, lineHeight: 1.6 }}>
               Join thousands of Ethiopian citizens who use EthioLegal AI to understand their legal rights and protect themselves.
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
