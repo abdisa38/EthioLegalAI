@@ -62,8 +62,8 @@ export default function AuthPage() {
             <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 14, width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 30px rgba(37,99,235,0.3)' }}>
               <Scale size={24} color="white" />
             </div>
-            <span style={{ fontSize: 26, fontWeight: 800, color: 'var(--foreground)' }}>
-              EthioLegal <span style={{ color: 'var(--primary)' }}>AI</span>
+            <span style={{ fontSize: 26, fontWeight: 800, color: '#1e293b' }}>
+              EthioLegal <span style={{ color: '#2563eb' }}>AI</span>
             </span>
           </div>
 
@@ -171,15 +171,15 @@ export default function AuthPage() {
                 {!isForgot && (
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                      <label style={{ color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 500 }}>Password</label>
-                      {!isRegister && <span onClick={() => navigate('/forgot-password')} style={{ color: '#2563eb', fontSize: 13, cursor: 'pointer' }}>Forgot password?</span>}
+                      <label style={{ color: '#475569', fontSize: 13, fontWeight: 600 }}>Password</label>
+                      {!isRegister && <span onClick={() => navigate('/forgot-password')} style={{ color: '#2563eb', fontSize: 13, cursor: 'pointer', fontWeight: 600 }}>Forgot password?</span>}
                     </div>
                     <div style={{ position: 'relative' }}>
-                      <Lock size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
+                      <Lock size={16} color="#64748b" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                       <input type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••"
-                        style={{ width: '100%', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '12px 42px 12px 42px', color: 'var(--foreground)', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
+                        style={{ width: '100%', background: 'white', border: '2px solid rgba(37,99,235,0.1)', borderRadius: 10, padding: '12px 42px 12px 42px', color: '#1e293b', fontSize: 15, outline: 'none', boxSizing: 'border-box', fontWeight: 500 }}
                         className="focus:border-blue-500/50 transition-colors" />
-                      <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--muted-foreground)' }}>
+                      <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)', background: 'transparent', border: 'none', cursor: 'pointer', color: '#64748b' }}>
                         {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                       </button>
                     </div>
@@ -188,9 +188,9 @@ export default function AuthPage() {
 
                 {isRegister && (
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <input type="checkbox" id="terms" style={{ marginTop: 3, accentColor: 'var(--primary)' }} />
-                    <label htmlFor="terms" style={{ color: 'var(--muted-foreground)', fontSize: 13, lineHeight: 1.5 }}>
-                      I agree to the <span style={{ color: '#2563eb', cursor: 'pointer' }}>Terms of Service</span> and understand this is educational information, not legal advice.
+                    <input type="checkbox" id="terms" style={{ marginTop: 3, accentColor: '#2563eb' }} />
+                    <label htmlFor="terms" style={{ color: '#475569', fontSize: 13, lineHeight: 1.5, fontWeight: 500 }}>
+                      I agree to the <span style={{ color: '#2563eb', cursor: 'pointer', fontWeight: 600 }}>Terms of Service</span> and understand this is educational information, not legal advice.
                     </label>
                   </div>
                 )}
@@ -209,15 +209,15 @@ export default function AuthPage() {
                 </motion.button>
               </form>
 
-              <div style={{ textAlign: 'center', marginTop: 24, color: 'var(--muted-foreground)', fontSize: 14 }}>
+              <div style={{ textAlign: 'center', marginTop: 24, color: '#475569', fontSize: 14, fontWeight: 500 }}>
                 {isRegister ? (
-                  <>Already have an account? <span onClick={() => navigate('/login')} style={{ color: '#2563eb', cursor: 'pointer' }}>Sign in</span></>
+                  <>Already have an account? <span onClick={() => navigate('/login')} style={{ color: '#2563eb', cursor: 'pointer', fontWeight: 600 }}>Sign in</span></>
                 ) : isForgot ? (
-                  <span onClick={() => navigate('/login')} style={{ color: '#2563eb', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                  <span onClick={() => navigate('/login')} style={{ color: '#2563eb', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontWeight: 600 }}>
                     <ArrowLeft size={14} /> Back to Sign In
                   </span>
                 ) : (
-                  <>Don't have an account? <span onClick={() => navigate('/register')} style={{ color: '#2563eb', cursor: 'pointer' }}>Sign up free</span></>
+                  <>Don't have an account? <span onClick={() => navigate('/register')} style={{ color: '#2563eb', cursor: 'pointer', fontWeight: 600 }}>Sign up free</span></>
                 )}
               </div>
             </>
