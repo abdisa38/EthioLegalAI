@@ -517,11 +517,11 @@ export default function LandingPage() {
       <section id="pricing" style={{ padding: '100px 24px', background: 'rgba(15,23,42,0.6)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#1e293b' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#ffffff' }}>
               Simple, Transparent{' '}
-              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Pricing</span>
+              <span style={{ background: 'linear-gradient(135deg, #60a5fa, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Pricing</span>
             </h2>
-            <p style={{ color: '#475569', fontSize: 18, maxWidth: 600, margin: '0 auto', fontWeight: 500, lineHeight: 1.6 }}>
+            <p style={{ color: '#cbd5e1', fontSize: 18, maxWidth: 600, margin: '0 auto', fontWeight: 500, lineHeight: 1.6 }}>
               Choose the plan that works best for you. Start free and upgrade as your legal needs grow.
             </p>
           </motion.div>
