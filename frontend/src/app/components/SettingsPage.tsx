@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Globe, Moon, Bell, Shield, User, Bot, Save, ChevronRight, Check } from 'lucide-react';
 import { useTheme } from '@/shared/hooks/useTheme';
@@ -31,7 +31,35 @@ export default function SettingsPage() {
     dataSharing: false,
   });
 
+  useEffect(() => {
+    try {
+      const savedSettings = localStorage.getItem('ethiolegal-settings');
+      if (!savedSettings) return;
+      const parsed = JSON.parse(savedSettings);
+      if (parsed.lang) setLang(parsed.lang);
+      if (parsed.aiLang) setAiLang(parsed.aiLang);
+      if (parsed.aiStyle) setAiStyle(parsed.aiStyle);
+      if (parsed.notifications) setNotifications(prev => ({ ...prev, ...parsed.notifications }));
+      if (parsed.privacy) setPrivacy(prev => ({ ...prev, ...parsed.privacy }));
+      if (parsed.activeSection) setActiveSection(parsed.activeSection);
+    } catch {
+      // Ignore invalid saved state and fall back to defaults.
+    }
+  }, []);
+
   const handleSave = () => {
+    try {
+      localStorage.setItem('ethiolegal-settings', JSON.stringify({
+        lang,
+        aiLang,
+        aiStyle,
+        notifications,
+        privacy,
+        activeSection,
+      }));
+    } catch {
+      // Saving to localStorage is best-effort.
+    }
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };

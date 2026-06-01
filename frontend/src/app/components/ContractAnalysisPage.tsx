@@ -1,9 +1,10 @@
+import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { motion } from 'motion/react';
 import { AlertTriangle, CheckCircle, Shield, FileSearch, Upload, Info, TrendingDown, DollarSign, Clock } from 'lucide-react';
 import { RadarChart, PolarGrid, PolarAngleAxis, Radar, ResponsiveContainer, Tooltip } from 'recharts';
-import { useQuery } from '@tanstack/react-query';
-import { getContractAnalysisRequest } from '../api/contracts';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { analyzeContractRequest, getContractAnalysisRequest } from '../api/contracts';
 import type { ContractAnalysis, RiskLevel } from '../api/contracts';
 
 
@@ -17,12 +18,29 @@ export default function ContractAnalysisPage() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const documentId = params.get('documentId');
+  const autoAnalysisStarted = useRef(false);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['contract-analysis', documentId],
     queryFn: () => getContractAnalysisRequest(documentId as string),
     enabled: Boolean(documentId),
+    retry: false,
   });
+
+  const analysisMutation = useMutation({
+    mutationFn: () => analyzeContractRequest({ documentId: documentId as string, refresh: true }),
+  });
+
+  const analysisResult = analysisMutation.data?.analysis || data?.analysis;
+
+  useEffect(() => {
+    if (!documentId) return;
+    if (analysisResult) return;
+    if (isLoading || analysisMutation.isPending || autoAnalysisStarted.current) return;
+
+    autoAnalysisStarted.current = true;
+    analysisMutation.mutate();
+  }, [analysisMutation, analysisResult, documentId, isLoading]);
 
   if (!documentId) {
     return (
@@ -36,23 +54,28 @@ export default function ContractAnalysisPage() {
     );
   }
 
-  if (isLoading) {
+  if (isLoading || (analysisMutation.isPending && !analysisResult)) {
     return <div style={{ color: 'var(--muted-foreground)', padding: '48px', textAlign: 'center' }}>Loading contract analysis...</div>;
   }
 
-  if (isError || !data?.analysis) {
+  if ((isError && !analysisResult) || (!analysisResult && !analysisMutation.isPending)) {
     return (
       <div style={{ padding: '48px 28px', maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
         <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--foreground)', marginBottom: 8 }}>Analysis not available yet</h1>
-        <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 24 }}>Run a fresh analysis by uploading the document again.</p>
-        <button onClick={() => navigate('/app/upload')} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'white', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
-          Analyze New Contract
-        </button>
+        <p style={{ color: 'var(--muted-foreground)', fontSize: 14, marginBottom: 24 }}>The document exists, but analysis has not been generated yet. Try again or open the upload flow to regenerate it.</p>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <button onClick={() => analysisMutation.mutate()} style={{ padding: '10px 20px', borderRadius: 10, background: 'linear-gradient(135deg, #2563eb, #60a5fa)', border: 'none', color: 'var(--primary-foreground)', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+            Try Analysis Again
+          </button>
+          <button onClick={() => navigate('/app/upload')} style={{ padding: '10px 20px', borderRadius: 10, background: 'transparent', border: '1px solid var(--color-border)', color: 'var(--foreground)', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
+            Analyze New Contract
+          </button>
+        </div>
       </div>
     );
   }
 
-  const analysis: ContractAnalysis = data.analysis;
+  const analysis: ContractAnalysis = analysisResult as ContractAnalysis;
   const clauses = analysis.risks?.length
     ? analysis.risks.map(risk => ({
         text: risk.clause,

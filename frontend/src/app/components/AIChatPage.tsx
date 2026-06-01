@@ -610,7 +610,8 @@ export default function AIChatPage() {
             placeholder={lang === 'EN' ? 'Ask any legal question... (Enter to send)' : lang === 'አማ' ? 'ሕጋዊ ጥያቄዎን ይጻፉ...' : 'Gaaffii seeraa barreessaa...'}
             rows={1}
             disabled={!isIdle}
-            style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: isIdle ? 'var(--foreground)' : 'var(--muted-foreground)', fontSize: 14, resize: 'none', lineHeight: 1.5, maxHeight: 140, overflowY: 'auto', padding: '3px 0' }}
+            style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#f8fafc', fontSize: 14, resize: 'none', lineHeight: 1.5, maxHeight: 140, overflowY: 'auto', padding: '3px 0' }}
+            className="placeholder:text-slate-300"
           />
 
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>

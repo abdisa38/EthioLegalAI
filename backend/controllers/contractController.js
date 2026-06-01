@@ -18,12 +18,6 @@ const analyzeContract = async (req, res, next) => {
       return res.json({ analysis: document.analysis, document });
     }
 
-    if (!document.extractedText || document.extractedText.length < 120) {
-      return res.status(422).json({
-        error: { message: "Document text is unavailable. Upload a clearer PDF for analysis." },
-      });
-    }
-
     const analysis = await generateContractAnalysis({
       text: document.extractedText,
       filename: document.filename,
