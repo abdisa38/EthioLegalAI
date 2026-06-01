@@ -455,11 +455,11 @@ export default function LandingPage() {
                 { lang: 'Amharic', example: '"እንደ ተከራይ ምን መብቶች አሉኝ?"', flag: '🇪🇹' },
                 { lang: 'Afaan Oromo', example: '"Mirga ijaarraa koo maal?"', flag: '🟢' },
               ].map(item => (
-                <div key={item.lang} style={{ display: 'flex', alignItems: 'center', gap: 16, background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '12px 16px' }}>
+                <div key={item.lang} style={{ display: 'flex', alignItems: 'center', gap: 16, background: 'white', border: '1px solid rgba(37,99,235,0.1)', borderRadius: 12, padding: '12px 16px' }}>
                   <span style={{ fontSize: 24 }}>{item.flag}</span>
                   <div>
-                    <div style={{ fontSize: 13, color: 'var(--muted-foreground)', marginBottom: 2 }}>{item.lang}</div>
-                    <div style={{ fontSize: 15, color: 'var(--foreground)' }}>{item.example}</div>
+                    <div style={{ fontSize: 13, color: '#64748b', marginBottom: 2, fontWeight: 600 }}>{item.lang}</div>
+                    <div style={{ fontSize: 15, color: '#1e293b', fontWeight: 500 }}>{item.example}</div>
                   </div>
                 </div>
               ))}
