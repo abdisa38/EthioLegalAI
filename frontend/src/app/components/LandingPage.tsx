@@ -37,9 +37,9 @@ export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--foreground)' }}>
+    <div style={{ background: '#0a0e1a', minHeight: '100vh', color: '#ffffff' }}>
       {/* Navbar */}
-      <nav style={{ background: 'rgba(8,11,24,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)', position: 'sticky', top: 0, zIndex: 50 }}>
+      <nav style={{ background: 'rgba(8,11,24,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.1)', position: 'sticky', top: 0, zIndex: 50 }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
           {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
@@ -174,7 +174,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <section style={{ position: 'relative', overflow: 'hidden', padding: '100px 24px 80px' }}>
+      <section style={{ position: 'relative', overflow: 'hidden', padding: '100px 24px 80px', background: '#0a0e1a' }}>
         {/* Background orbs */}
         <div style={{ position: 'absolute', top: -200, left: -200, width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: 100, right: -100, width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
