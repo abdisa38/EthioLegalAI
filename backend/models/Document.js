@@ -37,7 +37,7 @@ const timelineSchema = new mongoose.Schema(
   {
     date: { type: String, required: true },
     label: { type: String, required: true },
-    type: { type: String, enum: ["deadline", "milestone", "warning"] },
+    type: { type: String, enum: ["start", "payment", "milestone", "deadline", "end", "other", "warning"] },
     urgent: { type: Boolean, default: false },
   },
   { _id: false }
@@ -76,7 +76,6 @@ const analysisSchema = new mongoose.Schema(
     fileName: { type: String, required: true },
     docType: {
       type: String,
-      enum: ["contract", "agreement", "notice", "other"],
       required: true,
     },
     summary: { type: String, required: true },
@@ -112,11 +111,11 @@ const documentSchema = new mongoose.Schema(
     },
     cloudinaryUrl: {
       type: String,
-      required: [true, "Cloudinary URL is required"],
+      default: "",
     },
     cloudinaryPublicId: {
       type: String,
-      required: true,
+      default: "",
     },
     cloudinaryResourceType: {
       type: String,
@@ -124,7 +123,14 @@ const documentSchema = new mongoose.Schema(
     },
     mimeType: {
       type: String,
-      enum: ["application/pdf", "text/plain"],
+      enum: [
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "image/jpeg",
+        "image/png",
+        "text/plain",
+      ],
       required: true,
     },
     fileSize: {
