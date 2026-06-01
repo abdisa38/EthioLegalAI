@@ -474,8 +474,8 @@ export default function LandingPage() {
                 ))}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <div style={{ background: 'var(--muted)', borderRadius: '12px 12px 12px 4px', padding: '12px 16px', fontSize: 14, color: 'var(--foreground)' }}>ቤቴን ያለ ማስጠንቀቂያ ለቀቅ ብለው ነው?</div>
-                <div style={{ alignSelf: 'flex-end', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px 12px 4px 12px', padding: '12px 16px', fontSize: 14, color: '#c7d2fe', lineHeight: 1.6 }}>
+                <div style={{ background: '#f1f5f9', borderRadius: '12px 12px 12px 4px', padding: '12px 16px', fontSize: 14, color: '#1e293b', fontWeight: 500 }}>ቤቴን ያለ ማስጠንቀቂያ ለቀቅ ብለው ነው?</div>
+                <div style={{ alignSelf: 'flex-end', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px 12px 4px 12px', padding: '12px 16px', fontSize: 14, color: '#1e3a8a', lineHeight: 1.6, fontWeight: 500 }}>
                   በኢትዮጵያ ሕግ መሰረት, ቤት አከራይ ቢያንስ 30 ቀን የጽሑፍ ማስጠንቀቂያ ሳይሰጥ ሊያስወጣዎ አይችልም። ይህ መብትዎ ነው። 🏛️
                 </div>
               </div>
