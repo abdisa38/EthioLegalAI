@@ -109,7 +109,7 @@ export default function AuthPage() {
             <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Scale size={18} color="white" />
             </div>
-            <span style={{ fontSize: 20, fontWeight: 700, color: 'var(--foreground)' }}>EthioLegal <span style={{ color: 'var(--primary)' }}>AI</span></span>
+            <span style={{ fontSize: 20, fontWeight: 700, color: '#1e293b' }}>EthioLegal <span style={{ color: '#2563eb' }}>AI</span></span>
           </div>
 
           <div style={{ marginBottom: 32 }}>
@@ -227,8 +227,8 @@ export default function AuthPage() {
               <div style={{ width: 60, height: 60, borderRadius: '50%', background: 'rgba(16,185,129,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
                 <Mail size={28} color="#2563eb" />
               </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: 'var(--foreground)' }}>Check Your Email</h3>
-              <p style={{ color: 'var(--muted-foreground)', fontSize: 15, marginBottom: 24 }}>We've sent reset instructions to <strong style={{ color: 'var(--muted-foreground)' }}>{email}</strong></p>
+              <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10, color: '#1e293b' }}>Check Your Email</h3>
+              <p style={{ color: '#475569', fontSize: 15, marginBottom: 24, fontWeight: 500 }}>We've sent reset instructions to <strong style={{ color: '#1e293b' }}>{email}</strong></p>
               <button onClick={() => navigate('/login')} style={{ color: '#2563eb', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', gap: 6, margin: '0 auto' }}>
                 <ArrowLeft size={14} /> Back to Sign In
               </button>
