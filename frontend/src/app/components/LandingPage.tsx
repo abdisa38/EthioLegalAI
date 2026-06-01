@@ -578,12 +578,12 @@ export default function LandingPage() {
             ].map((plan, i) => (
               <motion.div key={plan.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 style={{ 
-                  background: 'white', 
-                  border: plan.popular ? '2px solid #2563eb' : '1px solid rgba(37,99,235,0.1)', 
+                  background: 'rgba(30,41,59,0.6)', 
+                  border: plan.popular ? '2px solid #60a5fa' : '1px solid rgba(148,163,184,0.2)', 
                   borderRadius: 20, 
                   padding: 32, 
                   position: 'relative',
-                  boxShadow: plan.popular ? '0 20px 60px rgba(37,99,235,0.15)' : '0 10px 40px rgba(37,99,235,0.05)'
+                  boxShadow: plan.popular ? '0 20px 60px rgba(96,165,250,0.2)' : '0 10px 40px rgba(0,0,0,0.2)'
                 }}>
                 {plan.popular && (
                   <div style={{ 
@@ -603,22 +603,22 @@ export default function LandingPage() {
                 )}
                 
                 <div style={{ textAlign: 'center', marginBottom: 24 }}>
-                  <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#1e293b' }}>{plan.name}</h3>
+                  <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8, color: '#f1f5f9' }}>{plan.name}</h3>
                   <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 4, marginBottom: 8 }}>
-                    <span style={{ fontSize: 12, color: '#64748b' }}>ETB</span>
-                    <span style={{ fontSize: 40, fontWeight: 800, color: '#1e293b' }}>{plan.price}</span>
-                    <span style={{ fontSize: 14, color: '#64748b' }}>/{plan.period}</span>
+                    <span style={{ fontSize: 12, color: '#94a3b8' }}>ETB</span>
+                    <span style={{ fontSize: 40, fontWeight: 800, color: '#ffffff' }}>{plan.price}</span>
+                    <span style={{ fontSize: 14, color: '#94a3b8' }}>/{plan.period}</span>
                   </div>
-                  <p style={{ color: '#64748b', fontSize: 14, fontWeight: 500 }}>{plan.description}</p>
+                  <p style={{ color: '#94a3b8', fontSize: 14, fontWeight: 500 }}>{plan.description}</p>
                 </div>
 
                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px', display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {plan.features.map((feature, j) => (
                     <li key={j} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <Check size={12} color="#2563eb" />
+                      <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(96,165,250,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <Check size={12} color="#60a5fa" />
                       </div>
-                      <span style={{ color: '#475569', fontSize: 14, fontWeight: 500 }}>{feature}</span>
+                      <span style={{ color: '#cbd5e1', fontSize: 14, fontWeight: 500 }}>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -627,9 +627,9 @@ export default function LandingPage() {
                   onClick={() => navigate(plan.name === 'Free' ? '/register' : '/contact')}
                   style={{ 
                     width: '100%',
-                    background: plan.popular ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'rgba(37,99,235,0.08)', 
-                    color: plan.popular ? 'white' : '#2563eb', 
-                    border: plan.popular ? 'none' : '1px solid rgba(37,99,235,0.2)', 
+                    background: plan.popular ? 'linear-gradient(135deg, #2563eb, #60a5fa)' : 'rgba(96,165,250,0.15)', 
+                    color: plan.popular ? 'white' : '#93c5fd', 
+                    border: plan.popular ? 'none' : '1px solid rgba(96,165,250,0.3)', 
                     padding: '14px 24px', 
                     borderRadius: 12, 
                     fontSize: 15, 
