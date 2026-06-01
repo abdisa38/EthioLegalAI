@@ -102,10 +102,10 @@ export default function DocumentLibraryPage() {
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
           {/* Risk filter */}
           <div style={{ display: 'flex', gap: 6 }}>
-            <Filter size={14} color="#475569" style={{ alignSelf: 'center' }} />
+            <Filter size={14} color="var(--muted-foreground)" style={{ alignSelf: 'center' }} />
             {(['all', 'high', 'medium', 'low'] as const).map(r => (
               <button key={r} onClick={() => setFilterRisk(r)}
-                style={{ padding: '5px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterRisk === r ? (r === 'all' ? 'rgba(37,99,235,0.14)' : riskConfig[r]?.bg) : 'rgba(255,255,255,0.05)', color: filterRisk === r ? (r === 'all' ? '#2563eb' : riskConfig[r]?.color) : '#64748b' }}>
+                style={{ padding: '5px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterRisk === r ? (r === 'all' ? 'rgba(37,99,235,0.14)' : riskConfig[r]?.bg) : 'rgba(255,255,255,0.05)', color: filterRisk === r ? (r === 'all' ? '#2563eb' : riskConfig[r]?.color) : 'var(--muted-foreground)' }}>
                 {r === 'all' ? 'All Risk' : riskConfig[r].label}
               </button>
             ))}
@@ -117,7 +117,7 @@ export default function DocumentLibraryPage() {
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {docTypes.map(type => (
               <button key={type} onClick={() => setFilterType(type)}
-                style={{ padding: '5px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterType === type ? 'rgba(37,99,235,0.14)' : 'rgba(255,255,255,0.04)', color: filterType === type ? '#2563eb' : '#64748b' }}>
+                style={{ padding: '5px 12px', borderRadius: 8, fontSize: 12, fontWeight: 500, border: 'none', cursor: 'pointer', background: filterType === type ? 'rgba(37,99,235,0.14)' : 'rgba(255,255,255,0.04)', color: filterType === type ? '#2563eb' : 'var(--muted-foreground)' }}>
                 {type}
               </button>
             ))}
@@ -129,7 +129,7 @@ export default function DocumentLibraryPage() {
       {filtered.length === 0 ? (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ textAlign: 'center', padding: '80px 24px' }}>
           <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-            <FileText size={32} color="#475569" />
+            <FileText size={32} color="var(--muted-foreground)" />
           </div>
           <h3 style={{ fontSize: 18, fontWeight: 600, color: 'var(--muted-foreground)', marginBottom: 8 }}>No documents found</h3>
           <p style={{ color: 'var(--muted-foreground)', fontSize: 14 }}>Try adjusting your filters or upload a new document.</p>
@@ -162,8 +162,8 @@ export default function DocumentLibraryPage() {
                         <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: rConf.color, background: rConf.bg, padding: '2px 8px', borderRadius: 100 }}>
                           <RiskIcon size={10} /> {rConf.label}
                         </span>
-                        <span style={{ fontSize: 12, color: '#475569', display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={10} /> {dateLabel}</span>
-                        <span style={{ fontSize: 12, color: '#475569' }}>{sizeLabel}</span>
+                        <span style={{ fontSize: 12, color: 'var(--muted-foreground)', display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={10} /> {dateLabel}</span>
+                        <span style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>{sizeLabel}</span>
                       </div>
                     </div>
 
@@ -172,7 +172,7 @@ export default function DocumentLibraryPage() {
                       <button onClick={() => navigate(`/app/contract-analysis?documentId=${doc._id}`)} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)', color: '#2563eb', cursor: 'pointer', fontSize: 12 }}>
                         <Eye size={12} /> View
                       </button>
-                      <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#64748b', cursor: 'pointer', fontSize: 12 }}>
+                      <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 12 }}>
                         <Download size={12} />
                       </button>
                       <button
@@ -187,7 +187,7 @@ export default function DocumentLibraryPage() {
                       </button>
                     </div>
                   </div>
-                  <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5, marginTop: 8 }}>
+                  <p style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.5, marginTop: 8 }}>
                     {doc.summary || 'AI analysis is processing. Check back soon.'}
                   </p>
                 </div>
@@ -202,9 +202,9 @@ export default function DocumentLibraryPage() {
         onClick={() => navigate('/app/upload')}
         style={{ marginTop: 20, border: '2px dashed rgba(255,255,255,0.08)', borderRadius: 14, padding: '32px', textAlign: 'center', cursor: 'pointer', background: 'rgba(255,255,255,0.01)' }}
         className="hover:border-blue-500/30 hover:bg-blue-500/3 transition-all">
-        <Upload size={28} color="#475569" style={{ margin: '0 auto 12px' }} />
-        <div style={{ fontSize: 14, color: '#64748b', fontWeight: 500 }}>Drop a legal document here or click to upload</div>
-        <div style={{ fontSize: 12, color: '#334155', marginTop: 4 }}>PDF, DOCX, JPG · Up to 25MB</div>
+        <Upload size={28} color="var(--muted-foreground)" style={{ margin: '0 auto 12px' }} />
+        <div style={{ fontSize: 14, color: 'var(--muted-foreground)', fontWeight: 500 }}>Drop a legal document here or click to upload</div>
+        <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 4 }}>PDF, DOCX, JPG · Up to 25MB</div>
       </motion.div>
     </div>
   );

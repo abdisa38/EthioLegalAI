@@ -166,7 +166,7 @@ function ConfidenceMeter({ score }: { score: number }) {
         <motion.div initial={{ width: 0 }} animate={{ width: `${score}%` }} transition={{ duration: 0.9, ease: 'easeOut' }}
           style={{ height: '100%', background: color, borderRadius: 100 }} />
       </div>
-      <span style={{ fontSize: 11, color: '#64748b' }}>{score}% confidence</span>
+      <span style={{ fontSize: 11, color: 'var(--muted-foreground)' }}>{score}% confidence</span>
     </div>
   );
 }
@@ -179,9 +179,9 @@ function CitationCard({ c }: { c: Citation }) {
       <BookOpen size={12} color="#2563eb" style={{ flexShrink: 0, marginTop: 1 }} />
       <div>
         <div style={{ fontSize: 12, fontWeight: 700, color: '#60a5fa', marginBottom: 1 }}>{c.law} · {c.article}</div>
-        <div style={{ fontSize: 11, color: '#475569', lineHeight: 1.4 }}>{c.relevance}</div>
+        <div style={{ fontSize: 11, color: 'var(--muted-foreground)', lineHeight: 1.4 }}>{c.relevance}</div>
       </div>
-      <ExternalLink size={10} color="#334155" style={{ flexShrink: 0, marginTop: 2 }} />
+      <ExternalLink size={10} color="var(--muted-foreground)" style={{ flexShrink: 0, marginTop: 2 }} />
     </motion.div>
   );
 }
@@ -210,11 +210,11 @@ function ActionBar({
         {copied ? 'Copied' : 'Copy'}
       </button>
       <button onClick={save}
-        style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: saved ? 'rgba(245,158,11,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${saved ? 'rgba(245,158,11,0.3)' : 'rgba(255,255,255,0.08)'}`, cursor: 'pointer', color: saved ? '#f59e0b' : '#64748b', fontSize: 12, transition: 'all 0.2s' }}>
+        style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: saved ? 'rgba(245,158,11,0.1)' : 'rgba(255,255,255,0.04)', border: `1px solid ${saved ? 'rgba(245,158,11,0.3)' : 'rgba(255,255,255,0.08)'}`, cursor: 'pointer', color: saved ? '#f59e0b' : 'var(--muted-foreground)', fontSize: 12, transition: 'all 0.2s' }}>
         <Bookmark size={11} fill={saved ? '#f59e0b' : 'none'} />
         {saved ? 'Saved' : savedPulse ? 'Saving...' : 'Save'}
       </button>
-      <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: '#64748b', fontSize: 12 }}>
+      <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 11px', borderRadius: 7, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', cursor: 'pointer', color: 'var(--muted-foreground)', fontSize: 12 }}>
         <Share2 size={11} /> Share
       </button>
 
@@ -420,13 +420,13 @@ export default function AIChatPage() {
           <div style={{ display: 'flex', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 9, overflow: 'hidden' }}>
             {[['EN','🇬🇧'],['አማ','🇪🇹'],['ORM','🟢']].map(([l, flag]) => (
               <button key={l} onClick={() => setLang(l)}
-                style={{ padding: '5px 10px', fontSize: 11, fontWeight: 500, border: 'none', cursor: 'pointer', background: lang === l ? 'rgba(37,99,235,0.18)' : 'transparent', color: lang === l ? '#2563eb' : '#64748b', transition: 'all 0.15s', whiteSpace: 'nowrap' }}>
+                style={{ padding: '5px 10px', fontSize: 11, fontWeight: 500, border: 'none', cursor: 'pointer', background: lang === l ? 'rgba(37,99,235,0.18)' : 'transparent', color: lang === l ? '#2563eb' : 'var(--muted-foreground)', transition: 'all 0.15s', whiteSpace: 'nowrap' }}>
                 {flag} {l}
               </button>
             ))}
           </div>
           <button onClick={() => setMessages([WELCOME])}
-            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#64748b', cursor: 'pointer', fontSize: 12 }}
+                    style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 12 }}
             className="hover:text-slate-300 transition-colors">
             <Plus size={13} /> New
           </button>
@@ -459,7 +459,7 @@ export default function AIChatPage() {
                     <div style={{ fontSize: 11, color: '#1e293b', textAlign: 'right', marginTop: 4 }}>{msg.time}</div>
                   </div>
                   <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2 }}>
-                    <User size={13} color="#64748b" />
+                    <User size={13} color="var(--muted-foreground)" />
                   </div>
                 </motion.div>
               );
@@ -502,8 +502,8 @@ export default function AIChatPage() {
                   {!isStreaming && msg.citations && msg.citations.length > 0 && (
                     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
                       style={{ marginTop: 10 }}>
-                      <div style={{ fontSize: 11, color: '#334155', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 5 }}>
-                        <Hash size={9} color="#475569" /> Legal Sources
+                      <div style={{ fontSize: 11, color: 'var(--muted-foreground)', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 5 }}>
+                        <Hash size={9} color="var(--muted-foreground)" /> Legal Sources
                       </div>
                       <div>{msg.citations.map((c, i) => <CitationCard key={i} c={c} />)}</div>
                     </motion.div>
@@ -536,11 +536,11 @@ export default function AIChatPage() {
                   {!isStreaming && msg.followups && msg.followups.length > 0 && (
                     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
                       style={{ marginTop: 12 }}>
-                      <div style={{ fontSize: 11, color: '#334155', marginBottom: 7 }}>Related questions:</div>
+                      <div style={{ fontSize: 11, color: 'var(--muted-foreground)', marginBottom: 7 }}>Related questions:</div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                         {msg.followups.map(f => (
                           <motion.button key={f} whileHover={{ y: -2 }} onClick={() => send(f)}
-                            style={{ padding: '5px 12px', borderRadius: 20, fontSize: 12, background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.17)', color: '#a5b4fc', cursor: 'pointer' }}
+                            style={{ padding: '5px 12px', borderRadius: 20, fontSize: 12, background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.17)', color: 'var(--primary-foreground)', cursor: 'pointer' }}
                             className="hover:bg-blue-500/15 transition-colors">
                             {f}
                           </motion.button>
@@ -560,7 +560,7 @@ export default function AIChatPage() {
         {showQuickPrompts && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
             style={{ marginTop: 8 }}>
-            <div style={{ fontSize: 12, color: '#475569', marginBottom: 12, fontWeight: 500 }}>Quick start — choose a topic:</div>
+            <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginBottom: 12, fontWeight: 500 }}>Quick start — choose a topic:</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: 8 }}>
               {QUICK_PROMPTS.map(p => (
                 <motion.button key={p.text} whileHover={{ y: -2, borderColor: 'rgba(99,102,241,0.35)' }} whileTap={{ scale: 0.97 }}
@@ -568,8 +568,8 @@ export default function AIChatPage() {
                   style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '12px 14px', borderRadius: 13, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s' }}>
                   <span style={{ fontSize: 18, lineHeight: 1 }}>{p.icon}</span>
                   <div>
-                    <div style={{ fontSize: 13, color: '#e2e8f0', lineHeight: 1.4, marginBottom: 3 }}>{p.text}</div>
-                    <span style={{ fontSize: 11, color: '#475569', background: 'rgba(255,255,255,0.04)', padding: '2px 7px', borderRadius: 100 }}>{p.cat}</span>
+                    <div style={{ fontSize: 13, color: 'var(--foreground)', lineHeight: 1.4, marginBottom: 3 }}>{p.text}</div>
+                    <span style={{ fontSize: 11, color: 'var(--muted-foreground)', background: 'rgba(255,255,255,0.04)', padding: '2px 7px', borderRadius: 100 }}>{p.cat}</span>
                   </div>
                 </motion.button>
               ))}
@@ -585,7 +585,7 @@ export default function AIChatPage() {
         {!atBottom && (
           <motion.button initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
             onClick={() => { setAtBottom(true); bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            style={{ position: 'absolute', bottom: 110, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 6, padding: '7px 16px', borderRadius: 100, background: 'rgba(13,17,36,0.95)', border: '1px solid rgba(255,255,255,0.12)', color: '#94a3b8', cursor: 'pointer', fontSize: 13, backdropFilter: 'blur(12px)', boxShadow: '0 4px 20px rgba(0,0,0,0.45)', zIndex: 20 }}>
+            style={{ position: 'absolute', bottom: 110, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 6, padding: '7px 16px', borderRadius: 100, background: 'rgba(13,17,36,0.95)', border: '1px solid rgba(255,255,255,0.12)', color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 13, backdropFilter: 'blur(12px)', boxShadow: '0 4px 20px rgba(0,0,0,0.45)', zIndex: 20 }}>
             <ChevronDown size={13} /> Latest message
           </motion.button>
         )}
@@ -596,7 +596,7 @@ export default function AIChatPage() {
         <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 16, padding: '10px 12px', display: 'flex', alignItems: 'flex-end', gap: 8, transition: 'border-color 0.2s' }}
           className="focus-within:border-blue-500/40">
           {/* Attach */}
-          <button style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#334155', padding: '4px', flexShrink: 0 }}
+          <button style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--muted-foreground)', padding: '4px', flexShrink: 0 }}
             className="hover:text-slate-500 transition-colors">
             <Paperclip size={17} />
           </button>
@@ -610,20 +610,20 @@ export default function AIChatPage() {
             placeholder={lang === 'EN' ? 'Ask any legal question... (Enter to send)' : lang === 'አማ' ? 'ሕጋዊ ጥያቄዎን ይጻፉ...' : 'Gaaffii seeraa barreessaa...'}
             rows={1}
             disabled={!isIdle}
-            style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: isIdle ? '#f1f5f9' : '#64748b', fontSize: 14, resize: 'none', lineHeight: 1.5, maxHeight: 140, overflowY: 'auto', padding: '3px 0' }}
+            style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: isIdle ? 'var(--foreground)' : 'var(--muted-foreground)', fontSize: 14, resize: 'none', lineHeight: 1.5, maxHeight: 140, overflowY: 'auto', padding: '3px 0' }}
           />
 
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
             {/* Token hint */}
             {input.length > 10 && (
-              <span style={{ fontSize: 10, color: '#334155' }}>{Math.floor(input.length / 4)}t</span>
+              <span style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>{Math.floor(input.length / 4)}t</span>
             )}
             {/* Voice */}
             <motion.button whileTap={{ scale: 0.88 }} onClick={() => setRecording(r => !r)}
               style={{ background: recording ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${recording ? 'rgba(239,68,68,0.3)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 9, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'all 0.2s' }}>
               {recording
                 ? <motion.div animate={{ scale: [1, 1.25, 1] }} transition={{ duration: 0.8, repeat: Infinity }}><MicOff size={14} color="#ef4444" /></motion.div>
-                : <Mic size={14} color="#64748b" />}
+                : <Mic size={14} color="var(--muted-foreground)" />}
             </motion.button>
             {/* Send */}
             <motion.button
@@ -631,7 +631,7 @@ export default function AIChatPage() {
               onClick={() => send(input)}
               disabled={!input.trim() || !isIdle}
               style={{ background: input.trim() && isIdle ? 'linear-gradient(135deg,#2563eb,#60a5fa)' : 'rgba(255,255,255,0.05)', border: 'none', borderRadius: 10, width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: input.trim() && isIdle ? 'pointer' : 'not-allowed', boxShadow: input.trim() && isIdle ? '0 0 18px rgba(37,99,235,0.45)' : 'none', transition: 'all 0.2s' }}>
-              <Send size={14} color={input.trim() && isIdle ? 'white' : '#334155'} />
+              <Send size={14} color={input.trim() && isIdle ? 'white' : 'var(--muted-foreground)'} />
             </motion.button>
           </div>
         </div>
@@ -641,7 +641,7 @@ export default function AIChatPage() {
           <div style={{ display: 'flex', gap: 6 }}>
             {['Tenant', 'Labor', 'Contract'].map(tag => (
               <button key={tag} onClick={() => send(`Explain my ${tag} rights in Ethiopia`)}
-                style={{ padding: '3px 10px', borderRadius: 100, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', color: '#334155', fontSize: 11, cursor: 'pointer' }}
+                style={{ padding: '3px 10px', borderRadius: 100, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', color: 'var(--muted-foreground)', fontSize: 11, cursor: 'pointer' }}
                 className="hover:text-slate-500 hover:border-white/12 transition-all">
                 {tag}
               </button>

@@ -175,7 +175,7 @@ function RiskGauge({ score }: { score: number }) {
       </div>
       <div>
         <div style={{ fontSize: 20, fontWeight: 800, color, marginBottom: 6 }}>{label}</div>
-        <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6, maxWidth: 200 }}>
+        <div style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.6, maxWidth: 200 }}>
           {score >= 70 ? 'This document has significant legal issues requiring immediate attention before signing.' : score >= 40 ? 'Review flagged clauses carefully. Some terms may need negotiation.' : 'Document appears compliant. Standard review recommended.'}
         </div>
       </div>
@@ -203,7 +203,7 @@ function ExpandableClause({ risk }: { risk: typeof RESULT.risks[0] }) {
           <div style={{ fontSize: 13, color: 'var(--muted-foreground)', fontStyle: 'italic', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: open ? 'normal' : 'nowrap' }}>&quot;{risk.clause}&quot;</div>
         </div>
         <motion.div animate={{ rotate: open ? 90 : 0 }} style={{ flexShrink: 0 }}>
-          <ChevronRight size={16} color="#64748b" />
+          <ChevronRight size={16} color="var(--muted-foreground)" />
         </motion.div>
       </button>
 
@@ -516,7 +516,7 @@ export default function DocumentUploadPage() {
                 style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 22px' }}>
                 <Upload size={34} color="#2563eb" />
               </motion.div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#e2e8f0', marginBottom: 8 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--foreground)', marginBottom: 8 }}>
                 {dragging ? 'Release to upload' : 'Drag & Drop or Click to Upload'}
               </h3>
               <p style={{ color: '#64748b', fontSize: 14, marginBottom: 18 }}>Supports PDF, DOCX, JPG, PNG — up to 25 MB</p>
@@ -593,9 +593,9 @@ export default function DocumentUploadPage() {
                 <div style={{ background: 'rgba(239,68,68,0.1)', borderRadius: 10, width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <FileText size={20} color="#ef4444" />
                 </div>
-                <div>
+                  <div>
                   <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--foreground)', marginBottom: 2 }}>{result.fileName || 'rental_agreement_bole.pdf'}</div>
-                  <div style={{ fontSize: 12, color: '#64748b' }}>{result.docType} · Analyzed just now</div>
+                  <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>{result.docType} · Analyzed just now</div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -608,7 +608,7 @@ export default function DocumentUploadPage() {
                 <button onClick={() => navigate('/app/chat')} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'rgba(37,99,235,0.15)', border: '1px solid rgba(37,99,235,0.25)', color: '#2563eb', cursor: 'pointer', fontSize: 13 }}>
                   <MessageSquare size={13} /> Ask AI
                 </button>
-                <button onClick={reset} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'transparent', border: '1px solid rgba(255,255,255,0.09)', color: '#64748b', cursor: 'pointer', fontSize: 13 }}>
+                <button onClick={reset} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 13px', borderRadius: 8, background: 'transparent', border: '1px solid rgba(255,255,255,0.09)', color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 13 }}>
                   <RefreshCw size={13} /> New Upload
                 </button>
               </div>
@@ -635,7 +635,7 @@ export default function DocumentUploadPage() {
                     <s.icon size={15} color={s.color} />
                   </div>
                   <div style={{ fontSize: 22, fontWeight: 800, color: s.color, marginBottom: 2 }}>{s.value}</div>
-                  <div style={{ fontSize: 11, color: '#64748b' }}>{s.label}</div>
+                  <div style={{ fontSize: 11, color: 'var(--muted-foreground)' }}>{s.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -644,7 +644,7 @@ export default function DocumentUploadPage() {
             <div style={{ display: 'flex', gap: 2, marginBottom: 20, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: 4, flexWrap: 'wrap' }}>
               {TABS.map(t => (
                 <button key={t.id} onClick={() => setTab(t.id)}
-                  style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', borderRadius: 9, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, background: tab === t.id ? 'rgba(99,102,241,0.2)' : 'transparent', color: tab === t.id ? '#a5b4fc' : '#64748b', transition: 'all 0.15s' }}>
+                  style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', borderRadius: 9, border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, background: tab === t.id ? 'rgba(99,102,241,0.2)' : 'transparent', color: tab === t.id ? 'var(--primary-foreground)' : 'var(--muted-foreground)', transition: 'all 0.15s' }}>
                   <t.icon size={13} />{t.label}
                 </button>
               ))}
@@ -670,8 +670,8 @@ export default function DocumentUploadPage() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
                         {result.keyFacts.map(f => (
                           <div key={f.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: f.risk ? 'rgba(239,68,68,0.05)' : 'rgba(255,255,255,0.02)', border: `1px solid ${f.risk ? 'rgba(239,68,68,0.14)' : 'rgba(255,255,255,0.05)'}`, borderRadius: 10, gap: 12 }}>
-                            <span style={{ color: '#64748b', fontSize: 13 }}>{f.label}</span>
-                            <span style={{ fontWeight: 700, fontSize: 14, color: f.risk ? '#f87171' : '#e2e8f0' }}>{f.value}</span>
+                            <span style={{ color: 'var(--muted-foreground)', fontSize: 13 }}>{f.label}</span>
+                            <span style={{ fontWeight: 700, fontSize: 14, color: f.risk ? '#f87171' : 'var(--foreground)' }}>{f.value}</span>
                           </div>
                         ))}
                       </div>
@@ -744,10 +744,10 @@ export default function DocumentUploadPage() {
                               </div>
                               <div style={{ paddingTop: 8, flex: 1 }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 3, flexWrap: 'wrap' }}>
-                                  <span style={{ fontSize: 14, fontWeight: 600, color: '#e2e8f0' }}>{ev.label}</span>
+                                  <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--foreground)' }}>{ev.label}</span>
                                   {ev.urgent && <span style={{ fontSize: 11, color: '#2563eb', background: 'rgba(37,99,235,0.1)', padding: '1px 8px', borderRadius: 100, fontWeight: 600 }}>⚡ Action Required</span>}
                                 </div>
-                                <span style={{ fontSize: 12, color: '#64748b' }}>{ev.date}</span>
+                                <span style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>{ev.date}</span>
                               </div>
                             </motion.div>
                           );
@@ -761,10 +761,10 @@ export default function DocumentUploadPage() {
                 {tab === 'sidebyside' && (
                   <div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0, marginBottom: 16, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, overflow: 'hidden' }}>
-                      <div style={{ padding: '12px 18px', borderRight: '1px solid rgba(255,255,255,0.06)', fontSize: 13, fontWeight: 700, color: '#64748b', display: 'flex', alignItems: 'center', gap: 7 }}>
+                      <div style={{ padding: '12px 18px', borderRight: '1px solid rgba(255,255,255,0.06)', fontSize: 13, fontWeight: 700, color: 'var(--muted-foreground)', display: 'flex', alignItems: 'center', gap: 7 }}>
                         <FileText size={13} /> Original Legal Text
                       </div>
-                      <div style={{ padding: '12px 18px', fontSize: 13, fontWeight: 700, color: '#64748b', display: 'flex', alignItems: 'center', gap: 7 }}>
+                      <div style={{ padding: '12px 18px', fontSize: 13, fontWeight: 700, color: 'var(--muted-foreground)', display: 'flex', alignItems: 'center', gap: 7 }}>
                         <Zap size={13} color="#2563eb" /> AI Plain-Language Explanation
                       </div>
                     </div>
@@ -784,7 +784,7 @@ export default function DocumentUploadPage() {
                               <div style={{ fontSize: 11, fontWeight: 700, color: '#2563eb', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 5 }}>
                                 <Zap size={11} color="#2563eb" /> AI Explanation
                               </div>
-                              <p style={{ fontSize: 13, color: '#e2e8f0', lineHeight: 1.65, margin: 0 }}>{item.simplified}</p>
+                              <p style={{ fontSize: 13, color: 'var(--foreground)', lineHeight: 1.65, margin: 0 }}>{item.simplified}</p>
                             </div>
                           </motion.div>
                         );
