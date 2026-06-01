@@ -139,31 +139,31 @@ export default function AuthPage() {
 
               {!isForgot && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                  <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
-                  <span style={{ color: '#475569', fontSize: 13 }}>or continue with email</span>
-                  <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
+                  <div style={{ flex: 1, height: 1, background: 'rgba(37,99,235,0.15)' }} />
+                  <span style={{ color: '#64748b', fontSize: 13, fontWeight: 500 }}>or continue with email</span>
+                  <div style={{ flex: 1, height: 1, background: 'rgba(37,99,235,0.15)' }} />
                 </div>
               )}
 
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 {isRegister && (
                   <div>
-                    <label style={{ display: 'block', color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Full Name</label>
+                    <label style={{ display: 'block', color: '#475569', fontSize: 13, fontWeight: 600, marginBottom: 8 }}>Full Name</label>
                     <div style={{ position: 'relative' }}>
-                      <User size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
+                      <User size={16} color="#64748b" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                       <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Tigist Bekele"
-                        style={{ width: '100%', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '12px 14px 12px 42px', color: 'var(--foreground)', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
+                        style={{ width: '100%', background: 'white', border: '2px solid rgba(37,99,235,0.1)', borderRadius: 10, padding: '12px 14px 12px 42px', color: '#1e293b', fontSize: 15, outline: 'none', boxSizing: 'border-box', fontWeight: 500 }}
                         className="focus:border-blue-500/50 transition-colors" />
                     </div>
                   </div>
                 )}
 
                 <div>
-                  <label style={{ display: 'block', color: 'var(--muted-foreground)', fontSize: 13, fontWeight: 500, marginBottom: 8 }}>Email</label>
+                  <label style={{ display: 'block', color: '#475569', fontSize: 13, fontWeight: 600, marginBottom: 8 }}>Email</label>
                   <div style={{ position: 'relative' }}>
-                    <Mail size={16} color="#475569" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
+                    <Mail size={16} color="#64748b" style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)' }} />
                     <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com"
-                      style={{ width: '100%', background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 10, padding: '12px 14px 12px 42px', color: 'var(--foreground)', fontSize: 15, outline: 'none', boxSizing: 'border-box' }}
+                      style={{ width: '100%', background: 'white', border: '2px solid rgba(37,99,235,0.1)', borderRadius: 10, padding: '12px 14px 12px 42px', color: '#1e293b', fontSize: 15, outline: 'none', boxSizing: 'border-box', fontWeight: 500 }}
                       className="focus:border-blue-500/50 transition-colors" />
                   </div>
                 </div>
