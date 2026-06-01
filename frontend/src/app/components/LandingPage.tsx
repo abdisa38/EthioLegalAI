@@ -302,7 +302,7 @@ export default function LandingPage() {
       </section>
 
       {/* Stats bar */}
-      <section style={{ borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '32px 24px', background: 'rgba(13,17,36,0.5)' }}>
+      <section style={{ borderTop: '1px solid rgba(255,255,255,0.1)', borderBottom: '1px solid rgba(255,255,255,0.1)', padding: '32px 24px', background: 'rgba(15,23,42,0.6)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 32, textAlign: 'center' }}>
           {[
             { label: 'Ethiopian Citizens Helped', value: '12,000+' },
@@ -311,26 +311,26 @@ export default function LandingPage() {
             { label: 'Risk Alerts Detected', value: '9,800+' },
           ].map(stat => (
             <div key={stat.label}>
-              <div style={{ fontSize: 32, fontWeight: 800, background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{stat.value}</div>
-              <div style={{ fontSize: 13, color: '#1e293b', marginTop: 4, fontWeight: 600 }}>{stat.label}</div>
+              <div style={{ fontSize: 32, fontWeight: 800, background: 'linear-gradient(135deg, #60a5fa, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{stat.value}</div>
+              <div style={{ fontSize: 13, color: '#94a3b8', marginTop: 4, fontWeight: 600 }}>{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Features */}
-      <section id="features" style={{ padding: '100px 24px' }}>
+      <section id="features" style={{ padding: '100px 24px', background: '#0a0e1a' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: 100, padding: '6px 16px', marginBottom: 16 }}>
-              <Zap size={13} color="#2563eb" />
-              <span style={{ fontSize: 13, color: '#2563eb', fontWeight: 600 }}>Powered by Advanced AI</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(96,165,250,0.15)', border: '1px solid rgba(96,165,250,0.3)', borderRadius: 100, padding: '6px 16px', marginBottom: 16 }}>
+              <Zap size={13} color="#60a5fa" />
+              <span style={{ fontSize: 13, color: '#93c5fd', fontWeight: 600 }}>Powered by Advanced AI</span>
             </div>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#1e293b' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#ffffff' }}>
               Everything You Need to{' '}
-              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Know Your Rights</span>
+              <span style={{ background: 'linear-gradient(135deg, #60a5fa, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Know Your Rights</span>
             </h2>
-            <p style={{ color: '#475569', fontSize: 18, maxWidth: 560, margin: '0 auto', fontWeight: 500, lineHeight: 1.6 }}>
+            <p style={{ color: '#cbd5e1', fontSize: 18, maxWidth: 560, margin: '0 auto', fontWeight: 500, lineHeight: 1.6 }}>
               EthioLegal AI gives every Ethiopian citizen access to powerful legal knowledge — in their own language.
             </p>
           </motion.div>
