@@ -356,19 +356,19 @@ export default function LandingPage() {
       <section id="about" style={{ padding: '100px 24px', background: 'rgba(15,23,42,0.6)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#1e293b' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#ffffff' }}>
               About{' '}
-              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>EthioLegal AI</span>
+              <span style={{ background: 'linear-gradient(135deg, #60a5fa, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>EthioLegal AI</span>
             </h2>
-            <p style={{ color: '#475569', fontSize: 18, maxWidth: 700, margin: '0 auto', fontWeight: 500, lineHeight: 1.7 }}>
+            <p style={{ color: '#cbd5e1', fontSize: 18, maxWidth: 700, margin: '0 auto', fontWeight: 500, lineHeight: 1.7 }}>
               We believe every Ethiopian citizen deserves access to legal knowledge. Our AI-powered platform breaks down complex legal concepts into plain language, making Ethiopian law accessible to everyone.
             </p>
           </motion.div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 40, alignItems: 'center' }}>
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <h3 style={{ fontSize: 28, fontWeight: 700, marginBottom: 20, color: '#1e293b' }}>Our Mission</h3>
-              <p style={{ color: '#475569', fontSize: 16, lineHeight: 1.7, marginBottom: 24, fontWeight: 500 }}>
+              <h3 style={{ fontSize: 28, fontWeight: 700, marginBottom: 20, color: '#f1f5f9' }}>Our Mission</h3>
+              <p style={{ color: '#cbd5e1', fontSize: 16, lineHeight: 1.7, marginBottom: 24, fontWeight: 500 }}>
                 To democratize legal knowledge in Ethiopia by providing AI-powered assistance that helps citizens understand their rights, analyze contracts, and navigate legal challenges with confidence.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -379,18 +379,18 @@ export default function LandingPage() {
                   'Building trust through transparency and accuracy'
                 ].map((item, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <Check size={12} color="#2563eb" />
+                    <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(96,165,250,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Check size={12} color="#60a5fa" />
                     </div>
-                    <span style={{ color: '#475569', fontSize: 15, fontWeight: 500 }}>{item}</span>
+                    <span style={{ color: '#cbd5e1', fontSize: 15, fontWeight: 500 }}>{item}</span>
                   </div>
                 ))}
               </div>
             </motion.div>
 
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <div style={{ background: 'white', borderRadius: 20, padding: 40, boxShadow: '0 20px 60px rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.1)' }}>
-                <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 20, color: '#1e293b' }}>Why Choose EthioLegal AI?</h3>
+              <div style={{ background: 'rgba(30,41,59,0.6)', borderRadius: 20, padding: 40, boxShadow: '0 20px 60px rgba(0,0,0,0.3)', border: '1px solid rgba(148,163,184,0.2)' }}>
+                <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 20, color: '#f1f5f9' }}>Why Choose EthioLegal AI?</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                   {[
                     { title: 'Ethiopian Law Expertise', desc: 'Trained specifically on Ethiopian legal codes and regulations' },
@@ -399,8 +399,8 @@ export default function LandingPage() {
                     { title: 'Always Learning', desc: 'Continuously updated with latest legal developments' }
                   ].map((item, i) => (
                     <div key={i}>
-                      <h4 style={{ fontSize: 16, fontWeight: 600, marginBottom: 6, color: '#1e293b' }}>{item.title}</h4>
-                      <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.6 }}>{item.desc}</p>
+                      <h4 style={{ fontSize: 16, fontWeight: 600, marginBottom: 6, color: '#f1f5f9' }}>{item.title}</h4>
+                      <p style={{ fontSize: 14, color: '#94a3b8', lineHeight: 1.6 }}>{item.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -411,7 +411,7 @@ export default function LandingPage() {
       </section>
 
       {/* How it works */}
-      <section style={{ padding: '80px 24px', background: 'rgba(13,17,36,0.5)' }}>
+      <section style={{ padding: '80px 24px', background: '#0a0e1a' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 16, color: '#f1f5f9' }}>How EthioLegal AI Works</h2>
@@ -514,7 +514,7 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" style={{ padding: '100px 24px', background: 'rgba(37,99,235,0.02)' }}>
+      <section id="pricing" style={{ padding: '100px 24px', background: 'rgba(15,23,42,0.6)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#1e293b' }}>
