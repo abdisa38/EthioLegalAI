@@ -319,18 +319,18 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section style={{ padding: '100px 24px' }}>
+      <section id="features" style={{ padding: '100px 24px' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: 100, padding: '6px 16px', marginBottom: 16 }}>
               <Zap size={13} color="#2563eb" />
-              <span style={{ fontSize: 13, color: '#2563eb' }}>Powered by Advanced AI</span>
+              <span style={{ fontSize: 13, color: '#2563eb', fontWeight: 600 }}>Powered by Advanced AI</span>
             </div>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16 }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#1e293b' }}>
               Everything You Need to{' '}
               <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Know Your Rights</span>
             </h2>
-            <p style={{ color: 'var(--muted-foreground)', fontSize: 18, maxWidth: 560, margin: '0 auto' }}>
+            <p style={{ color: '#475569', fontSize: 18, maxWidth: 560, margin: '0 auto', fontWeight: 500, lineHeight: 1.6 }}>
               EthioLegal AI gives every Ethiopian citizen access to powerful legal knowledge — in their own language.
             </p>
           </motion.div>
@@ -344,10 +344,68 @@ export default function LandingPage() {
                 <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, background: `${feature.color}20`, border: `1px solid ${feature.color}30` }}>
                   <feature.icon size={22} color={feature.color} />
                 </div>
-                <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>{feature.title}</h3>
-                <p style={{ fontSize: 14, color: 'var(--muted-foreground)', lineHeight: 1.6 }}>{feature.desc}</p>
+                <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8, color: '#1e293b' }}>{feature.title}</h3>
+                <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6, fontWeight: 500 }}>{feature.desc}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" style={{ padding: '100px 24px', background: 'rgba(37,99,235,0.02)' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#1e293b' }}>
+              About{' '}
+              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>EthioLegal AI</span>
+            </h2>
+            <p style={{ color: '#475569', fontSize: 18, maxWidth: 700, margin: '0 auto', fontWeight: 500, lineHeight: 1.7 }}>
+              We believe every Ethiopian citizen deserves access to legal knowledge. Our AI-powered platform breaks down complex legal concepts into plain language, making Ethiopian law accessible to everyone.
+            </p>
+          </motion.div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 40, alignItems: 'center' }}>
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <h3 style={{ fontSize: 28, fontWeight: 700, marginBottom: 20, color: '#1e293b' }}>Our Mission</h3>
+              <p style={{ color: '#475569', fontSize: 16, lineHeight: 1.7, marginBottom: 24, fontWeight: 500 }}>
+                To democratize legal knowledge in Ethiopia by providing AI-powered assistance that helps citizens understand their rights, analyze contracts, and navigate legal challenges with confidence.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {[
+                  'Empowering Ethiopian citizens with legal knowledge',
+                  'Supporting multiple Ethiopian languages',
+                  'Providing accessible, educational legal information',
+                  'Building trust through transparency and accuracy'
+                ].map((item, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Check size={12} color="#2563eb" />
+                    </div>
+                    <span style={{ color: '#475569', fontSize: 15, fontWeight: 500 }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <div style={{ background: 'white', borderRadius: 20, padding: 40, boxShadow: '0 20px 60px rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.1)' }}>
+                <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 20, color: '#1e293b' }}>Why Choose EthioLegal AI?</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                  {[
+                    { title: 'Ethiopian Law Expertise', desc: 'Trained specifically on Ethiopian legal codes and regulations' },
+                    { title: 'Multilingual Support', desc: 'Available in English, Amharic, and Afaan Oromo' },
+                    { title: 'Privacy First', desc: 'Your documents and conversations are encrypted and secure' },
+                    { title: 'Always Learning', desc: 'Continuously updated with latest legal developments' }
+                  ].map((item, i) => (
+                    <div key={i}>
+                      <h4 style={{ fontSize: 16, fontWeight: 600, marginBottom: 6, color: '#1e293b' }}>{item.title}</h4>
+                      <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.6 }}>{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
