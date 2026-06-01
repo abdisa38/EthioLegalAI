@@ -67,11 +67,11 @@ export default function AuthPage() {
             </span>
           </div>
 
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: 'var(--foreground)', lineHeight: 1.25, marginBottom: 16 }}>
+          <h2 style={{ fontSize: 36, fontWeight: 800, color: '#1e293b', lineHeight: 1.25, marginBottom: 16 }}>
             Your AI-Powered<br />
             <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Legal Assistant</span>
           </h2>
-          <p style={{ color: '#64748b', fontSize: 16, lineHeight: 1.7, maxWidth: 380 }}>
+          <p style={{ color: '#475569', fontSize: 16, lineHeight: 1.7, maxWidth: 380, fontWeight: 500 }}>
             Understand Ethiopian laws, upload contracts, and know your rights — in Amharic, Oromo, or English.
           </p>
 
@@ -83,11 +83,11 @@ export default function AuthPage() {
               { text: 'Detect risky clauses before you sign' },
             ].map((item, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
-                style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'var(--muted)', border: '1px solid var(--color-border)', borderRadius: 12, padding: '12px 16px' }}>
+                style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'white', border: '1px solid rgba(37,99,235,0.1)', borderRadius: 12, padding: '12px 16px' }}>
                 <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(37,99,235,0.12)', border: '1px solid rgba(37,99,235,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#2563eb' }} />
                 </div>
-                <span style={{ color: 'var(--muted-foreground)', fontSize: 14 }}>{item.text}</span>
+                <span style={{ color: '#475569', fontSize: 14, fontWeight: 500 }}>{item.text}</span>
               </motion.div>
             ))}
           </div>
