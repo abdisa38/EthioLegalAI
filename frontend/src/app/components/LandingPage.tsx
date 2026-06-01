@@ -646,7 +646,7 @@ export default function LandingPage() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: 48 }}>
-            <p style={{ color: '#64748b', fontSize: 14, fontWeight: 500, marginBottom: 16 }}>
+            <p style={{ color: '#94a3b8', fontSize: 14, fontWeight: 500, marginBottom: 16 }}>
               All plans include our core AI legal assistant and multilingual support
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
@@ -656,8 +656,8 @@ export default function LandingPage() {
                 'No setup fees'
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <Check size={14} color="#2563eb" />
-                  <span style={{ color: '#64748b', fontSize: 13, fontWeight: 500 }}>{item}</span>
+                  <Check size={14} color="#60a5fa" />
+                  <span style={{ color: '#94a3b8', fontSize: 13, fontWeight: 500 }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -666,7 +666,7 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials */}
-      <section style={{ padding: '100px 24px' }}>
+      <section style={{ padding: '100px 24px', background: '#0a0e1a' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 60 }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, marginBottom: 12, color: '#1e293b' }}>Trusted by Ethiopian Citizens</h2>
