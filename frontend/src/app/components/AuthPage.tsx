@@ -113,10 +113,10 @@ export default function AuthPage() {
           </div>
 
           <div style={{ marginBottom: 32 }}>
-            <h1 style={{ fontSize: 28, fontWeight: 800, color: 'var(--foreground)', marginBottom: 8 }}>
+            <h1 style={{ fontSize: 28, fontWeight: 800, color: '#1e293b', marginBottom: 8 }}>
               {isForgot ? 'Reset Password' : isRegister ? 'Create Account' : 'Welcome Back'}
             </h1>
-            <p style={{ color: 'var(--muted-foreground)', fontSize: 15 }}>
+            <p style={{ color: '#475569', fontSize: 15, fontWeight: 500 }}>
               {isForgot ? "Enter your email and we'll send reset instructions." : isRegister ? 'Join thousands of Ethiopians who know their rights.' : 'Sign in to your EthioLegal AI account.'}
             </p>
           </div>
@@ -126,10 +126,12 @@ export default function AuthPage() {
               {/* Social buttons */}
               {!isForgot && (
                 <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
-                  <button style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'rgba(255,255,255,0.78)', border: '1px solid rgba(37,99,235,0.1)', borderRadius: 10, padding: '11px', color: '#334155', cursor: 'pointer', fontSize: 14, fontWeight: 500 }}>
+                  <button style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'white', border: '2px solid rgba(37,99,235,0.15)', borderRadius: 10, padding: '12px', color: '#1e293b', cursor: 'pointer', fontSize: 14, fontWeight: 600, transition: 'all 0.2s ease' }}
+                    className="hover:border-blue-500/30 hover:bg-blue-50/50">
                     <Chrome size={16} /> Google
                   </button>
-                  <button style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'rgba(255,255,255,0.78)', border: '1px solid rgba(37,99,235,0.1)', borderRadius: 10, padding: '11px', color: '#334155', cursor: 'pointer', fontSize: 14, fontWeight: 500 }}>
+                  <button style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: 'white', border: '2px solid rgba(37,99,235,0.15)', borderRadius: 10, padding: '12px', color: '#1e293b', cursor: 'pointer', fontSize: 14, fontWeight: 600, transition: 'all 0.2s ease' }}
+                    className="hover:border-blue-500/30 hover:bg-blue-50/50">
                     <Github size={16} /> GitHub
                   </button>
                 </div>
