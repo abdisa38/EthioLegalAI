@@ -54,17 +54,63 @@ export default function LandingPage() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
-            {['Features', 'About', 'Pricing'].map(item => (
-              <span key={item} style={{ color: 'var(--muted-foreground)', cursor: 'pointer', fontSize: 15, fontWeight: 500 }}
-                className="hover:text-white transition-colors">{item}</span>
+            {[
+              { name: 'Features', href: '#features' },
+              { name: 'About', href: '#about' },
+              { name: 'Pricing', href: '#pricing' }
+            ].map(item => (
+              <a key={item.name} href={item.href} 
+                style={{ 
+                  color: '#e2e8f0', 
+                  cursor: 'pointer', 
+                  fontSize: 15, 
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease'
+                }}
+                className="hover:text-white hover:scale-105 transition-all"
+                onMouseEnter={(e) => e.target.style.color = '#ffffff'}
+                onMouseLeave={(e) => e.target.style.color = '#e2e8f0'}
+              >
+                {item.name}
+              </a>
             ))}
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <button onClick={() => navigate('/login')} style={{ color: 'var(--muted-foreground)', padding: '8px 20px', borderRadius: 10, fontSize: 15, fontWeight: 500, border: '1px solid var(--color-border)', background: 'transparent', cursor: 'pointer' }}
-              className="hover:border-white/20 hover:text-white transition-all">Log in</button>
-            <button onClick={() => navigate('/register')} style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '8px 20px', borderRadius: 10, fontSize: 15, fontWeight: 600, border: 'none', cursor: 'pointer', boxShadow: '0 0 20px rgba(37,99,235,0.4)' }}
-              className="hover:opacity-90 transition-opacity">Get Started</button>
+            <button onClick={() => navigate('/login')} 
+              style={{ 
+                color: '#f1f5f9', 
+                padding: '10px 24px', 
+                borderRadius: 10, 
+                fontSize: 15, 
+                fontWeight: 600, 
+                border: '2px solid rgba(241, 245, 249, 0.3)', 
+                background: 'rgba(241, 245, 249, 0.05)', 
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              className="hover:border-white hover:text-white hover:bg-white/10 transition-all"
+            >
+              Log in
+            </button>
+            <button onClick={() => navigate('/register')} 
+              style={{ 
+                background: 'linear-gradient(135deg, #2563eb, #60a5fa)', 
+                color: 'white', 
+                padding: '10px 24px', 
+                borderRadius: 10, 
+                fontSize: 15, 
+                fontWeight: 700, 
+                border: 'none', 
+                cursor: 'pointer', 
+                boxShadow: '0 0 25px rgba(37,99,235,0.5)',
+                transition: 'all 0.2s ease'
+              }}
+              className="hover:opacity-90 hover:scale-105 transition-all"
+            >
+              Get Started
+            </button>
           </div>
 
           <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--foreground)' }}>
@@ -76,11 +122,52 @@ export default function LandingPage() {
           {mobileOpen && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
               style={{ background: '#0d1124', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {['Features', 'About', 'Pricing'].map(item => (
-                <span key={item} style={{ color: 'var(--muted-foreground)', fontSize: 16, padding: '8px 0', cursor: 'pointer' }}>{item}</span>
+              {[
+                { name: 'Features', href: '#features' },
+                { name: 'About', href: '#about' },
+                { name: 'Pricing', href: '#pricing' }
+              ].map(item => (
+                <a key={item.name} href={item.href} 
+                  style={{ 
+                    color: '#e2e8f0', 
+                    fontSize: 16, 
+                    padding: '8px 0', 
+                    cursor: 'pointer',
+                    fontWeight: 500,
+                    textDecoration: 'none'
+                  }}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.name}
+                </a>
               ))}
-              <button onClick={() => navigate('/login')} style={{ color: 'var(--muted-foreground)', padding: '10px', borderRadius: 10, border: '1px solid var(--color-border)', background: 'transparent', cursor: 'pointer' }}>Log in</button>
-              <button onClick={() => navigate('/register')} style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '10px', borderRadius: 10, border: 'none', cursor: 'pointer' }}>Get Started Free</button>
+              <button onClick={() => navigate('/login')} 
+                style={{ 
+                  color: '#f1f5f9', 
+                  padding: '12px', 
+                  borderRadius: 10, 
+                  border: '2px solid rgba(241, 245, 249, 0.3)', 
+                  background: 'rgba(241, 245, 249, 0.05)', 
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                  marginTop: '8px'
+                }}
+              >
+                Log in
+              </button>
+              <button onClick={() => navigate('/register')} 
+                style={{ 
+                  background: 'linear-gradient(135deg, #2563eb, #60a5fa)', 
+                  color: 'white', 
+                  padding: '12px', 
+                  borderRadius: 10, 
+                  border: 'none', 
+                  cursor: 'pointer',
+                  fontWeight: 700
+                }}
+              >
+                Get Started Free
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
