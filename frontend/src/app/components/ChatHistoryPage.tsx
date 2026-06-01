@@ -70,9 +70,12 @@ export default function ChatHistoryPage() {
     const cat = categoryConfig[chat.category] || { color: '#64748b', icon: MessageSquare };
     const CatIcon = cat.icon;
     return (
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-        style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: '18px 20px', display: 'flex', alignItems: 'flex-start', gap: 14 }}
-        className="hover:border-blue-200 transition-colors">
+      <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      onClick={() => navigate(`/app/chat?chatId=${chat._id}`)}
+      style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 14, padding: '18px 20px', display: 'flex', alignItems: 'flex-start', gap: 14, cursor: 'pointer' }}
+      className="hover:border-blue-200 transition-colors">
         <div style={{ width: 40, height: 40, borderRadius: 10, background: `${cat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
           <CatIcon size={18} color={cat.color} />
         </div>
@@ -80,14 +83,18 @@ export default function ChatHistoryPage() {
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 6 }}>
             <div style={{ fontWeight: 600, fontSize: 14, color: 'var(--foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{chat.title}</div>
             <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-              <button 
-                onClick={() => toggleStarMutation.mutate(chat._id)}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleStarMutation.mutate(chat._id);
+                }}
                 disabled={toggleStarMutation.isPending}
                 style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: chat.starred ? '#2563eb' : '#475569' }}>
                 <Star size={15} fill={chat.starred ? '#2563eb' : 'none'} />
               </button>
-              <button 
-                onClick={() => {
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
                   if (confirm('Are you sure you want to delete this chat?')) {
                     deleteChatMutation.mutate(chat._id);
                   }
@@ -106,9 +113,9 @@ export default function ChatHistoryPage() {
             <span style={{ fontSize: 11, color: '#475569', marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 3 }}><Clock size={10} /> {new Date(chat.createdAt).toLocaleDateString()}</span>
           </div>
         </div>
-        <button onClick={() => navigate('/app/chat')}
+        <button onClick={(e) => { e.stopPropagation(); navigate(`/app/chat?chatId=${chat._id}`); }}
           style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '7px 12px', borderRadius: 8, background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)', color: '#2563eb', cursor: 'pointer', fontSize: 12, flexShrink: 0, alignSelf: 'flex-start' }}>
-          New <ArrowRight size={12} />
+          View <ArrowRight size={12} />
         </button>
       </motion.div>
     );

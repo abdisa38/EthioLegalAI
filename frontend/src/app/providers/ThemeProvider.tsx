@@ -40,16 +40,12 @@ export const ThemeProvider = ({
     }
   }, [theme]);
 
-  // Force the stored theme to the default on first mount so the app
-  // immediately uses the configured default (useful when switching
-  // the project's default theme for all users). This will overwrite
-  // any previously saved theme in localStorage.
+  // Only set the default theme when no preference is stored.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     try {
       const stored = window.localStorage.getItem('ethiolegal-theme');
-      const desired = JSON.stringify(defaultTheme);
-      if (stored !== desired) {
+      if (!stored) {
         setTheme(defaultTheme);
       }
     } catch (e) {
