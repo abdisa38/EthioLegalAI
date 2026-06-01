@@ -749,7 +749,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '48px 24px 32px', background: 'rgba(8,11,24,0.9)' }}>
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.1)', padding: '48px 24px 32px', background: 'rgba(8,11,24,0.95)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40, marginBottom: 48 }}>
             <div>
@@ -757,9 +757,9 @@ export default function LandingPage() {
                 <div style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', borderRadius: 8, width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Scale size={16} color="white" />
                 </div>
-                <span style={{ fontWeight: 700, fontSize: 17 }}>EthioLegal <span style={{ color: '#2563eb' }}>AI</span></span>
+                <span style={{ fontWeight: 700, fontSize: 17, color: '#f1f5f9' }}>EthioLegal <span style={{ color: '#60a5fa' }}>AI</span></span>
               </div>
-              <p style={{ color: 'var(--muted-foreground)', fontSize: 14, lineHeight: 1.7 }}>AI-powered Ethiopian legal assistant for citizens, students, workers, and small businesses.</p>
+              <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.7 }}>AI-powered Ethiopian legal assistant for citizens, students, workers, and small businesses.</p>
             </div>
             {[
               { title: 'Product', links: ['Features', 'Pricing', 'AI Chat', 'Document Upload', 'Contract Analysis'] },
@@ -767,16 +767,16 @@ export default function LandingPage() {
               { title: 'Company', links: ['About', 'Blog', 'Careers', 'Privacy', 'Terms'] },
             ].map(col => (
               <div key={col.title}>
-                <h4 style={{ fontWeight: 600, marginBottom: 16, fontSize: 15 }}>{col.title}</h4>
+                <h4 style={{ fontWeight: 600, marginBottom: 16, fontSize: 15, color: '#f1f5f9' }}>{col.title}</h4>
                 <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  {col.links.map(link => <li key={link} style={{ color: 'var(--muted-foreground)', fontSize: 14, cursor: 'pointer' }} className="hover:text-slate-300 transition-colors">{link}</li>)}
+                  {col.links.map(link => <li key={link} style={{ color: '#94a3b8', fontSize: 14, cursor: 'pointer' }} className="hover:text-slate-300 transition-colors">{link}</li>)}
                 </ul>
               </div>
             ))}
           </div>
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-            <p style={{ color: 'var(--muted-foreground)', fontSize: 13 }}>© 2026 EthioLegal AI. All rights reserved.</p>
-            <p style={{ color: 'var(--muted-foreground)', fontSize: 12, maxWidth: 500, textAlign: 'right' }}>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+            <p style={{ color: '#94a3b8', fontSize: 13 }}>© 2026 EthioLegal AI. All rights reserved.</p>
+            <p style={{ color: '#94a3b8', fontSize: 12, maxWidth: 500, textAlign: 'right' }}>
               This platform provides educational legal information and not official legal advice. Always consult a licensed Ethiopian attorney for legal matters.
             </p>
           </div>
