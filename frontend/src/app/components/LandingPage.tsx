@@ -729,18 +729,18 @@ export default function LandingPage() {
       <section style={{ padding: '100px 24px', background: '#0a0e1a' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            style={{ background: 'linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1))', border: '1px solid rgba(99,102,241,0.25)', borderRadius: 24, padding: '64px 40px' }}>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16 }}>
+            style={{ background: 'linear-gradient(135deg, rgba(96,165,250,0.15), rgba(139,92,246,0.1))', border: '1px solid rgba(96,165,250,0.3)', borderRadius: 24, padding: '64px 40px' }}>
+            <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#ffffff' }}>
               Know Your Rights.<br />
-              <span style={{ background: 'linear-gradient(135deg, #2563eb, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Start Free Today.</span>
+              <span style={{ background: 'linear-gradient(135deg, #60a5fa, #93c5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Start Free Today.</span>
             </h2>
-            <p style={{ color: '#1e293b', fontSize: 18, marginBottom: 36, maxWidth: 480, margin: '0 auto 36px', fontWeight: 500, lineHeight: 1.6 }}>
+            <p style={{ color: '#cbd5e1', fontSize: 18, marginBottom: 36, maxWidth: 480, margin: '0 auto 36px', fontWeight: 500, lineHeight: 1.6 }}>
               Join thousands of Ethiopian citizens who use EthioLegal AI to understand their legal rights and protect themselves.
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 onClick={() => navigate('/register')}
-                style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'var(--primary-foreground)', padding: '16px 36px', borderRadius: 12, border: 'none', cursor: 'pointer', fontSize: 17, fontWeight: 700, boxShadow: '0 0 40px rgba(37,99,235,0.5)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                style={{ background: 'linear-gradient(135deg, #2563eb, #60a5fa)', color: 'white', padding: '16px 36px', borderRadius: 12, border: 'none', cursor: 'pointer', fontSize: 17, fontWeight: 700, boxShadow: '0 0 40px rgba(37,99,235,0.5)', display: 'flex', alignItems: 'center', gap: 8 }}>
                 Get Started Free <ArrowRight size={18} />
               </motion.button>
             </div>
