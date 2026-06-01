@@ -339,13 +339,13 @@ export default function LandingPage() {
             {features.map((feature, i) => (
               <motion.div key={feature.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -4 }}
-                style={{ background: 'var(--card)', border: '1px solid var(--color-border)', borderRadius: 16, padding: 28, cursor: 'pointer', transition: 'border-color 0.3s' }}
+                style={{ background: 'rgba(30,41,59,0.6)', border: '1px solid rgba(148,163,184,0.2)', borderRadius: 16, padding: 28, cursor: 'pointer', transition: 'border-color 0.3s' }}
                 className="hover:border-blue-500/30">
                 <div style={{ width: 48, height: 48, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, background: `${feature.color}20`, border: `1px solid ${feature.color}30` }}>
                   <feature.icon size={22} color={feature.color} />
                 </div>
-                <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8, color: '#1e293b' }}>{feature.title}</h3>
-                <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6, fontWeight: 500 }}>{feature.desc}</p>
+                <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8, color: '#f1f5f9' }}>{feature.title}</h3>
+                <p style={{ fontSize: 14, color: '#cbd5e1', lineHeight: 1.6, fontWeight: 500 }}>{feature.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -353,7 +353,7 @@ export default function LandingPage() {
       </section>
 
       {/* About Section */}
-      <section id="about" style={{ padding: '100px 24px', background: 'rgba(37,99,235,0.02)' }}>
+      <section id="about" style={{ padding: '100px 24px', background: 'rgba(15,23,42,0.6)' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 64 }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, marginBottom: 16, color: '#1e293b' }}>
