@@ -46,6 +46,8 @@ const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173")
   .map((origin) => origin.trim())
   .filter(Boolean);
 
+console.log("🔧 Allowed CORS Origins:", allowedOrigins);
+
 validateEnv();
 connectDatabase();
 
@@ -64,9 +66,11 @@ app.use(helmet({
 }));
 app.use(cors({
   origin: (origin, callback) => {
+    console.log("🌐 Request from origin:", origin);
     if (!origin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
+    console.log("❌ Origin not allowed:", origin, "Allowed:", allowedOrigins);
     return callback(new Error("Not allowed by CORS"));
   },
   credentials: true,
