@@ -1,4 +1,4 @@
-PAI# 📡 EthioLegalAI — API Documentation
+# 📡 EthioLegalAI — API Documentation
 
 This document describes the EthioLegalAI backend REST API.
 
